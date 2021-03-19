@@ -4,7 +4,6 @@ package jonaszeihe.ninjin.controller;
 import jonaszeihe.ninjin.db.CourseMongoDb;
 import jonaszeihe.ninjin.model.AddCourseDto;
 import jonaszeihe.ninjin.model.Course;
-import jonaszeihe.ninjin.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
