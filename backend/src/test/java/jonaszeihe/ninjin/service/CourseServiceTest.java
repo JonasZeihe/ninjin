@@ -2,10 +2,14 @@ package jonaszeihe.ninjin.service;
 
 import jonaszeihe.ninjin.db.CourseMongoDb;
 import jonaszeihe.ninjin.model.Course;
+import jonaszeihe.ninjin.model.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.Mockito.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -51,5 +55,28 @@ class CourseServiceTest {
         assertThrows(ResponseStatusException.class, () -> courseService.addCourse(existingCourseName, existingCourseDuration));
         //THEN
         verify(courseMongoDb, never()).save(any());
+    }
+    @Test
+    @DisplayName("List courses should return list from db")
+    public void listCourses(){
+        //GIVEN
+        when(courseMongoDb.findAll()).thenReturn(List.of(
+                new Course("Yoga1", "10"),
+                new Course("Yoga2", "10")));
+        //WHEN
+        List<Course> courses = courseService.listCourses();
+        //THEN
+        assertThat(courses, containsInAnyOrder(
+                new Course("Yoga1", "10"),
+                new Course("Yoga2", "10")));
+    }
+    @Test
+    @DisplayName("DeleteCourse deletes course from db ")
+    public void deleteFromDb(){
+        //WHEN
+        courseService.deleteCourse("123");
+
+        //THEN
+        verify(courseMongoDb).deleteById("123");
     }
 }

@@ -6,6 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.Mockito.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -47,4 +50,31 @@ class UserServiceTest {
         //THEN
         verify(userMongoDb, never()).save(any());
     }
+
+    @Test
+    @DisplayName("List users should return list from db")
+    public void listUsers(){
+        //GIVEN
+        when(userMongoDb.findAll()).thenReturn(List.of(
+                new User("Frank"),
+                new User("Jonas")));
+        //WHEN
+        List<User> users = userService.listUsers();
+        //THEN
+        assertThat(users, containsInAnyOrder(
+                new User("Frank"),
+                new User("Jonas")));
+    }
+
+    @Test
+    @DisplayName("DeleteUser deletes user from db ")
+    public void deleteFromDb(){
+        //WHEN
+        userService.deleteUser("123");
+
+        //THEN
+        verify(userMongoDb).deleteById("123");
+    }
+
+
 }
