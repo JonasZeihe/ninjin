@@ -1,6 +1,5 @@
 import AddNewUser from '../components/AddNewUser'
-import { postCourse, postUser } from '../services/apiService'
-import CreateNewCourse from '../components/CreateNewCourse'
+import { postUser } from '../services/apiService'
 
 export default function CourseDetails() {
   const addNewUser = (name) =>
