@@ -77,10 +77,12 @@ class UserControllerTest {
     public void deleteUser() {
         //GIVEN
         userMongoDb.save(new User("Frank"));
+        userMongoDb.save(new User("Frank1"));
         //WHEN
         testRestTemplate.delete(getUrl() + "/Frank");
         //THEN
         assertThat(userMongoDb.existsById("Frank"), is(false));
+        assertThat(userMongoDb.existsById("Frank1"), is(true));
     }
 
 }
