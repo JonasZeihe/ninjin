@@ -1,8 +1,9 @@
 import UserItem from "./UserItem";
+import styled from "styled-components/macro";
 
 export default function UserList({ users, onDeleteUser }) {
   return (
-    <ul>
+    <Wrapper>
       {users.map((user) => (
         <UserItem
             key={user.name}
@@ -10,6 +11,10 @@ export default function UserList({ users, onDeleteUser }) {
             onDeleteUser={onDeleteUser}
         />
           ))}
-    </ul>
+    </Wrapper>
   )
 }
+const Wrapper = styled.div`
+  list-style-type: none;
+
+`

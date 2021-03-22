@@ -1,8 +1,9 @@
 import CourseListItem from './CourseListItem'
+import styled from "styled-components/macro";
 
 export default function CourseList({ courses, onDeleteCourse }) {
   return (
-    <ul>
+    <Wrapper>
       {courses.map((course) => (
         <CourseListItem
           key={course.name}
@@ -10,6 +11,11 @@ export default function CourseList({ courses, onDeleteCourse }) {
           onDeleteCourse={onDeleteCourse}
         />
       ))}
-    </ul>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  list-style-type: none;
+
+`
