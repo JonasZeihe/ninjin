@@ -12,7 +12,7 @@ export default function CourseOverview() {
 
   useEffect(() => {
     getCourses()
-      .then((loadedCourses) => setCourses(loadedCourses))
+      .then(setCourses)
       .catch((error) => console.error(error))
   }, [])
 
@@ -24,13 +24,13 @@ export default function CourseOverview() {
       })
       .catch((error) => console.error(error))
 
-  const deleteCourse = (courseToDelete) => {
-    deleteCourseById(courseToDelete).then(() => {
-      const updatedCourses = courses.filter(
-        (course) => course.name !== courseToDelete.name
-      )
-      setCourses(updatedCourses)
+  const deleteCourse = (courseId) => {
+    deleteCourseById(courseId).then(() => {
+        setCourses(
+            courses.filter((course) => course.name !== courseId)
+        )
     })
+
   }
 
   return (
