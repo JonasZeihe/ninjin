@@ -4,10 +4,9 @@ import jonaszeihe.ninjin.model.AddUserDto;
 import jonaszeihe.ninjin.model.User;
 import jonaszeihe.ninjin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/user")
@@ -24,4 +23,16 @@ public class UserController {
     public User addUser(@RequestBody AddUserDto dto) {
         return this.userService.addUser(dto.getName());
     }
+
+
+    @GetMapping
+    public List<User> listUsers() {
+        return userService.listUsers();
+    }
+
+    @DeleteMapping("{name}")
+    public void deleteUser(@PathVariable String name) {
+        userService.deleteUser(name);
+    }
+
 }

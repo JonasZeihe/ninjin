@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserMongoDb userMongoDb;
@@ -22,5 +24,13 @@ public class UserService {
 
         User user = User.builder().name(name).build();
         return userMongoDb.save(user);
+    }
+
+    public List<User> listUsers() {
+        return userMongoDb.findAll();
+    }
+
+    public void deleteUser(String name) {
+        userMongoDb.deleteById(name);
     }
 }

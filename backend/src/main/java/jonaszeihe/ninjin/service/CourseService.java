@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class CourseService {
     private final CourseMongoDb courseMongoDb;
@@ -23,5 +25,14 @@ public class CourseService {
 
         Course course = Course.builder().name(name).duration(duration).build();
         return courseMongoDb.save(course);
+    }
+
+    public List<Course> listCourses() {
+        return courseMongoDb.findAll();
+    }
+
+    public void deleteCourse(String name) {
+        courseMongoDb.deleteById(name);
+
     }
 }

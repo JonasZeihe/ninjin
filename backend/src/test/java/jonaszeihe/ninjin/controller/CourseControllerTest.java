@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -61,6 +62,33 @@ class CourseControllerTest {
                 .duration(newCourseDuration)
                 .build()));
         assertTrue(courseMongoDb.existsById(newCourseName));
+    }
+
+    @Test
+    @DisplayName("GET to /api/course should return a list of all courses")
+    public void getAllCourses() {
+        //GIVEN
+        courseMongoDb.save(new Course("Yoga1", "10"));
+        courseMongoDb.save(new Course("Yoga2", "10"));
+        //WHEN
+        ResponseEntity<Course[]> response = testRestTemplate.getForEntity(getUrl(), Course[].class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), arrayContainingInAnyOrder(
+                new Course("Yoga1", "10"),
+                new Course("Yoga2", "10")));
+    }
+
+    @Test
+    @DisplayName("DELETE to /api/course/<name> deletes the course")
+    public void deleteCourse() {
+        //GIVEN
+        courseMongoDb.save(new Course("Yoga1", "10"));
+        //WHEN
+        testRestTemplate.delete(getUrl() + "/Yoga1");
+        //THEN
+        assertThat(courseMongoDb.existsById("Yoga1"), is(false));
     }
 
 }

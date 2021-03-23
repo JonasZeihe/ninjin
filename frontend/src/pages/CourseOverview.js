@@ -1,9 +1,42 @@
 import CreateNewCourse from '../components/CreateNewCourse'
-import { postCourse } from '../services/apiService'
-
-const createNewCourse = (courseName, courseDuration) =>
-  postCourse(courseName, courseDuration).catch((error) => console.error(error))
+import {
+  deleteCourseById,
+  getCourses,
+  postCourse,
+} from '../services/apiService'
+import { useState, useEffect } from 'react'
+import CourseList from '../components/CourseList'
 
 export default function CourseOverview() {
-  return <CreateNewCourse onAdd={createNewCourse} />
+  const [courses, setCourses] = useState([])
+
+  useEffect(() => {
+    getCourses()
+      .then(setCourses)
+      .catch((error) => console.error(error))
+  }, [])
+
+  const createNewCourse = (courseName, courseDuration) =>
+    postCourse(courseName, courseDuration)
+      .then((newCourse) => {
+        const updatedCourses = [...courses, newCourse]
+        setCourses(updatedCourses)
+      })
+      .catch((error) => console.error(error))
+
+  const deleteCourse = (courseId) => {
+    deleteCourseById(courseId).then(() => {
+        setCourses(
+            courses.filter((course) => course.name !== courseId)
+        )
+    })
+
+  }
+
+  return (
+    <div>
+      <CreateNewCourse onAdd={createNewCourse} />
+      <CourseList courses={courses} onDeleteCourse={deleteCourse} />
+    </div>
+  )
 }
