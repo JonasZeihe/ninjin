@@ -1,26 +1,34 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import styled from "styled-components/macro";
+import {getCourses} from "../services/apiService";
 
-export default function AddNewUser({ onAdd }) {
-  const [name, setName] = useState('')
+export default function AddNewUser({ onAdd, course }) {
+  const [userName, setUserName] = useState('')
+  const [courses, setCourses] = useState([])
+
+  useEffect(() => {
+    getCourses()
+        .then(setCourses)
+        .catch((error) => console.error(error))
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!name) {
+    if (!userName) {
       return
     }
-    onAdd(name)
-    setName('')
-  }
+    onAdd(userName, course)
+    setUserName('')
+    }
   return (
       <Wrapper>
     <Form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={name}
-        onChange={({ target }) => setName(target.value)}
+        value={userName}
+        onChange={({ target }) => setUserName(target.value)}
       />
-      <Button disabled={!name} type="submit">
+      <Button disabled={!userName} type="submit">
         Add User
       </Button>
     </Form>

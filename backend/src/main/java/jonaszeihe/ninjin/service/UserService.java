@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -28,6 +29,10 @@ public class UserService {
 
     public List<User> listUsers() {
         return userMongoDb.findAll();
+    }
+
+    public Optional<User> listUsersByCourse(String courseName) {
+        return userMongoDb.findById(courseName)
     }
 
     public void deleteUser(String name) {

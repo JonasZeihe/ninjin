@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -25,6 +26,10 @@ public class CourseService {
 
         Course course = Course.builder().name(name).duration(duration).build();
         return courseMongoDb.save(course);
+    }
+
+    public Optional<Course> getCourseByName(String courseName) {
+        return courseMongoDb.findById(courseName);
     }
 
     public List<Course> listCourses() {

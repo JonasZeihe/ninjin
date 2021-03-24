@@ -36,7 +36,7 @@ export default function CourseOverview() {
   return (
     <div>
       <CreateNewCourse onAdd={createNewCourse} />
-      <CourseList courses={courses} onDeleteCourse={deleteCourse} />
+      <CourseList onDeleteCourse={deleteCourse} courses={courses} />
     </div>
   )
 }

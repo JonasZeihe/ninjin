@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 
 export default function CourseListItem({ course, onDeleteCourse }) {
   return (
@@ -7,6 +8,9 @@ export default function CourseListItem({ course, onDeleteCourse }) {
       <button onClick={() => onDeleteCourse(course.name)} type="button">
         delete
       </button>
+         <Link to={`/course/${course.name}`}>
+        Show
+      </Link>
      </li>
   )
 }
