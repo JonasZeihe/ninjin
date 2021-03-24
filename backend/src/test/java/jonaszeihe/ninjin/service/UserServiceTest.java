@@ -26,15 +26,16 @@ class UserServiceTest {
     public void testAddUser() {
         //GIVEN
         String newUser = "Frank";
+        String courseName = "Yoga";
         when(userMongoDb.existsById(newUser)).thenReturn(false);
-        User mockUser = User.builder().name(newUser).build();
+        User mockUser = User.builder().name(newUser).courseName(courseName).build();
         when(userMongoDb.save(mockUser))
                 .thenReturn(mockUser);
         //WHEN
-        User actual = userService.addUser(newUser);
+        User actual = userService.addUser(newUser, courseName);
 
         //THEN
-        User expectedUser = User.builder().name(newUser).build();
+        User expectedUser = User.builder().name(newUser).courseName(courseName).build();
         assertThat(actual, is(expectedUser));
         verify(userMongoDb).save(expectedUser);
     }
@@ -44,9 +45,10 @@ class UserServiceTest {
     public void testAddExistingUser() {
         //GIVEN
         String existingUser = "Frank";
+        String existingCourse = "Yoga";
         when(userMongoDb.existsById(existingUser)).thenReturn(true);
         //WHEN
-        assertThrows(ResponseStatusException.class, () -> userService.addUser(existingUser));
+        assertThrows(ResponseStatusException.class, () -> userService.addUser(existingUser, existingCourse));
         //THEN
         verify(userMongoDb, never()).save(any());
     }
@@ -56,14 +58,14 @@ class UserServiceTest {
     public void listUsers(){
         //GIVEN
         when(userMongoDb.findAll()).thenReturn(List.of(
-                new User("Frank"),
-                new User("Jonas")));
+                new User("Frank", "Yoga"),
+                new User("Jonas", "Yoga")));
         //WHEN
         List<User> users = userService.listUsers();
         //THEN
         assertThat(users, containsInAnyOrder(
-                new User("Frank"),
-                new User("Jonas")));
+                new User("Frank", "Yoga"),
+                new User("Jonas", "Yoga")));
     }
 
     @Test

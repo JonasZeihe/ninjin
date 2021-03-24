@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class AddUserDto {
 
     private String name;
+    private String courseName;
 
 }

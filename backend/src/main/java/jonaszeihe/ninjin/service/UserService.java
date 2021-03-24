@@ -16,13 +16,13 @@ public class UserService {
         this.userMongoDb = userMongoDb;
     }
 
-    public User addUser(String name) {
+    public User addUser(String name, String courseName) {
 
         if (userMongoDb.existsById(name)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + name + " is already in this course");
         }
 
-        User user = User.builder().name(name).build();
+        User user = User.builder().name(name).courseName(courseName).build();
         return userMongoDb.save(user);
     }
 

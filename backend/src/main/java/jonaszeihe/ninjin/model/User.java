@@ -15,4 +15,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private String name;
+    private String courseName;
 }

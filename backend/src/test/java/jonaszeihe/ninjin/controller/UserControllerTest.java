@@ -45,14 +45,15 @@ class UserControllerTest {
     public void addNewUser() {
         //GIVEN
         String newUser = "Frank";
-        AddUserDto userDto = AddUserDto.builder().name(newUser).build();
+        String course = "Yoga";
+        AddUserDto userDto = AddUserDto.builder().name(newUser).courseName(course).build();
 
         //WHEN
         HttpEntity<AddUserDto> entity = new HttpEntity<>(userDto);
         ResponseEntity<User> response = testRestTemplate.postForEntity(getUrl(), entity, User.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(response.getBody(), is(User.builder().name(newUser).build()));
+        assertThat(response.getBody(), is(User.builder().name(newUser).courseName(course).build()));
         assertTrue(userMongoDb.existsById(newUser));
     }
 
@@ -60,24 +61,24 @@ class UserControllerTest {
     @DisplayName("GET to /api/user should return a list of all users")
     public void getAllUsers() {
         //GIVEN
-        userMongoDb.save(new User("Frank"));
-        userMongoDb.save(new User("Jonas"));
+        userMongoDb.save(new User("Frank", "Yoga"));
+        userMongoDb.save(new User("Jonas", "Yoga"));
         //WHEN
         ResponseEntity<User[]> response = testRestTemplate.getForEntity(getUrl(), User[].class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), arrayContainingInAnyOrder(
-                new User("Frank"),
-                new User("Jonas")));
+                new User("Frank", "Yoga"),
+                new User("Jonas", "Yoga")));
     }
 
     @Test
     @DisplayName("DELETE to /api/user/<name> deletes the user")
     public void deleteUser() {
         //GIVEN
-        userMongoDb.save(new User("Frank"));
-        userMongoDb.save(new User("Frank1"));
+        userMongoDb.save(new User("Frank", "Yoga"));
+        userMongoDb.save(new User("Frank1", "Yoga"));
         //WHEN
         testRestTemplate.delete(getUrl() + "/Frank");
         //THEN
