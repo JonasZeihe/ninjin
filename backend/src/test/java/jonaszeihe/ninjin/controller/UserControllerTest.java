@@ -4,16 +4,20 @@ package jonaszeihe.ninjin.controller;
 import jonaszeihe.ninjin.db.UserMongoDb;
 import jonaszeihe.ninjin.model.AddUserDto;
 import jonaszeihe.ninjin.model.User;
+import jonaszeihe.ninjin.security.AppUserDb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -29,15 +33,25 @@ class UserControllerTest {
         return "http://localhost:" + port + "api/user";
     }
 
+    @MockBean
+    private RestTemplate restTemplate;
+
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Autowired
     private UserMongoDb userMongoDb;
 
+    @Autowired
+    private AppUserDb appUserDb;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
     @BeforeEach
     public void setup() {
         userMongoDb.deleteAll();
+        appUserDb.deleteAll();
     }
 
     @Test
@@ -46,6 +60,7 @@ class UserControllerTest {
         //GIVEN
         String newUser = "Frank";
         AddUserDto userDto = AddUserDto.builder().name(newUser).build();
+        when(restTemplate.getForEntity(getUrl()))
 
         //WHEN
         HttpEntity<AddUserDto> entity = new HttpEntity<>(userDto);
