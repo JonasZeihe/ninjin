@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,8 +17,7 @@ public class UserService {
     }
 
     public User addUser(String name, String courseName) {
-
-        if (userMongoDb.existsById(name)) {
+        if (userMongoDb.existsByNameAndCourseName(name, courseName)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + name + " is already in this course");
         }
 
@@ -31,11 +29,11 @@ public class UserService {
         return userMongoDb.findAll();
     }
 
-    public Optional<User> listUsersByCourse(String courseName) {
-        return userMongoDb.findById(courseName)
+    public List<User> listUsersByCourse(String courseName) {
+        return userMongoDb.findAllByCourseName(courseName);
     }
 
     public void deleteUser(String name) {
-        userMongoDb.deleteById(name);
+        userMongoDb.deleteByName(name);
     }
 }

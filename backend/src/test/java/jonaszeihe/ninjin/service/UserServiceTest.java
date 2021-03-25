@@ -41,12 +41,12 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("An already existing user cannot be added again")
+    @DisplayName("An already existing user cannot be added again to the same course")
     public void testAddExistingUser() {
         //GIVEN
         String existingUser = "Frank";
         String existingCourse = "Yoga";
-        when(userMongoDb.existsById(existingUser)).thenReturn(true);
+        when(userMongoDb.existsByNameAndCourseName(existingUser, existingCourse)).thenReturn(true);
         //WHEN
         assertThrows(ResponseStatusException.class, () -> userService.addUser(existingUser, existingCourse));
         //THEN
@@ -55,7 +55,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("List users should return list from db")
-    public void listUsers(){
+    public void listUsers() {
         //GIVEN
         when(userMongoDb.findAll()).thenReturn(List.of(
                 new User("Frank", "Yoga"),
@@ -70,13 +70,28 @@ class UserServiceTest {
 
     @Test
     @DisplayName("DeleteUser deletes user from db ")
-    public void deleteFromDb(){
+    public void deleteFromDb() {
         //WHEN
         userService.deleteUser("123");
 
         //THEN
-        verify(userMongoDb).deleteById("123");
+        verify(userMongoDb).deleteByName("123");
     }
 
+    @Test
+    @DisplayName("listUsersByCourse should only return users with a specified courseName")
+    public void listUsersByCourse() {
+        //GIVEN
 
+        when(userMongoDb.findAllByCourseName("yoga")).thenReturn(List.of(
+                new User("Frank", "yoga"),
+                new User("Jonas", "yoga")));
+        //WHEN
+        List<User> users = userService.listUsersByCourse("yoga");
+        //THEN
+        assertThat(users, is(List.of(
+                User.builder().name("Frank").courseName("yoga").build(),
+                User.builder().name("Jonas").courseName("yoga").build()
+        )));
+    }
 }

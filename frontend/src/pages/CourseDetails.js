@@ -1,18 +1,34 @@
 import AddNewUser from '../components/AddNewUser'
-import {deleteUserById, getCourses, getUsers, postUser} from '../services/apiService'
+import {
+    deleteUserById,
+    getCourseByName, getUsersByCourseName,
+    postUser
+} from '../services/apiService'
 import {useState, useEffect} from 'react'
 import UserList from '../components/UserList'
 import {useParams} from "react-router-dom";
 
 export default function CourseDetails() {
     const [users, setUsers] = useState([])
+    const [courseData, setCourseData] = useState()
     const { courseName } = useParams()
 
     useEffect(() => {
-        getUsers()
+        getCourseByName(courseName)
+            .then(setCourseData)
+        getUsersByCourseName(courseName)
             .then(setUsers)
             .catch((error) => console.error(error))
-    }, [])
+    }, [courseName])
+
+
+        if (!courseData) {
+        return (
+            <section>
+                <p>Loading</p>
+            </section>
+        )
+    }
 
     const addNewUser = (name) =>
         postUser(name, courseName )

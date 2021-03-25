@@ -1,16 +1,8 @@
-import {useEffect, useState} from 'react'
+import { useState} from 'react'
 import styled from "styled-components/macro";
-import {getCourses} from "../services/apiService";
 
 export default function AddNewUser({ onAdd, course }) {
   const [userName, setUserName] = useState('')
-  const [courses, setCourses] = useState([])
-
-  useEffect(() => {
-    getCourses()
-        .then(setCourses)
-        .catch((error) => console.error(error))
-  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault()

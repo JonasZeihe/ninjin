@@ -2,7 +2,6 @@ package jonaszeihe.ninjin.controller;
 
 import jonaszeihe.ninjin.model.AddCourseDto;
 import jonaszeihe.ninjin.model.Course;
-import jonaszeihe.ninjin.model.User;
 import jonaszeihe.ninjin.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,9 +26,9 @@ public class CourseController {
         return this.courseService.addCourse(dto.getName(), dto.getDuration());
     }
 
-    @GetMapping("{name}")
-    public Course getCourse(@PathVariable String name) {
-        return courseService.getCourseByName(name)
+    @GetMapping("{courseName}")
+    public Course getCourse(@PathVariable String courseName) {
+        return courseService.getCourseByName(courseName)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
     }
 

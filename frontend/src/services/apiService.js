@@ -6,8 +6,8 @@ const courseUrl = '/api/course'
 export const postUser = (name, courseName) =>
   axios.post(userUrl, { name, courseName }).then((response) => response.data)
 
-export const getUsers = () =>
-  axios.get(userUrl).then((response) => response.data)
+export const getUsersByCourseName = (courseName) =>
+  axios.get(`${userUrl}/${courseName}`).then((response) => response.data)
 
 export const deleteUserById = (name) => axios.delete(`${userUrl}/${name}`)
 
@@ -19,3 +19,6 @@ export const getCourses = () =>
 
 export const deleteCourseById = (courseName) =>
   axios.delete(`${courseUrl}/${courseName}`)
+
+export const getCourseByName = (courseName) =>
+    axios.get(`${courseUrl}/${courseName}`).then((response) => response.data)
