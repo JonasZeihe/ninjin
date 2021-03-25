@@ -54,7 +54,7 @@ class UserControllerTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(User.builder().name(newUser).courseName(course).build()));
-        assertTrue(userMongoDb.existsById(newUser));
+        assertTrue(userMongoDb.existsByNameAndCourseName(newUser, course));
     }
 
     @Test
@@ -82,8 +82,20 @@ class UserControllerTest {
         //WHEN
         testRestTemplate.delete(getUrl() + "/Frank");
         //THEN
-        assertThat(userMongoDb.existsById("Frank"), is(false));
-        assertThat(userMongoDb.existsById("Frank1"), is(true));
+        assertThat(userMongoDb.existsByNameAndCourseName("Frank", "Yoga"), is(false));
+        assertThat(userMongoDb.existsByNameAndCourseName("Frank1", "Yoga"), is(true));
     }
 
+    @Test
+    @DisplayName("ListUsersByCourse should return a list of Users with a specified courseName")
+    public void listUsersByCourse() {
+        //GIVEN
+        userMongoDb.save(new User("Frank", "Yoga"));
+        userMongoDb.save(new User("Frank1", "Yoga"));
+        //WHEN
+        testRestTemplate.getForEntity(getUrl(), listUsersByCourse());
+        //THEN
+        assertThat(userMongoDb.existsByNameAndCourseName("Frank1", "Yoga"), is(true));
+        assertThat(userMongoDb.existsByNameAndCourseName("Frank", "Yoga"), is(true));
+    }
 }
