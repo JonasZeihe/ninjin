@@ -29,7 +29,7 @@ class CourseServiceTest {
         //GIVEN
         String newCourseName = "Yoga for beginners";
         String newCourseDuration = "8";
-        when(courseMongoDb.existsByName(newCourseName)).thenReturn(false);
+        when(courseMongoDb.existsById(newCourseName)).thenReturn(false);
         Course mockCourse = Course.builder()
                 .name(newCourseName)
                 .duration(newCourseDuration)
@@ -51,7 +51,7 @@ class CourseServiceTest {
         //GIVEN
         String existingCourseName = "Yoga for beginners";
         String existingCourseDuration = "8";
-        when(courseMongoDb.existsByName(existingCourseName)).thenReturn(true);
+        when(courseMongoDb.existsById(existingCourseName)).thenReturn(true);
         //WHEN
         assertThrows(ResponseStatusException.class, () -> courseService.addCourse(existingCourseName, existingCourseDuration));
         //THEN
@@ -78,14 +78,14 @@ class CourseServiceTest {
         courseService.deleteCourse("123");
 
         //THEN
-        verify(courseMongoDb).deleteByName("123");
+        verify(courseMongoDb).deleteById("123");
     }
     @Test
     @DisplayName("GetCourse returns course by name from db ")
     public void getCourseByName(){
         //GIVEN
         String courseName = "Yoga";
-    when(courseMongoDb.findCourseByName(courseName)).thenReturn(Optional.of(
+    when(courseMongoDb.findById(courseName)).thenReturn(Optional.of(
             new Course("Yoga", "10")));
         //WHEN
         Optional<Course> course = courseService.getCourseByName(courseName);

@@ -9,7 +9,4 @@ import java.util.Optional;
 @Repository
 public interface CourseMongoDb extends PagingAndSortingRepository<Course, String> {
     List<Course> findAll();
-    boolean existsByName(String name);
-    Optional<Course> findCourseByName(String name);
-    void deleteByName(String name);
 }
