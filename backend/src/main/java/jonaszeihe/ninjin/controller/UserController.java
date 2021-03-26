@@ -21,9 +21,13 @@ public class UserController {
 
     @PostMapping
     public User addUser(@RequestBody AddUserDto dto) {
-        return this.userService.addUser(dto.getName());
+        return this.userService.addUser(dto.getName(), dto.getCourseName());
     }
 
+    @GetMapping("{courseName}")
+    public List<User> listUsersByCourse(@PathVariable String courseName) {
+        return userService.listUsersByCourse(courseName);
+    }
 
     @GetMapping
     public List<User> listUsers() {

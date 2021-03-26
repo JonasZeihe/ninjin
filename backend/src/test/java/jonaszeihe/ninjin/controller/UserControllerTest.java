@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -44,45 +42,72 @@ class UserControllerTest {
     @DisplayName("Adding a user adds a user to the database")
     public void addNewUser() {
         //GIVEN
+        HttpHeaders headers = new HttpHeaders();
         String newUser = "Frank";
-        AddUserDto userDto = AddUserDto.builder().name(newUser).build();
+        String course = "Yoga";
+        AddUserDto userDto = AddUserDto.builder().name(newUser).courseName(course).build();
 
         //WHEN
-        HttpEntity<AddUserDto> entity = new HttpEntity<>(userDto);
-        ResponseEntity<User> response = testRestTemplate.postForEntity(getUrl(), entity, User.class);
+        HttpEntity<AddUserDto> entity = new HttpEntity<>(userDto, headers);
+        ResponseEntity<User> response = testRestTemplate.exchange(getUrl(), HttpMethod.POST, entity, User.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(response.getBody(), is(User.builder().name(newUser).build()));
-        assertTrue(userMongoDb.existsById(newUser));
+        assertThat(response.getBody(), is(User.builder().name(newUser).courseName(course).build()));
+        assertTrue(userMongoDb.existsByNameAndCourseName(newUser, course));
     }
 
     @Test
     @DisplayName("GET to /api/user should return a list of all users")
     public void getAllUsers() {
         //GIVEN
-        userMongoDb.save(new User("Frank"));
-        userMongoDb.save(new User("Jonas"));
+        HttpHeaders headers = new HttpHeaders();
+        userMongoDb.save(new User("Frank", "Yoga"));
+        userMongoDb.save(new User("Jonas", "Yoga"));
         //WHEN
-        ResponseEntity<User[]> response = testRestTemplate.getForEntity(getUrl(), User[].class);
+        HttpEntity <Void> entity = new HttpEntity<>(headers);
+        ResponseEntity<User[]> response = testRestTemplate.exchange(
+                getUrl(), HttpMethod.GET, entity, User[].class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), arrayContainingInAnyOrder(
-                new User("Frank"),
-                new User("Jonas")));
+                new User("Frank", "Yoga"),
+                new User("Jonas", "Yoga")));
     }
 
     @Test
     @DisplayName("DELETE to /api/user/<name> deletes the user")
     public void deleteUser() {
         //GIVEN
-        userMongoDb.save(new User("Frank"));
-        userMongoDb.save(new User("Frank1"));
+        userMongoDb.save(new User("Frank", "Yoga"));
+        userMongoDb.save(new User("Frank1", "Yoga"));
         //WHEN
-        testRestTemplate.delete(getUrl() + "/Frank");
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity <Void> entity = new HttpEntity<>(headers);
+        ResponseEntity<User> response = testRestTemplate.exchange(getUrl() + "/Frank", HttpMethod.DELETE, entity, User.class);
+
         //THEN
-        assertThat(userMongoDb.existsById("Frank"), is(false));
-        assertThat(userMongoDb.existsById("Frank1"), is(true));
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(userMongoDb.existsByNameAndCourseName("Frank", "Yoga"), is(false));
+        assertThat(userMongoDb.existsByNameAndCourseName("Frank1", "Yoga"), is(true));
     }
 
+    @Test
+    @DisplayName("ListUsersByCourse should return a list of Users with a specified courseName")
+    public void listUsersByCourse() {
+        //GIVEN
+        userMongoDb.save(new User("Frank", "Yoga"));
+        userMongoDb.save(new User("Frank1", "Yoga"));
+        //WHEN
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity <Void> entity = new HttpEntity<>(headers);
+        ResponseEntity<User[]> response = testRestTemplate.exchange(
+                getUrl() + "/Yoga", HttpMethod.GET, entity, User[].class);
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), arrayContainingInAnyOrder(
+                new User("Frank", "Yoga"),
+                new User("Frank1", "Yoga")
+        ));
+    }
 }

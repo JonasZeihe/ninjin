@@ -1,5 +1,5 @@
 import CourseListItem from './CourseListItem'
-import styled from "styled-components/macro";
+import styled from 'styled-components/macro'
 
 export default function CourseList({ courses, onDeleteCourse }) {
   return (
@@ -17,5 +17,4 @@ export default function CourseList({ courses, onDeleteCourse }) {
 
 const Wrapper = styled.div`
   list-style-type: none;
-
 `

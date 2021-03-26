@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -19,7 +20,7 @@ public class CourseService {
 
     public Course addCourse(String name, String duration) {
 
-        if (courseMongoDb.existsById(name)) {
+        if (courseMongoDb.existsByName(name)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course " + name + " already exists");
         }
 
@@ -27,12 +28,16 @@ public class CourseService {
         return courseMongoDb.save(course);
     }
 
+    public Optional<Course> getCourseByName(String courseName) {
+        return courseMongoDb.findCourseByName(courseName);
+    }
+
     public List<Course> listCourses() {
         return courseMongoDb.findAll();
     }
 
     public void deleteCourse(String name) {
-        courseMongoDb.deleteById(name);
+        courseMongoDb.deleteByName(name);
 
     }
 }

@@ -26,17 +26,14 @@ export default function CourseOverview() {
 
   const deleteCourse = (courseId) => {
     deleteCourseById(courseId).then(() => {
-        setCourses(
-            courses.filter((course) => course.name !== courseId)
-        )
+      setCourses(courses.filter((course) => course.name !== courseId))
     })
-
   }
 
   return (
     <div>
       <CreateNewCourse onAdd={createNewCourse} />
-      <CourseList courses={courses} onDeleteCourse={deleteCourse} />
+      <CourseList onDeleteCourse={deleteCourse} courses={courses} />
     </div>
   )
 }
