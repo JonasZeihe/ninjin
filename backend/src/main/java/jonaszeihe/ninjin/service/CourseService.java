@@ -20,7 +20,7 @@ public class CourseService {
 
     public Course addCourse(String name, String duration) {
 
-        if (courseMongoDb.existsByName(name)) {
+        if (courseMongoDb.existsById(name)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course " + name + " already exists");
         }
 
@@ -29,7 +29,7 @@ public class CourseService {
     }
 
     public Optional<Course> getCourseByName(String courseName) {
-        return courseMongoDb.findCourseByName(courseName);
+        return courseMongoDb.findById(courseName);
     }
 
     public List<Course> listCourses() {
@@ -37,7 +37,7 @@ public class CourseService {
     }
 
     public void deleteCourse(String name) {
-        courseMongoDb.deleteByName(name);
+        courseMongoDb.deleteById(name);
 
     }
 }

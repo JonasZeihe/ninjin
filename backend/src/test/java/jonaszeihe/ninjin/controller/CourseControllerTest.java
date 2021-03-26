@@ -60,7 +60,7 @@ class CourseControllerTest {
                 .name(newCourseName)
                 .duration(newCourseDuration)
                 .build()));
-        assertTrue(courseMongoDb.existsByName(newCourseName));
+        assertTrue(courseMongoDb.existsById(newCourseName));
     }
 
     @Test
@@ -93,8 +93,8 @@ class CourseControllerTest {
         ResponseEntity<Course> response = testRestTemplate.exchange(getUrl() + "/Yoga1", HttpMethod.DELETE, entity, Course.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(courseMongoDb.existsByName("Yoga1"), is(false));
-        assertThat(courseMongoDb.existsByName("Yoga2"), is(true));
+        assertThat(courseMongoDb.existsById("Yoga1"), is(false));
+        assertThat(courseMongoDb.existsById("Yoga2"), is(true));
     }
 
     @Test
