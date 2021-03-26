@@ -23,6 +23,7 @@ public class LoginController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
+
     @Autowired
     public LoginController(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
