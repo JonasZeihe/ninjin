@@ -26,11 +26,8 @@ export default function CourseOverview() {
 
   const deleteCourse = (courseId) => {
     deleteCourseById(courseId).then(() => {
-        setCourses(
-            courses.filter((course) => course.name !== courseId)
-        )
+      setCourses(courses.filter((course) => course.name !== courseId))
     })
-
   }
 
   return (

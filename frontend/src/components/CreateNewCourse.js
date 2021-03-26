@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-
 export default function CreateNewCourse({ onAdd }) {
   const [courseName, setCourseName] = useState('')
   const [courseDuration, setCourseDuration] = useState('')
@@ -16,24 +15,24 @@ export default function CreateNewCourse({ onAdd }) {
     setCourseDuration('')
   }
   return (
-      <Wrapper>
-    <Form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={courseName}
-        onChange={({ target }) => setCourseName(target.value)}
-      />
-      <input
-        disabled={!courseName}
-        type="text"
-        value={courseDuration}
-        onChange={({ target }) => setCourseDuration(target.value)}
-      />
-      <Button disabled={!courseName} type="submit">
-        Create a new course
-      </Button>
-    </Form>
-      </Wrapper>
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={courseName}
+          onChange={({ target }) => setCourseName(target.value)}
+        />
+        <input
+          disabled={!courseName}
+          type="text"
+          value={courseDuration}
+          onChange={({ target }) => setCourseDuration(target.value)}
+        />
+        <Button disabled={!courseName} type="submit">
+          Create a new course
+        </Button>
+      </Form>
+    </Wrapper>
   )
 }
 
@@ -45,8 +44,7 @@ const Form = styled.form`
   }
 `
 
-const Wrapper = styled.div`
-`
+const Wrapper = styled.div``
 
 const Button = styled.button`
   background: #babeae;
@@ -62,6 +60,6 @@ const Button = styled.button`
   padding: 0.5em 0.5em 0.5em 0.5em;
   margin-left: 0.25em;
   :disabled {
-    background: #807D7A;
+    background: #807d7a;
   }
 `

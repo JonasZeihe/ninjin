@@ -1,5 +1,5 @@
-import { useState} from 'react'
-import styled from "styled-components/macro";
+import { useState } from 'react'
+import styled from 'styled-components/macro'
 
 export default function AddNewUser({ onAdd, course }) {
   const [userName, setUserName] = useState('')
@@ -11,20 +11,20 @@ export default function AddNewUser({ onAdd, course }) {
     }
     onAdd(userName, course)
     setUserName('')
-    }
+  }
   return (
-      <Wrapper>
-    <Form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={userName}
-        onChange={({ target }) => setUserName(target.value)}
-      />
-      <Button disabled={!userName} type="submit">
-        Add User
-      </Button>
-    </Form>
-      </Wrapper>
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={userName}
+          onChange={({ target }) => setUserName(target.value)}
+        />
+        <Button disabled={!userName} type="submit">
+          Add User
+        </Button>
+      </Form>
+    </Wrapper>
   )
 }
 
@@ -36,8 +36,7 @@ const Form = styled.form`
   }
 `
 
-const Wrapper = styled.div`
-`
+const Wrapper = styled.div``
 
 const Button = styled.button`
   background: #babeae;
@@ -53,6 +52,6 @@ const Button = styled.button`
   padding: 0.5em 0.5em 0.5em 0.5em;
   margin-left: 0.25em;
   :disabled {
-    background: #807D7A;
+    background: #807d7a;
   }
 `

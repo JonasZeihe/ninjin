@@ -21,4 +21,4 @@ export const deleteCourseById = (courseName) =>
   axios.delete(`${courseUrl}/${courseName}`)
 
 export const getCourseByName = (courseName) =>
-    axios.get(`${courseUrl}/${courseName}`).then((response) => response.data)
+  axios.get(`${courseUrl}/${courseName}`).then((response) => response.data)
