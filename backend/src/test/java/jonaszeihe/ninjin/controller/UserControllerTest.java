@@ -3,15 +3,21 @@ package jonaszeihe.ninjin.controller;
 
 import jonaszeihe.ninjin.db.UserMongoDb;
 import jonaszeihe.ninjin.model.AddUserDto;
+import jonaszeihe.ninjin.model.LoginDto;
 import jonaszeihe.ninjin.model.User;
+import jonaszeihe.ninjin.security.AppUser;
+import jonaszeihe.ninjin.security.AppUserDb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -27,27 +33,43 @@ class UserControllerTest {
         return "http://localhost:" + port + "api/user";
     }
 
+
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Autowired
     private UserMongoDb userMongoDb;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    private AppUserDb appUserDb;
+
     @BeforeEach
     public void setup() {
         userMongoDb.deleteAll();
+    }
+
+    private String loginToApp() {
+        String password = encoder.encode("superSecretPassword");
+        appUserDb.save(AppUser.builder().username("jonas").password(password).build());
+        ResponseEntity<String> loginResponse = testRestTemplate.postForEntity("http://localhost:" + port + "auth/login", new LoginDto("jonas", "superSecretPassword"), String.class);
+        return loginResponse.getBody();
     }
 
     @Test
     @DisplayName("Adding a user adds a user to the database")
     public void addNewUser() {
         //GIVEN
-        HttpHeaders headers = new HttpHeaders();
         String newUser = "Frank";
         String course = "Yoga";
         AddUserDto userDto = AddUserDto.builder().name(newUser).courseName(course).build();
 
         //WHEN
+        String jwtToken = loginToApp();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
         HttpEntity<AddUserDto> entity = new HttpEntity<>(userDto, headers);
         ResponseEntity<User> response = testRestTemplate.exchange(getUrl(), HttpMethod.POST, entity, User.class);
         //THEN
@@ -60,10 +82,12 @@ class UserControllerTest {
     @DisplayName("GET to /api/user should return a list of all users")
     public void getAllUsers() {
         //GIVEN
-        HttpHeaders headers = new HttpHeaders();
         userMongoDb.save(new User("Frank", "Yoga"));
         userMongoDb.save(new User("Jonas", "Yoga"));
         //WHEN
+        String jwtToken = loginToApp();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<User[]> response = testRestTemplate.exchange(
                 getUrl(), HttpMethod.GET, entity, User[].class);
@@ -82,7 +106,9 @@ class UserControllerTest {
         userMongoDb.save(new User("Frank", "Yoga"));
         userMongoDb.save(new User("Frank1", "Yoga"));
         //WHEN
+        String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<User> response = testRestTemplate.exchange(getUrl() + "/Frank", HttpMethod.DELETE, entity, User.class);
 
@@ -99,7 +125,9 @@ class UserControllerTest {
         userMongoDb.save(new User("Frank", "Yoga"));
         userMongoDb.save(new User("Frank1", "Yoga"));
         //WHEN
+        String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<User[]> response = testRestTemplate.exchange(
                 getUrl() + "/Yoga", HttpMethod.GET, entity, User[].class);

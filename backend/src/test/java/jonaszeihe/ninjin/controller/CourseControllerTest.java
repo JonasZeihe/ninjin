@@ -4,6 +4,9 @@ package jonaszeihe.ninjin.controller;
 import jonaszeihe.ninjin.db.CourseMongoDb;
 import jonaszeihe.ninjin.model.AddCourseDto;
 import jonaszeihe.ninjin.model.Course;
+import jonaszeihe.ninjin.model.LoginDto;
+import jonaszeihe.ninjin.security.AppUser;
+import jonaszeihe.ninjin.security.AppUserDb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.arrayContainingInAnyOrder;
@@ -34,16 +38,28 @@ class CourseControllerTest {
     @Autowired
     private CourseMongoDb courseMongoDb;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
+    @Autowired
+    private AppUserDb appUserDb;
+
     @BeforeEach
     public void setup() {
         courseMongoDb.deleteAll();
+    }
+
+    private String loginToApp() {
+        String password = encoder.encode("superSecretPassword");
+        appUserDb.save(AppUser.builder().username("jonas").password(password).build());
+        ResponseEntity<String> loginResponse = testRestTemplate.postForEntity("http://localhost:" + port + "auth/login", new LoginDto("jonas", "superSecretPassword"), String.class);
+        return loginResponse.getBody();
     }
 
     @Test
     @DisplayName("Adding a course adds a course to the database")
     public void addNewCourse() {
         //GIVEN
-        HttpHeaders headers = new HttpHeaders();
         String newCourseName = "Yoga for beginners";
         String newCourseDuration = "8";
         AddCourseDto courseDto = AddCourseDto.builder()
@@ -52,7 +68,9 @@ class CourseControllerTest {
                 .build();
 
         //WHEN
-        HttpEntity<AddCourseDto> entity = new HttpEntity<>(courseDto);
+        String jwtToken = loginToApp();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);        HttpEntity<AddCourseDto> entity = new HttpEntity<>(courseDto, headers);
         ResponseEntity<Course> response = testRestTemplate.exchange(getUrl(), HttpMethod.POST, entity, Course.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
@@ -67,10 +85,12 @@ class CourseControllerTest {
     @DisplayName("GET to /api/course should return a list of all courses")
     public void getAllCourses() {
         //GIVEN
-        HttpHeaders headers = new HttpHeaders();
         courseMongoDb.save(new Course("Yoga1", "10"));
         courseMongoDb.save(new Course("Yoga2", "10"));
         //WHEN
+        String jwtToken = loginToApp();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<Course[]> response = testRestTemplate.exchange(getUrl(), HttpMethod.GET, entity, Course[].class);
 
@@ -88,7 +108,9 @@ class CourseControllerTest {
         courseMongoDb.save(new Course("Yoga1", "10"));
         courseMongoDb.save(new Course("Yoga2", "10"));
         //WHEN
+        String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<Course> response = testRestTemplate.exchange(getUrl() + "/Yoga1", HttpMethod.DELETE, entity, Course.class);
         //THEN
@@ -103,7 +125,9 @@ class CourseControllerTest {
         //GIVEN
         courseMongoDb.save(new Course("Yoga1", "10"));
         //WHEN
+        String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<Course> response = testRestTemplate.exchange(getUrl() + "/Yoga1", HttpMethod.GET, entity, Course.class);
         //THEN
