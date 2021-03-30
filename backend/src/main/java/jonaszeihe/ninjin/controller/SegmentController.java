@@ -1,4 +1,3 @@
-/*
 package jonaszeihe.ninjin.controller;
 
 import jonaszeihe.ninjin.model.AddSegmentDto;
@@ -22,11 +21,12 @@ public class SegmentController {
     public SegmentController(SegmentService segmentService) {this.segmentService = segmentService;}
 
     @PostMapping
-    public List<Segment> addSegments(@RequestBody int courseSize, AddSegmentDto dto) {
-         while (courseSize > 0) {
+    public List<Segment> addSegments(@RequestBody AddSegmentDto dto, String courseSize) {
+        int size = Integer.parseInt(courseSize);
+        while (size > 0) {
             this.segmentService.addSegment(dto.getName());
-            courseSize ++;
+            size++;
         }
+        return this.segmentService.addSegment(dto.getName(), dto.getInput())
     }
 }
-*/

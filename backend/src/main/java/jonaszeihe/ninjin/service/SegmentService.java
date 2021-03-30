@@ -1,4 +1,3 @@
-/*
 package jonaszeihe.ninjin.service;
 
 import jonaszeihe.ninjin.db.SegmentMongoDb;
@@ -18,4 +17,3 @@ public class SegmentService {
         Segment segment
     }
 }
-*/
