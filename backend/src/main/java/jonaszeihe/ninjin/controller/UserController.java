@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping
     public User addUser(@RequestBody AddUserDto dto) {
-        return this.userService.addUser(dto.getName(), dto.getCourseName());
+        return this.userService.addUser(dto.getUserName(), dto.getCourseName());
     }
 
     @GetMapping("{courseName}")
@@ -34,9 +34,9 @@ public class UserController {
         return userService.listUsers();
     }
 
-    @DeleteMapping("{courseName}/{name}")
-    public void deleteByCourseNameAndName(@PathVariable String courseName, @PathVariable String name) {
-        userService.deleteByCourseNameAndName(courseName, name);
+    @DeleteMapping("{courseName}/{userName}")
+    public void deleteByCourseNameAndName(@PathVariable String courseName, @PathVariable String userName) {
+        userService.deleteByCourseNameAndUserName(courseName, userName);
     }
 
 }

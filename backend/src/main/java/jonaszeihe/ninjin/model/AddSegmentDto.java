@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddUserDto {
-
-    private String userName;
-    private String courseName;
-
+public class AddSegmentDto {
+    private String name;
+    private String input;
 }

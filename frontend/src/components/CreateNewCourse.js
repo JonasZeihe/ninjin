@@ -3,16 +3,16 @@ import styled from 'styled-components/macro'
 
 export default function CreateNewCourse({ onAdd }) {
   const [courseName, setCourseName] = useState('')
-  const [courseDuration, setCourseDuration] = useState('')
+  const [courseSize, setCourseSize] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
     if (!courseName) {
       return
     }
-    onAdd(courseName, courseDuration)
+    onAdd(courseName, courseSize)
     setCourseName('')
-    setCourseDuration('')
+    setCourseSize('')
   }
   return (
     <Wrapper>
@@ -24,9 +24,9 @@ export default function CreateNewCourse({ onAdd }) {
         />
         <input
           disabled={!courseName}
-          type="text"
-          value={courseDuration}
-          onChange={({ target }) => setCourseDuration(target.value)}
+          type="number"
+          value={courseSize}
+          onChange={({ target }) => setCourseSize(target.value)}
         />
         <Button disabled={!courseName} type="submit">
           Create a new course

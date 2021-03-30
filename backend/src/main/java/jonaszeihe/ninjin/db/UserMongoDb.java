@@ -9,7 +9,6 @@ import java.util.List;
 public interface UserMongoDb extends PagingAndSortingRepository<User, String> {
     List<User> findAll();
     List<User> findAllByCourseName(String courseName);
-    boolean existsByNameAndCourseName(String name, String courseName);
-    void deleteByName(String name);
-    void removeByCourseNameAndName(String courseName, String name);
+    boolean existsByUserNameAndCourseName(String userName, String courseName);
+    void removeByCourseNameAndUserName(String courseName, String userName);
 }

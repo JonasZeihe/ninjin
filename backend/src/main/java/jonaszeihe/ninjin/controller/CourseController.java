@@ -23,7 +23,7 @@ public class CourseController {
 
     @PostMapping
     public Course addCourse(@RequestBody AddCourseDto dto) {
-        return this.courseService.addCourse(dto.getName(), dto.getDuration());
+        return this.courseService.addCourse(dto.getCourseName(), dto.getCourseSize());
     }
 
     @GetMapping("{courseName}")
@@ -37,8 +37,8 @@ public class CourseController {
         return courseService.listCourses();
     }
 
-    @DeleteMapping("{name}")
-    public void deleteCourse(@PathVariable String name) {
-        courseService.deleteCourse(name);
+    @DeleteMapping("{courseName}")
+    public void deleteCourse(@PathVariable String courseName) {
+        courseService.deleteCourse(courseName);
     }
 }

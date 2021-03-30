@@ -1,8 +1,8 @@
 export default function UserItem({ user, onDeleteUser }) {
   return (
     <li>
-      <span>{user.name}</span>
-      <button onClick={() => onDeleteUser(user.name)} type="button">
+      <span>{user.userName}</span>
+      <button onClick={() => onDeleteUser(user.userName)} type="button">
         delete
       </button>
     </li>

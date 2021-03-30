@@ -2,7 +2,6 @@ package jonaszeihe.ninjin.service;
 
 import jonaszeihe.ninjin.db.CourseMongoDb;
 import jonaszeihe.ninjin.model.Course;
-import jonaszeihe.ninjin.model.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,19 +27,19 @@ class CourseServiceTest {
     public void testAddCourse() {
         //GIVEN
         String newCourseName = "Yoga for beginners";
-        String newCourseDuration = "8";
+        String newCourseSize = "8";
         when(courseMongoDb.existsById(newCourseName)).thenReturn(false);
         Course mockCourse = Course.builder()
                 .name(newCourseName)
-                .duration(newCourseDuration)
+                .size(newCourseSize)
                 .build();
         when(courseMongoDb.save(mockCourse))
                 .thenReturn(mockCourse);
         //WHEN
-        Course actual = courseService.addCourse(newCourseName, newCourseDuration);
+        Course actual = courseService.addCourse(newCourseName, newCourseSize);
 
         //THEN
-        Course expectedCourse = Course.builder().name(newCourseName).duration(newCourseDuration).build();
+        Course expectedCourse = Course.builder().name(newCourseName).size(newCourseSize).build();
         assertThat(actual, is(expectedCourse));
         verify(courseMongoDb).save(expectedCourse);
     }
@@ -50,10 +49,10 @@ class CourseServiceTest {
     public void testAddExistingUser() {
         //GIVEN
         String existingCourseName = "Yoga for beginners";
-        String existingCourseDuration = "8";
+        String existingCourseSize = "8";
         when(courseMongoDb.existsById(existingCourseName)).thenReturn(true);
         //WHEN
-        assertThrows(ResponseStatusException.class, () -> courseService.addCourse(existingCourseName, existingCourseDuration));
+        assertThrows(ResponseStatusException.class, () -> courseService.addCourse(existingCourseName, existingCourseSize));
         //THEN
         verify(courseMongoDb, never()).save(any());
     }

@@ -3,9 +3,9 @@ import axiosConfig from './axiosConfig'
 const userUrl = '/api/user'
 const courseUrl = '/api/course'
 
-export const postUser = (name, courseName) =>
+export const postUser = (userName, courseName) =>
   axiosConfig.axiosInstance
-    .post(userUrl, { name, courseName })
+    .post(userUrl, { userName, courseName })
     .then((response) => response.data)
 
 export const getUsersByCourseName = (courseName) =>
@@ -13,12 +13,12 @@ export const getUsersByCourseName = (courseName) =>
     .get(`${userUrl}/${courseName}`)
     .then((response) => response.data)
 
-export const deleteByCourseNameAndName = (courseName, name) =>
-  axiosConfig.axiosInstance.delete(`${userUrl}/${courseName}/${name}`)
+export const deleteByCourseNameAndUserName = (courseName, userName) =>
+  axiosConfig.axiosInstance.delete(`${userUrl}/${courseName}/${userName}`)
 
-export const postCourse = (name, duration) =>
+export const postCourse = (courseName, courseSize) =>
   axiosConfig.axiosInstance
-    .post(courseUrl, { name, duration })
+    .post(courseUrl, { courseName, courseSize })
     .then((response) => response.data)
 
 export const getCourses = () =>
@@ -31,3 +31,13 @@ export const getCourseByName = (courseName) =>
   axiosConfig.axiosInstance
     .get(`${courseUrl}/${courseName}`)
     .then((response) => response.data)
+
+/*
+export const postCourseSegments = (courseName, courseSize) =>
+    axiosConfig.axiosInstance.post(segmentUrl, {courseName, courseSize})
+        .then((response) => response.data)
+*/
+
+/*
+axiosConfig.axiosInstance.post(`${segmentUrl}/${courseName}/${courseSize}`)
+*/

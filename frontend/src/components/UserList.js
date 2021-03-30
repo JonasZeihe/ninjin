@@ -5,7 +5,7 @@ export default function UserList({ users, onDeleteUser }) {
   return (
     <Wrapper>
       {users.map((user) => (
-        <UserItem key={user.name} user={user} onDeleteUser={onDeleteUser} />
+        <UserItem key={user.userName} user={user} onDeleteUser={onDeleteUser} />
       ))}
     </Wrapper>
   )

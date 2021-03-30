@@ -61,10 +61,10 @@ class CourseControllerTest {
     public void addNewCourse() {
         //GIVEN
         String newCourseName = "Yoga for beginners";
-        String newCourseDuration = "8";
+        String newCourseSize = "8";
         AddCourseDto courseDto = AddCourseDto.builder()
-                .name(newCourseName)
-                .duration(newCourseDuration)
+                .courseName(newCourseName)
+                .courseSize(newCourseSize)
                 .build();
 
         //WHEN
@@ -76,7 +76,7 @@ class CourseControllerTest {
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(Course.builder()
                 .name(newCourseName)
-                .duration(newCourseDuration)
+                .size(newCourseSize)
                 .build()));
         assertTrue(courseMongoDb.existsById(newCourseName));
     }

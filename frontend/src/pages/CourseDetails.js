@@ -1,8 +1,6 @@
 import AddNewUser from '../components/AddNewUser'
 import {
-  deleteByCourseNameAndName,
-  deleteUserById,
-  deleteUserByName,
+  deleteByCourseNameAndUserName,
   getCourseByName,
   getUsersByCourseName,
   postUser,
@@ -33,17 +31,17 @@ export default function CourseDetails() {
     )
   }
 
-  const addNewUser = (name) =>
-    postUser(name, courseName)
+  const addNewUser = (userName) =>
+    postUser(userName, courseName)
       .then((newUser) => {
         const updatedUsers = [...users, newUser]
         setUsers(updatedUsers)
       })
       .catch((error) => console.error(error))
 
-  const deleteUser = (name) => {
-    deleteByCourseNameAndName(courseName, name).then(() => {
-      setUsers(users.filter((user) => user.name !== name))
+  const deleteUser = (userName) => {
+    deleteByCourseNameAndUserName(courseName, userName).then(() => {
+      setUsers(users.filter((user) => user.userName !== userName))
     })
   }
 

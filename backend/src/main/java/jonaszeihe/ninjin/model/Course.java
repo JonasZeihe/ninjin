@@ -15,5 +15,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Course {
     @Id
     private String name;
-    private String duration;
+    private String size;
 }
