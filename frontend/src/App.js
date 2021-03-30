@@ -12,12 +12,8 @@ function App() {
         <Route exact path="/login">
           <Login />
         </Route>
-        <ProtectedRoute exact path="/home">
-          <CourseOverview />
-        </ProtectedRoute>
-        <ProtectedRoute exact path="/course/:courseName">
-          <CourseDetails />
-        </ProtectedRoute>
+        <ProtectedRoute path="/home" component={CourseOverview}/>
+        <ProtectedRoute path="/course/:courseName" component={CourseDetails}/>
       </Switch>
     </AuthProvider>
   )

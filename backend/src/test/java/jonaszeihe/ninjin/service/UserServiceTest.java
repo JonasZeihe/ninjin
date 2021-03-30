@@ -72,10 +72,10 @@ class UserServiceTest {
     @DisplayName("DeleteUser deletes user from db ")
     public void deleteFromDb() {
         //WHEN
-        userService.deleteUser("123");
+        userService.deleteByCourseNameAndName("yoga", "frank");
 
         //THEN
-        verify(userMongoDb).deleteByName("123");
+        verify(userMongoDb).removeByCourseNameAndName("yoga", "frank");
     }
 
     @Test

@@ -12,12 +12,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -100,22 +98,24 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("DELETE to /api/user/<name> deletes the user")
+    @DisplayName("DELETE to /api/user/<name> deletes the user in a specific course")
     public void deleteUser() {
         //GIVEN
         userMongoDb.save(new User("Frank", "Yoga"));
         userMongoDb.save(new User("Frank1", "Yoga"));
+        userMongoDb.save(new User("Frank", "Yoga1"));
         //WHEN
         String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
-        ResponseEntity<User> response = testRestTemplate.exchange(getUrl() + "/Frank", HttpMethod.DELETE, entity, User.class);
+        ResponseEntity<User> response = testRestTemplate.exchange(getUrl() + "/Yoga/Frank", HttpMethod.DELETE, entity, User.class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(userMongoDb.existsByNameAndCourseName("Frank", "Yoga"), is(false));
         assertThat(userMongoDb.existsByNameAndCourseName("Frank1", "Yoga"), is(true));
+        assertThat(userMongoDb.existsByNameAndCourseName("Frank", "Yoga1"), is(true));
     }
 
     @Test

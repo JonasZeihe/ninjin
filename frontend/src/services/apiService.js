@@ -13,8 +13,8 @@ export const getUsersByCourseName = (courseName) =>
     .get(`${userUrl}/${courseName}`)
     .then((response) => response.data)
 
-export const deleteUserByName = (name) =>
-  axiosConfig.axiosInstance.delete(`${userUrl}/${name}`)
+export const deleteByCourseNameAndName = (courseName, name) =>
+  axiosConfig.axiosInstance.delete(`${userUrl}/${courseName}/${name}`)
 
 export const postCourse = (name, duration) =>
   axiosConfig.axiosInstance

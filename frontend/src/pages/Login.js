@@ -10,7 +10,7 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!userName && !userPassword) {
+    if (!(userName && userPassword)) {
       return
     }
     loginUser(userName, userPassword).then(setToken)
