@@ -34,9 +34,9 @@ public class UserController {
         return userService.listUsers();
     }
 
-    @DeleteMapping("{name}")
-    public void deleteUser(@PathVariable String name) {
-        userService.deleteUser(name);
+    @DeleteMapping("{courseName}/{name}")
+    public void deleteByCourseNameAndName(@PathVariable String courseName, @PathVariable String name) {
+        userService.deleteByCourseNameAndName(courseName, name);
     }
 
 }

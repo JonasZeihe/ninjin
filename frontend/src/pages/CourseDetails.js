@@ -1,6 +1,8 @@
 import AddNewUser from '../components/AddNewUser'
 import {
+  deleteByCourseNameAndName,
   deleteUserById,
+  deleteUserByName,
   getCourseByName,
   getUsersByCourseName,
   postUser,
@@ -8,15 +10,17 @@ import {
 import { useState, useEffect } from 'react'
 import UserList from '../components/UserList'
 import { useParams } from 'react-router-dom'
+import { useAuth } from '../auth/AuthContext'
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([])
   const [courseData, setCourseData] = useState()
   const { courseName } = useParams()
+  const { token } = useAuth()
 
   useEffect(() => {
-    getCourseByName(courseName).then(setCourseData)
-    getUsersByCourseName(courseName)
+    getCourseByName(courseName, token).then(setCourseData)
+    getUsersByCourseName(courseName, token)
       .then(setUsers)
       .catch((error) => console.error(error))
   }, [courseName])
@@ -37,9 +41,9 @@ export default function CourseDetails() {
       })
       .catch((error) => console.error(error))
 
-  const deleteUser = (userId) => {
-    deleteUserById(userId).then(() => {
-      setUsers(users.filter((user) => user.name !== userId))
+  const deleteUser = (name) => {
+    deleteByCourseNameAndName(courseName, name).then(() => {
+      setUsers(users.filter((user) => user.name !== name))
     })
   }
 

@@ -33,7 +33,11 @@ public class UserService {
         return userMongoDb.findAllByCourseName(courseName);
     }
 
-    public void deleteUser(String name) {
-        userMongoDb.deleteByName(name);
+    public void deleteUser(String id) {
+        userMongoDb.deleteById(id);
+    }
+
+    public void deleteByCourseNameAndName(String courseName, String name) {
+        userMongoDb.removeByCourseNameAndName(courseName, name);
     }
 }
