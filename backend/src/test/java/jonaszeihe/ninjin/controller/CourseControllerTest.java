@@ -70,7 +70,8 @@ class CourseControllerTest {
         //WHEN
         String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(jwtToken);        HttpEntity<AddCourseDto> entity = new HttpEntity<>(courseDto, headers);
+        headers.setBearerAuth(jwtToken);
+        HttpEntity<AddCourseDto> entity = new HttpEntity<>(courseDto, headers);
         ResponseEntity<Course> response = testRestTemplate.exchange(getUrl(), HttpMethod.POST, entity, Course.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));

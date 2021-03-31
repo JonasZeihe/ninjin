@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AddSegmentDto {
-    private String name;
+    private String courseName;
     private String input;
+    private String courseSize;
 }

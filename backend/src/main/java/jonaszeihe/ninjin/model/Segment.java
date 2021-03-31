@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @Document(collection = "segments")
 public class Segment {
-    private String name;
+    private String segmentName;
     private String input;
+    private String courseName;
 }

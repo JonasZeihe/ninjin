@@ -2,6 +2,7 @@ import axiosConfig from './axiosConfig'
 
 const userUrl = '/api/user'
 const courseUrl = '/api/course'
+const segmentUrl = '/api/segment'
 
 export const postUser = (userName, courseName) =>
   axiosConfig.axiosInstance
@@ -32,11 +33,9 @@ export const getCourseByName = (courseName) =>
     .get(`${courseUrl}/${courseName}`)
     .then((response) => response.data)
 
-/*
-export const postCourseSegments = (courseName, courseSize) =>
-    axiosConfig.axiosInstance.post(segmentUrl, {courseName, courseSize})
+export const postCourseSegments = (courseName, segmentInput, courseSize) =>
+    axiosConfig.axiosInstance.post(segmentUrl, {courseName, segmentInput, courseSize})
         .then((response) => response.data)
-*/
 
 /*
 axiosConfig.axiosInstance.post(`${segmentUrl}/${courseName}/${courseSize}`)
