@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SegmentControllerTest {
@@ -54,7 +53,7 @@ class SegmentControllerTest {
     }
 
     @Test
-    @DisplayName("Adding a course creates Segments to the database")
+    @DisplayName("POST to /api/segment creates Segments to the database")
     public void addNewCourseSegments() {
         //GIVEN
         String newCourseName = "Yoga for beginners";
@@ -73,14 +72,35 @@ class SegmentControllerTest {
         ResponseEntity<String> response = testRestTemplate.postForEntity(getUrl(),entity, String.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-
-
-
+        assertTrue(segmentMongoDb.existsBySegmentName("Yoga for beginners 1"));
+        assertTrue(segmentMongoDb.existsBySegmentName("Yoga for beginners 2"));
+        assertTrue(segmentMongoDb.existsBySegmentName("Yoga for beginners 3"));
     }
+    @Test
+    @DisplayName("GET to api/segment/{courseName} should return a list of segments of the courseName")
+    public void getSegmentsByCourseName() {
+        //GIVEN
+        segmentMongoDb.save(new Segment("yoga 1", "some-input", "yoga"));
+        segmentMongoDb.save(new Segment("yoga 2", "some-input", "yoga"));
+        segmentMongoDb.save(new Segment("yoga 3", "some-input", "yoga"));
+        segmentMongoDb.save(new Segment("some-segment 1", "some-input", "some-course"));
+        segmentMongoDb.save(new Segment("some-segment 2", "some-input", "some-course"));
+        //WHEN
+        String jwtToken = loginToApp();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(jwtToken);
+        HttpEntity <Void> entity = new HttpEntity<>(headers);
+        ResponseEntity<Segment[]> response = testRestTemplate.exchange(
+                getUrl() + "/yoga", HttpMethod.GET, entity, Segment[].class);
+
+        //THEN
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), arrayContainingInAnyOrder(
+                new Segment("yoga 1", "some-input", "yoga"),
+                new Segment("yoga 2", "some-input", "yoga"),
+                new Segment("yoga 3", "some-input", "yoga")));
+    }
+
+
 }
-/*
-    assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(segmentMongoDb.existsBySegmentName("Yoga for beginners1"), is(true));
-        assertThat(segmentMongoDb.existsBySegmentName("Yoga for beginners2"), is(true));
-        assertThat(segmentMongoDb.existsBySegmentName("Yoga for beginners3"), is(true));
-*/
+
