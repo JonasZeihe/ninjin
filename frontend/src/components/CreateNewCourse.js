@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function CreateNewCourse({ onAdd }) {
+export default function CreateNewCourse({onAdd}) {
   const [courseName, setCourseName] = useState('')
   const [courseSize, setCourseSize] = useState('')
 
@@ -14,6 +14,7 @@ export default function CreateNewCourse({ onAdd }) {
     setCourseName('')
     setCourseSize('')
   }
+
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>

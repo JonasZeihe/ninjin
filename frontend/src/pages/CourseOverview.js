@@ -24,10 +24,9 @@ export default function CourseOverview() {
       })
       .catch((error) => console.error(error))
 
-/*
+    const input = "this could be your input"
   const  createCourseSegments = (courseName, courseSize) =>
-      postCourseSegments(courseName, courseSize)
-      */
+      postCourseSegments(courseName, input, courseSize)
 
 
     const deleteCourse = (courseId) => {
@@ -38,7 +37,7 @@ export default function CourseOverview() {
 
   return (
     <div>
-      <CreateNewCourse onAdd={createNewCourse} />
+      <CreateNewCourse onAdd={() => {createNewCourse,createCourseSegments}} />
       <CourseList onDeleteCourse={deleteCourse} courses={courses} />
     </div>
   )

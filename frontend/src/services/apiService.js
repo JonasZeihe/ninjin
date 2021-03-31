@@ -37,6 +37,11 @@ export const postCourseSegments = (courseName, segmentInput, courseSize) =>
     axiosConfig.axiosInstance.post(segmentUrl, {courseName, segmentInput, courseSize})
         .then((response) => response.data)
 
+export const getSegmentsByCourseName = (courseName) =>
+    axiosConfig.axiosInstance
+        .get(`${segmentUrl}/${courseName}`)
+        .then((response) => response.data)
+
 /*
 axiosConfig.axiosInstance.post(`${segmentUrl}/${courseName}/${courseSize}`)
 */
