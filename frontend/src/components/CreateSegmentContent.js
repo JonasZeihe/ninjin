@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function CreateSegmentContent({ onAdd }) {
+export default function CreateSegmentContent({ onAddSegment }) {
   const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')
 
   const handleSubmit = (event) => {
@@ -9,7 +9,7 @@ export default function CreateSegmentContent({ onAdd }) {
     if (!updatedSegmentContent) {
       return
     }
-    onAdd(updatedSegmentContent)
+    onAddSegment(updatedSegmentContent)
     setUpdatedSegmentContent('')
   }
   return (
