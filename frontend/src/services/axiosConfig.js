@@ -8,5 +8,5 @@ function setAxiosAuthToken(token) {
 
 export default {
   axiosInstance,
-  setAxiosAuthToken
+  setAxiosAuthToken,
 }

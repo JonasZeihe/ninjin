@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddSegmentDto {
-    private String courseName;
-    private String segmentContent;
-    private String courseSize;
+public class UpdatedSegmentContentDto {
+    private String segmentName;
+    private String updatedSegmentContent;
 }

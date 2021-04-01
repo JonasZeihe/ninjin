@@ -24,25 +24,25 @@ class SegmentServiceTest {
     public void testAddSegments() {
         //GIVEN
         String newCourseName = "Yoga for beginners";
-        String newSegmentInput = "some input";
+        String newSegmentContent = "some content";
         String newSegmentSize = "3";
 
         //WHEN
-        segmentService.addSegments(newCourseName, newSegmentInput, newSegmentSize);
+        segmentService.addSegments(newCourseName, newSegmentContent, newSegmentSize);
         //THEN
         verify(segmentMongoDb).save(Segment.builder()
                 .segmentName("Yoga for beginners 1")
-                .input("some input")
+                .segmentContent("some content")
                 .courseName(newCourseName)
                 .build());
         verify(segmentMongoDb).save(Segment.builder()
                 .segmentName("Yoga for beginners 2")
-                .input("some input")
+                .segmentContent("some content")
                 .courseName(newCourseName)
                 .build());
         verify(segmentMongoDb).save(Segment.builder()
                 .segmentName("Yoga for beginners 3")
-                .input("some input")
+                .segmentContent("some content")
                 .courseName(newCourseName)
                 .build());
     }
@@ -53,17 +53,20 @@ class SegmentServiceTest {
         //GIVEN
         String courseName = "yoga for beginners";
         when(segmentMongoDb.findAllByCourseName(courseName)).thenReturn(List.of(
-                new Segment("yoga for beginners 1", "some input", "yoga for beginners"),
-                new Segment("yoga for beginners 2", "some input", "yoga for beginners"),
-                new Segment("yoga for beginners 3", "some input", "yoga for beginners")));
+                new Segment("yoga for beginners 1", "some content", "yoga for beginners"),
+                new Segment("yoga for beginners 2", "some content", "yoga for beginners"),
+                new Segment("yoga for beginners 3", "some content", "yoga for beginners")));
         //WHEN
         List<Segment> segments = segmentService.listSegmentsByCourseName(courseName);
         //THEN
         assertThat(segments, is(List.of(
-                Segment.builder().segmentName("yoga for beginners 1").input("some input").courseName("yoga for beginners").build(),
-                Segment.builder().segmentName("yoga for beginners 2").input("some input").courseName("yoga for beginners").build(),
-                Segment.builder().segmentName("yoga for beginners 3").input("some input").courseName("yoga for beginners").build()
+                Segment.builder().segmentName("yoga for beginners 1").segmentContent("some content").courseName("yoga for beginners").build(),
+                Segment.builder().segmentName("yoga for beginners 2").segmentContent("some content").courseName("yoga for beginners").build(),
+                Segment.builder().segmentName("yoga for beginners 3").segmentContent("some content").courseName("yoga for beginners").build()
         )));
+
     }
+    //Test adding a course with a size higher than 42 should throw exception
+    //Test adding a course with a size lower than 1 should throw exception
 }
 

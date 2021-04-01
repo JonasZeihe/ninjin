@@ -1,39 +1,27 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function CreateNewCourse({ onAddCourse, onAddSegment }) {
-  const [courseName, setCourseName] = useState('')
-  const [courseSize, setCourseSize] = useState('')
+export default function CreateSegmentContent({ onAdd }) {
+  const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!courseName) {
+    if (!updatedSegmentContent) {
       return
     }
-    onAddCourse(courseName, courseSize)
-    onAddSegment(courseName, courseSize)
-    setCourseName('')
-    setCourseSize('')
+    onAdd(updatedSegmentContent)
+    setUpdatedSegmentContent('')
   }
-
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={courseName}
-          onChange={({ target }) => setCourseName(target.value)}
+          value={updatedSegmentContent}
+          onChange={({ target }) => setUpdatedSegmentContent(target.value)}
         />
-        <input
-          disabled={!courseName}
-          type="number"
-          min="1"
-          max="42"
-          value={courseSize}
-          onChange={({ target }) => setCourseSize(target.value)}
-        />
-        <Button disabled={!courseName} type="submit">
-          Create a new course
+        <Button disabled={!updatedSegmentContent} type="submit">
+          Add Content for this segment
         </Button>
       </Form>
     </Wrapper>

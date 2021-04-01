@@ -19,7 +19,7 @@ export default function Login() {
   }
 
   if (token) {
-    return <Redirect to="/home"  />
+    return <Redirect to="/home" />
   }
 
   return (

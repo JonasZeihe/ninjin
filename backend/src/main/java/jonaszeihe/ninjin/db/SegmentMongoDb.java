@@ -12,4 +12,5 @@ public interface SegmentMongoDb extends PagingAndSortingRepository<Segment, Stri
     List<Segment> findAll();
     List<Segment> findAllByCourseName(String courseName);
     boolean existsBySegmentName(String segmentName);
+    Optional<Segment> findBySegmentName(String segmentName);
 }

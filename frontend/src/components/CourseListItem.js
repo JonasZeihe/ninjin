@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 export default function CourseListItem({ course, onDeleteCourse }) {
   return (
     <li>
-      <span>Course Name: {course.name}</span>
+      <span>Course: {course.name}</span>
       <span>Size: {course.size}</span>
       <button onClick={() => onDeleteCourse(course.name)} type="button">
         delete
