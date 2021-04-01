@@ -12,7 +12,7 @@ import ElementList from "../components/ElementList";
 
 export default function SegmentDetails() {
     const [segmentItemData, setSegmentItemData] = useState()
-    const [elementItemData, setElementItemData] = useState()
+    const [elementItemData, setElementItemData] = useState([])
     const {segmentName} = useParams()
     const {token} = useAuth()
 
@@ -60,8 +60,12 @@ export default function SegmentDetails() {
             */}
             <CreateSegmentContent onAddSegment={createSegmentContent}/>
             <CreateElement onAddElement={createElements}/>
-            <ElementList elements={elementItemData}/>
-
+            {
+                elementItemData && (
+                    <ElementList elements={elementItemData}/>
+                )
+            }
+            {!elementItemData && <span>Loading elements</span>}
         </div>
     )
 }

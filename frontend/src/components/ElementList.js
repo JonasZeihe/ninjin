@@ -5,7 +5,7 @@ export default function ElementList({ elements }) {
     return (
         <Wrapper>
             {elements.map((element) => (
-                <ElementItem key={element.elementName} element={element} />
+                <ElementItem key={element.name} element={element} />
             ))}
         </Wrapper>
     )
@@ -13,3 +13,4 @@ export default function ElementList({ elements }) {
 const Wrapper = styled.div`
   list-style-type: none;
 `
+
