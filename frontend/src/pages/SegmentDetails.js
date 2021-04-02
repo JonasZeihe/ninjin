@@ -41,9 +41,8 @@ export default function SegmentDetails() {
             .catch((error) => console.error(error))
 
     // const deleteSegmentContent
-
-    const createElements = (elementContent) =>
-        postElements(segmentName, elementContent)
+    const createNewElementContent = (elementContent) =>
+        updateElementContent(segmentName, elementContent)
             .then((updatedElementContent) => {
                 const updatedContent = [...elementItemData, updatedElementContent]
                 setElementItemData(updatedContent)
@@ -59,7 +58,7 @@ export default function SegmentDetails() {
             <ElementCard/>
             */}
             <CreateSegmentContent onAddSegment={createSegmentContent}/>
-            <CreateElement onAddElement={createElements}/>
+            <CreateElement onAddElement={createNewElementContent()}/>
             {
                 elementItemData && (
                     <ElementList elements={elementItemData}/>

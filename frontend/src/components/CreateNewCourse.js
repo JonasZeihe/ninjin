@@ -12,6 +12,7 @@ export default function CreateNewCourse({ onAddCourse, onAddSegment }) {
     }
     onAddCourse(courseName, courseSize)
     onAddSegment(courseName, courseSize)
+    //onAddElement(SegmentName, segmentContent)
     setCourseName('')
     setCourseSize('')
   }

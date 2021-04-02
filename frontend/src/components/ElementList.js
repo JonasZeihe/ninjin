@@ -5,7 +5,7 @@ export default function ElementList({ elements }) {
     return (
         <Wrapper>
             {elements.map((element) => (
-                <ElementItem key={element.segmentName} element={element} />
+                <ElementItem key={element.elementName} element={element} />
             ))}
         </Wrapper>
     )

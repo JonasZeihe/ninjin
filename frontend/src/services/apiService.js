@@ -71,3 +71,8 @@ export const getElementsBySegmentName = (segmentName) =>
     axiosConfig.axiosInstance
         .get(`${elementUrl}/${segmentName}`)
         .then((response) => response.data)
+//UPDATE
+//export const updateElementContent = (segmentName, updatedElementContent) =>
+//   axiosConfig.axiosInstance
+//     .put(segmentUrl + '/' + segmentName, { segmentName, updatedElementContent })
+//     .then((response) => response.data)

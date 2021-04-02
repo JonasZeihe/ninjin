@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function CreateElement({ onAddElement }) {
+export default function CreateElement({ onAddUpdateElement }) {
     const [elementContent, setElementContent] = useState('')
 
     const handleSubmit = (event) => {
@@ -9,7 +9,7 @@ export default function CreateElement({ onAddElement }) {
         if (!elementContent) {
             return
         }
-        onAddElement(elementContent)
+        onAddUpdateElement(elementContent)
         setElementContent('')
     }
     return (
