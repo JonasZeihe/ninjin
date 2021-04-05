@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro'
-import SegmentItem from './SegmentItem'
+import SegmentItem from '../Items/SegmentItem'
 
 export default function SegmentList({ segments }) {
   return (

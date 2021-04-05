@@ -1,45 +1,48 @@
-import { useAuth } from '../auth/AuthContext'
-import { Redirect } from 'react-router-dom'
-import { loginUser } from '../services/loginService'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function Login() {
-  const { token, setToken } = useAuth()
-  const [userName, setUserName] = useState('')
-  const [userPassword, setUserPassword] = useState('')
+export default function CreateNewCourse({
+  onAddCourse,
+  onAddSegment,
+  onAddElement,
+}) {
+  const [courseName, setCourseName] = useState('')
+  const [courseSize, setCourseSize] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!(userName && userPassword)) {
+    if (!courseName) {
       return
     }
-    loginUser(userName, userPassword).then(setToken)
-    setUserName('')
-    setUserPassword('')
-  }
-
-  if (token) {
-    return <Redirect to="/home" />
+    onAddCourse(courseName, courseSize)
+    onAddSegment(courseName, courseSize)
+    onAddElement(courseName, courseSize)
+    setCourseName('')
+    setCourseSize('')
   }
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>Please Login</Title>
+        <Title>Create a new course and set a size</Title>
         <Input
-          placeholder="Username"
           type="text"
-          value={userName}
-          onChange={({ target }) => setUserName(target.value)}
+          placeholder="course name"
+          value={courseName}
+          onChange={({ target }) => setCourseName(target.value)}
         />
-        <input
-          placeholder="Password"
-          type="password"
-          value={userPassword}
-          onChange={({ target }) => setUserPassword(target.value)}
+        <Input
+          disabled={!courseName}
+          placeholder="course size"
+          type="number"
+          min="1"
+          max="42"
+          value={courseSize}
+          onChange={({ target }) => setCourseSize(target.value)}
         />
-        <Button type="submit">login</Button>
+        <Button disabled={!courseName} type="submit">
+          submit
+        </Button>
       </Form>
     </Wrapper>
   )

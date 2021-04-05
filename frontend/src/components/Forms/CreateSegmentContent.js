@@ -1,45 +1,30 @@
-import { useAuth } from '../auth/AuthContext'
-import { Redirect } from 'react-router-dom'
-import { loginUser } from '../services/loginService'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function Login() {
-  const { token, setToken } = useAuth()
-  const [userName, setUserName] = useState('')
-  const [userPassword, setUserPassword] = useState('')
+export default function CreateSegmentContent({ onAddSegment }) {
+  const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!(userName && userPassword)) {
+    if (!updatedSegmentContent) {
       return
     }
-    loginUser(userName, userPassword).then(setToken)
-    setUserName('')
-    setUserPassword('')
+    onAddSegment(updatedSegmentContent)
+    setUpdatedSegmentContent('')
   }
-
-  if (token) {
-    return <Redirect to="/home" />
-  }
-
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>Please Login</Title>
+        <Title>Create new content for your Segments</Title>
         <Input
-          placeholder="Username"
           type="text"
-          value={userName}
-          onChange={({ target }) => setUserName(target.value)}
+          placeholder="content"
+          value={updatedSegmentContent}
+          onChange={({ target }) => setUpdatedSegmentContent(target.value)}
         />
-        <input
-          placeholder="Password"
-          type="password"
-          value={userPassword}
-          onChange={({ target }) => setUserPassword(target.value)}
-        />
-        <Button type="submit">login</Button>
+        <Button disabled={!updatedSegmentContent} type="submit">
+          submit
+        </Button>
       </Form>
     </Wrapper>
   )

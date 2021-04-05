@@ -1,45 +1,30 @@
-import { useAuth } from '../auth/AuthContext'
-import { Redirect } from 'react-router-dom'
-import { loginUser } from '../services/loginService'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function Login() {
-  const { token, setToken } = useAuth()
+export default function AddNewUser({ onAdd, course }) {
   const [userName, setUserName] = useState('')
-  const [userPassword, setUserPassword] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!(userName && userPassword)) {
+    if (!userName) {
       return
     }
-    loginUser(userName, userPassword).then(setToken)
+    onAdd(userName, course)
     setUserName('')
-    setUserPassword('')
   }
-
-  if (token) {
-    return <Redirect to="/home" />
-  }
-
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>Please Login</Title>
+        <Title>create new participants for your course</Title>
         <Input
-          placeholder="Username"
           type="text"
+          placeholder="username"
           value={userName}
           onChange={({ target }) => setUserName(target.value)}
         />
-        <input
-          placeholder="Password"
-          type="password"
-          value={userPassword}
-          onChange={({ target }) => setUserPassword(target.value)}
-        />
-        <Button type="submit">login</Button>
+        <Button disabled={!userName} type="submit">
+          submit
+        </Button>
       </Form>
     </Wrapper>
   )
@@ -79,7 +64,6 @@ const Input = styled.input`
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
   }
 `
-
 const Button = styled.button`
   max-width: 100%;
   padding: 11px 13px;

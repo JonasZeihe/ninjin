@@ -1,4 +1,4 @@
-import AddNewUser from '../components/AddNewUser'
+import AddNewUser from '../components/Forms/AddNewUser'
 import {
   deleteUserByCourseNameAndUserName,
   getCourseByName,
@@ -7,10 +7,10 @@ import {
   postUser,
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
-import UserList from '../components/UserList'
+import UserList from '../components/Lists/UserList'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
-import SegmentList from '../components/SegmentList'
+import SegmentList from '../components/Lists/SegmentList'
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([])

@@ -1,4 +1,4 @@
-import CourseListItem from './CourseListItem'
+import CourseListItem from '../Items/CourseListItem'
 import styled from 'styled-components/macro'
 
 export default function CourseList({ courses, onDeleteCourse }) {

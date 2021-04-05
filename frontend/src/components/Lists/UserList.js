@@ -1,4 +1,4 @@
-import UserItem from './UserItem'
+import UserItem from '../Items/UserItem'
 import styled from 'styled-components/macro'
 
 export default function UserList({ users, onDeleteUser }) {
