@@ -8,6 +8,7 @@ import {
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
 import CourseList from '../components/Lists/CourseList'
+import styled from 'styled-components/macro'
 
 export default function CourseOverview() {
   const [courses, setCourses] = useState([])
@@ -18,8 +19,9 @@ export default function CourseOverview() {
       .catch((error) => console.error(error))
   }, [])
 
-  const createNewCourse = (courseName, courseSize) =>
-    postCourse(courseName, courseSize)
+    const courseDescription = 'this could be your course description'
+    const createNewCourse = (courseName, courseSize) =>
+    postCourse(courseName, courseSize, courseDescription)
       .then((newCourse) => {
         const updatedCourses = [...courses, newCourse]
         setCourses(updatedCourses)
@@ -41,13 +43,23 @@ export default function CourseOverview() {
   }
 
   return (
-    <div>
-      <CreateNewCourse
+    <Wrapper>
+        <CreateNewCourse
         onAddCourse={createNewCourse}
         onAddSegment={createCourseSegments}
         onAddElement={createElements}
       />
       <CourseList onDeleteCourse={deleteCourse} courses={courses} />
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.section`
+  background-image: linear-gradient(#2c2c91, white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`

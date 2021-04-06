@@ -1,48 +1,32 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function CreateNewCourse({
-  onAddCourse,
-  onAddSegment,
-  onAddElement,
+export default function CreateElementGroupContent({
+  onAddElementGroupContent,
 }) {
-  const [courseName, setCourseName] = useState('')
-  const [courseSize, setCourseSize] = useState('')
+  const [elementContent, setElementContent] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!courseName) {
+    if (!elementContent) {
       return
     }
-    onAddCourse(courseName, courseSize)
-    onAddSegment(courseName, courseSize)
-    onAddElement(courseName, courseSize)
-    setCourseName('')
-    setCourseSize('')
+    onAddElementGroupContent(elementContent)
+    setElementContent('')
   }
-
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>Create a new course and set a size</Title>
+        <Title>Create new content for your Elements</Title>
         <Input
           type="text"
-          placeholder="course name"
-          value={courseName}
-          onChange={({ target }) => setCourseName(target.value)}
+          placeholder="content"
+          value={elementContent}
+          onChange={({ target }) => setElementContent(target.value)}
         />
-        <Input
-          disabled={!courseName}
-          placeholder="course size"
-          type="number"
-          min="1"
-          max="42"
-          value={courseSize}
-          onChange={({ target }) => setCourseSize(target.value)}
-        />
-        <ButtonLink disabled={!courseName} type="submit">
+        <Button disabled={!elementContent} type="submit">
           submit
-        </ButtonLink>
+        </Button>
       </Form>
     </Wrapper>
   )
@@ -50,10 +34,15 @@ export default function CreateNewCourse({
 
 const Wrapper = styled.section`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 `
 
 const Form = styled.form`
   margin: 0 auto;
+  width: 100%;
   max-width: 414px;
   padding: 1.3rem;
   display: flex;
@@ -78,22 +67,22 @@ const Input = styled.input`
   }
 `
 
-const ButtonLink = styled.button`
+const Button = styled.button`
   max-width: 100%;
-  align-content: center;
-  align-self: center;
-  padding: 0.3em;
+  padding: 11px 13px;
   color: rgb(253, 249, 243);
+  font-weight: 600;
+  text-transform: uppercase;
   background: #bf7279;
   border: none;
   border-radius: 3px;
-  text-decoration: none;
   outline: 0;
   cursor: pointer;
+  margin-top: 0.6rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-out;
   :hover {
-    background: #de4655;
+    background: #ca9499;
   }
 `
 

@@ -23,7 +23,7 @@ public class CourseController {
 
     @PostMapping
     public Course addCourse(@RequestBody AddCourseDto dto) {
-        return this.courseService.addCourse(dto.getCourseName(), dto.getCourseSize());
+        return this.courseService.addCourse(dto.getCourseName(), dto.getCourseSize(), dto.getCourseDescription());
     }
 
     @GetMapping("{courseName}")

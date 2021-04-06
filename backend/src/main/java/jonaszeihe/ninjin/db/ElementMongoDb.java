@@ -13,5 +13,4 @@ public interface ElementMongoDb extends PagingAndSortingRepository<Element, Stri
     List<Element> findAll();
     List<Element> findAllBySegmentName(String segmentName);
     boolean existsByElementName(String elementName);
-    Optional<Element> findByElementName(String elementName);
-}
+    }

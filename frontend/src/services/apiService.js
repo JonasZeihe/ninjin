@@ -7,9 +7,9 @@ const elementUrl = '/api/element'
 
 //--COURSE
 //POST
-export const postCourse = (courseName, courseSize) =>
+export const postCourse = (courseName, courseSize, courseDescription) =>
   axiosConfig.axiosInstance
-    .post(courseUrl, { courseName, courseSize })
+    .post(courseUrl, { courseName, courseSize, courseDescription })
     .then((response) => response.data)
 //GET
 export const getCourses = () =>
@@ -55,7 +55,7 @@ export const getSegmentsByCourseName = (courseName) =>
     .get(`${segmentUrl}/${courseName}`)
     .then((response) => response.data)
 
-export const getSegmentBySegmentName = (segmentName) =>
+export const getSegmentById = (segmentName) =>
   axiosConfig.axiosInstance
     .get(`${segmentUrl}/${segmentName}`)
     .then((response) => response.data)
@@ -71,16 +71,18 @@ export const getElementsBySegmentName = (segmentName) =>
   axiosConfig.axiosInstance
     .get(`${elementUrl}/${segmentName}`)
     .then((response) => response.data)
+export const getElementById = (elementName) =>
+  axiosConfig.axiosInstance
+    .get(`${elementUrl}/${elementName}`)
+    .then((response) => response.data)
+
 //UPDATE
 export const updateElementContent = (elementName, updatedElementContent) =>
   axiosConfig.axiosInstance
-    .put(segmentUrl + '/' + elementName, { elementName, updatedElementContent })
+    .put(elementUrl + '/' + elementName, { elementName, updatedElementContent })
     .then((response) => response.data)
 
-export const updateElementContentBySegmentName = (
-  segmentName,
-  updatedElementContent
-) =>
+export const updateElementGroupContent = (segmentName, elementContent) =>
   axiosConfig.axiosInstance
-    .put(segmentUrl + '/' + segmentName, { segmentName, updatedElementContent })
+    .put(elementUrl + '/' + segmentName, { segmentName, elementContent })
     .then((response) => response.data)

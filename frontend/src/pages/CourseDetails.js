@@ -11,11 +11,13 @@ import UserList from '../components/Lists/UserList'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import SegmentList from '../components/Lists/SegmentList'
+import styled from 'styled-components/macro'
+import CourseCard from "../components/Cards/CourseCard";
 
 export default function CourseDetails() {
-  const [users, setUsers] = useState([])
-  const [courseData, setCourseData] = useState()
-  const [segmentData, setSegmentData] = useState([])
+  const [users, setUsers] = useState([""])
+  const [courseData, setCourseData] = useState("")
+  const [segmentData, setSegmentData] = useState([""])
   const { courseName } = useParams()
   const { token } = useAuth()
 
@@ -57,10 +59,24 @@ export default function CourseDetails() {
   }
 
   return (
-    <div>
+    <Wrapper>
+        {courseData && (
+            <CourseCard courseData={courseData}/>
+        )}
+        {!courseData && <span>Loading courseData</span>}
       <AddNewUser onAdd={addNewUser} />
       <UserList users={users} onDeleteUser={deleteUser} />
-      <SegmentList segments={segmentData} />
-    </div>
+      <SegmentList segmentData={segmentData} />
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.section`
+  background-image: linear-gradient(#2c2c91, white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`

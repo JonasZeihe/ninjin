@@ -6,7 +6,7 @@ export default function CourseList({ courses, onDeleteCourse }) {
     <Wrapper>
       {courses.map((course) => (
         <CourseListItem
-          key={course.name}
+          key={course.courseName}
           course={course}
           onDeleteCourse={onDeleteCourse}
         />
@@ -17,4 +17,7 @@ export default function CourseList({ courses, onDeleteCourse }) {
 
 const Wrapper = styled.div`
   list-style-type: none;
+  flex-flow: column;
+  flex-wrap: wrap;
+  flex-direction: row;
 `

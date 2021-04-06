@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/element")
@@ -23,12 +24,18 @@ public class ElementController {
 
     @PostMapping
     public void addElements(@RequestBody AddElementDto dto) {
-        this.elementService.addElements(dto.getSegmentName(), dto.getElementContent());
-    }
+        this.elementService.addElements(dto.getCourseName(), dto.getElementContent(), dto.getCourseSize());    }
 
     @GetMapping("{segmentName}")
     public List<Element> listElementsBySegmentName(@PathVariable String segmentName) {
         return elementService.listElementsBySegmentName(segmentName);
+    }
+
+    @GetMapping("{elementName}")
+    public Element getElementByElementName(@PathVariable String elementName) {
+        return elementService.getElementByElementName(elementName)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Element not found"));
+
     }
 
     @PutMapping("/{elementName}")
@@ -37,6 +44,14 @@ public class ElementController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return this.elementService.updateElementContent(dto.getElementName(), dto.getUpdatedElementContent());
+    }
+
+    @PutMapping("/{segmentName}")
+    public void updateElementGroupContent(@PathVariable String segmentName, @RequestBody UpdatedElementGroupContentDto dto) {
+        if(!segmentName.contains(dto.getSegmentName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        this.elementService.updateElementGroupContentBySegmentName(dto.getSegmentName(), dto.getUpdatedElementContent());
     }
 
 }

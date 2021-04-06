@@ -12,4 +12,7 @@ export default function ElementList({ elements }) {
 }
 const Wrapper = styled.div`
   list-style-type: none;
+  flex-flow: column;
+  flex-wrap: wrap;
+  flex-direction: row;
 `

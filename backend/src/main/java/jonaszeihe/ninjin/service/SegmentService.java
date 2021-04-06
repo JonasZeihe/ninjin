@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class SegmentService {
@@ -43,16 +44,15 @@ public class SegmentService {
         return segmentMongoDb.findAllByCourseName(courseName);
     }
 
-    public Segment updateSegmentContent(String segmentName, String updatedSegmentContent) {
-       Segment existingSegment = segmentMongoDb.findById(segmentName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        Segment updatedSegment = existingSegment.toBuilder().segmentContent(updatedSegmentContent).build();
-
-        return segmentMongoDb.save(updatedSegment);
+    public Optional<Segment> getSegmentBySegmentName(String segmentName) {
+        return segmentMongoDb.findById(segmentName);
     }
 
+    public void updateSegmentContent(String segmentName, String updatedSegmentContent) {
+        Segment existingSegment = segmentMongoDb.findById(segmentName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Segment updatedSegment = existingSegment.toBuilder().segmentContent(updatedSegmentContent).build();
 
+        segmentMongoDb.save(updatedSegment);
+    }
 }
 
-/*
-Segment segment = segmentMongoDb.existsBySegmentName(segmentName).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
-*/

@@ -21,11 +21,12 @@ class ElementServiceTest {
     @DisplayName("Add new elements to the database")
     public void testAddElements() {
         //GIVEN
+        String newCourseName = "Yoga for beginners";
         String newSegmentName = "Yoga for beginners 1";
         String newElementContent = "some content";
 
         //WHEN
-        elementService.addElements(newSegmentName, newElementContent);
+        elementService.addElements(newCourseName, newElementContent, newSegmentName);
         //THEN
         verify(elementMongoDb).save(Element.builder()
                 .elementName("Yoga for beginners 1 Element 1")
@@ -74,7 +75,7 @@ class ElementServiceTest {
                 new Element("yoga for beginners 1 Element 2", "some content", "yoga for beginners 1"),
                 new Element("yoga for beginners 1 Element 3", "some content", "yoga for beginners 1")));
 
-                //WHEN
+        //WHEN
         List<Element> elements = elementService.listElementsBySegmentName(segmentName);
         //THEN
         assertThat(elements, is(List.of(

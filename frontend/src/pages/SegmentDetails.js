@@ -2,27 +2,28 @@ import { useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { useEffect, useState } from 'react'
 import {
-  getElementsBySegmentName,
-  getSegmentBySegmentName,
-  updateSegmentContent,
-  updateElementContentBySegmentName,
-  updateElementContent,
+    getElementsBySegmentName,
+    updateSegmentContent,
+    updateElementGroupContent,
+    getSegmentById
 } from '../services/apiService'
 import CreateSegmentContent from '../components/Forms/CreateSegmentContent'
-import CreateElementContent from '../components/Forms/CreateElementContent'
+import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
 import ElementList from '../components/Lists/ElementList'
+import styled from 'styled-components/macro'
+import SegmentCard from "../components/Cards/SegmentCard";
 
 export default function SegmentDetails() {
-  const [segmentItemData, setSegmentItemData] = useState()
-  const [elementItemData, setElementItemData] = useState([])
+  const [segmentItemData, setSegmentItemData] = useState("")
+  const [elementGroupData, setElementGroupData] = useState([""])
   const { segmentName } = useParams()
   const { token } = useAuth()
 
   useEffect(() => {
-    getSegmentBySegmentName(segmentName, token).then(setSegmentItemData)
-    getElementsBySegmentName(segmentName, token)
-      .then(setElementItemData)
-      .catch((error) => console.error(error))
+      getSegmentById(segmentName, token).then(setSegmentItemData)
+      getElementsBySegmentName(segmentName, token)
+          .then(setElementGroupData)
+          .catch((error) => console.error(error))
   }, [segmentName])
 
   if (!segmentItemData) {
@@ -32,10 +33,10 @@ export default function SegmentDetails() {
       </section>
     )
   }
-  if (!elementItemData) {
+  if (!elementGroupData) {
     return (
       <section>
-        <p>Waiting for elementData</p>
+        <p>Waiting for elementGroupData</p>
       </section>
     )
   }
@@ -48,41 +49,33 @@ export default function SegmentDetails() {
       })
       .catch((error) => console.error(error))
 
-  // const deleteSegmentContent
-  // const deleteElementContent
-  /*
   const createNewElementGroupContent = (elementContent) =>
-    updateElementContentBySegmentName(segmentName, elementContent)
+    updateElementGroupContent(segmentName, elementContent)
       .then((updatedElementContent) => {
-        const updatedContent = [...elementItemData, updatedElementContent]
-        setElementItemData(updatedContent)
+        const updatedContent = [...elementGroupData, updatedElementContent]
+        setElementGroupData(updatedContent)
       })
       .catch((error) => console.error(error))
-
-  const createNewElementItemContent = (elementItemContent) =>
-    updateElementContent(elementName, elementItemContent)
-      .then((updatedElementContent) => {
-        const updatedContent = [...elementItemData, updatedElementContent]
-        setElementItemData(updatedContent)
-      })
-      .catch((error) => console.error(error))
-*/
 
   return (
-    <div>
-      <h1>{segmentName}</h1>
-      {/*
-            <SegmentCard segmentData={segmentItemData}/>
-*/}
+    <Wrapper>
+        {segmentItemData && (
+            <SegmentCard segmentItemData={segmentItemData}/>
+            )}
+        {!segmentItemData && <span>Loading segmentData</span>}
       <CreateSegmentContent onAddSegment={createSegmentContent} />
-      {/*
-            <ElementCard elementData={elementItemData}/>
-*/}
-      {/*      <CreateElementContent
-        onAddElementGroupContent={createNewElementGroupContent}
-        onAddElementItemContent={createNewElementItemContent}
-      />*/}
-      <ElementList elements={elementItemData} />
-    </div>
+      <CreateElementGroupContent onAddElementGroupContent={createNewElementGroupContent}/>
+      <ElementList elements={elementGroupData} />
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.section`
+  background-image: linear-gradient(#2c2c91, white);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`

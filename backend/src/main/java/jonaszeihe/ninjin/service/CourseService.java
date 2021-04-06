@@ -18,13 +18,13 @@ public class CourseService {
         this.courseMongoDb = courseMongoDb;
     }
 
-    public Course addCourse(String courseName, String courseSize) {
+    public Course addCourse(String courseName, String courseSize, String courseDescription) {
 
         if (courseMongoDb.existsById(courseName)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course " + courseName + " already exists");
         }
 
-        Course course = Course.builder().name(courseName).size(courseSize).build();
+        Course course = Course.builder().courseName(courseName).courseSize(courseSize).courseDescription(courseDescription).build();
         return courseMongoDb.save(course);
     }
 

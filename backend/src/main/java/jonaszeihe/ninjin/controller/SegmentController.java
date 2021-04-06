@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -33,12 +34,18 @@ public class SegmentController {
         return segmentService.listSegmentsByCourseName(courseName);
     }
 
+    @GetMapping("{segmentName}")
+    public Segment getSegmentBySegmentName(@PathVariable String segmentName) {
+        return segmentService.getSegmentBySegmentName(segmentName)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Segment not found"));
+    }
+
     @PutMapping("/{segmentName}")
-    public Segment updateSegmentContent(@PathVariable String segmentName, @RequestBody UpdatedSegmentContentDto dto) {
+    public void updateSegmentContent(@PathVariable String segmentName, @RequestBody UpdatedSegmentContentDto dto) {
         if(!segmentName.equals(dto.getSegmentName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return this.segmentService.updateSegmentContent(dto.getSegmentName(), dto.getUpdatedSegmentContent());
+        this.segmentService.updateSegmentContent(dto.getSegmentName(), dto.getUpdatedSegmentContent());
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder(toBuilder = true)
 @Document(collection = "elements")
 public class Element {
+    @Id
     private String elementName;
     private String elementContent;
     private String segmentName;

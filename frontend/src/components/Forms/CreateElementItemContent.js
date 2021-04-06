@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function CreateElementContent({ onAddUpdateElement }) {
+export default function CreateElementItemContent({ onAddElement }) {
   const [elementContent, setElementContent] = useState('')
 
   const handleSubmit = (event) => {
@@ -9,13 +9,13 @@ export default function CreateElementContent({ onAddUpdateElement }) {
     if (!elementContent) {
       return
     }
-    onAddUpdateElement(elementContent)
+    onAddElement(elementContent)
     setElementContent('')
   }
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>Create new content for your Elements</Title>
+        <Title>Create new content for this Element</Title>
         <Input
           type="text"
           placeholder="content"

@@ -28,18 +28,20 @@ class CourseServiceTest {
         //GIVEN
         String newCourseName = "Yoga for beginners";
         String newCourseSize = "8";
+        String newCourseDescription = "some description";
         when(courseMongoDb.existsById(newCourseName)).thenReturn(false);
         Course mockCourse = Course.builder()
-                .name(newCourseName)
-                .size(newCourseSize)
+                .courseName(newCourseName)
+                .courseSize(newCourseSize)
+                .courseDescription(newCourseDescription)
                 .build();
         when(courseMongoDb.save(mockCourse))
                 .thenReturn(mockCourse);
         //WHEN
-        Course actual = courseService.addCourse(newCourseName, newCourseSize);
+        Course actual = courseService.addCourse(newCourseName, newCourseSize, newCourseDescription);
 
         //THEN
-        Course expectedCourse = Course.builder().name(newCourseName).size(newCourseSize).build();
+        Course expectedCourse = Course.builder().courseName(newCourseName).courseSize(newCourseSize).courseDescription(newCourseDescription).build();
         assertThat(actual, is(expectedCourse));
         verify(courseMongoDb).save(expectedCourse);
     }
@@ -50,9 +52,10 @@ class CourseServiceTest {
         //GIVEN
         String existingCourseName = "Yoga for beginners";
         String existingCourseSize = "8";
+        String existingCourseDescription = "some description";
         when(courseMongoDb.existsById(existingCourseName)).thenReturn(true);
         //WHEN
-        assertThrows(ResponseStatusException.class, () -> courseService.addCourse(existingCourseName, existingCourseSize));
+        assertThrows(ResponseStatusException.class, () -> courseService.addCourse(existingCourseName, existingCourseSize, existingCourseDescription));
         //THEN
         verify(courseMongoDb, never()).save(any());
     }
@@ -61,14 +64,14 @@ class CourseServiceTest {
     public void listCourses(){
         //GIVEN
         when(courseMongoDb.findAll()).thenReturn(List.of(
-                new Course("Yoga1", "10"),
-                new Course("Yoga2", "10")));
+                new Course("Yoga1", "10", "some description"),
+                new Course("Yoga2", "10", "some description")));
         //WHEN
         List<Course> courses = courseService.listCourses();
         //THEN
         assertThat(courses, containsInAnyOrder(
-                new Course("Yoga1", "10"),
-                new Course("Yoga2", "10")));
+                new Course("Yoga1", "10", "some description"),
+                new Course("Yoga2", "10", "some description")));
     }
     @Test
     @DisplayName("DeleteCourse deletes course from db ")
@@ -85,11 +88,11 @@ class CourseServiceTest {
         //GIVEN
         String courseName = "Yoga";
     when(courseMongoDb.findById(courseName)).thenReturn(Optional.of(
-            new Course("Yoga", "10")));
+            new Course("Yoga", "10", "some description")));
         //WHEN
         Optional<Course> course = courseService.getCourseByName(courseName);
         //THEN
-        assertThat(course.get(), is(new Course(courseName, "10")));
+        assertThat(course.get(), is(new Course(courseName, "10", "some description")));
     }
 
 

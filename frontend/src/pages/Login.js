@@ -46,8 +46,10 @@ export default function Login() {
 }
 
 const Wrapper = styled.section`
+  background-image: linear-gradient(#2c2c91, white);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   height: 100%;
   width: 100%;

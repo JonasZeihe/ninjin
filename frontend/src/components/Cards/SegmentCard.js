@@ -1,16 +1,13 @@
-import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
-export default function SegmentItem({ segment }) {
-  return (
-    <Container>
-        <span>Segment: {segment.segmentName}</span>
-        <span>Content: {segment.segmentContent}</span>
-      <ButtonLink as={Link} to={`/segment/${segment.segmentName}`}>
-        details
-      </ButtonLink>
-    </Container>
-  )
+export default function SegmentCard({ segmentItemData }) {
+
+    return (
+        <Container>
+            <span>Course: {segmentItemData.segmentName}</span>
+            <span>Content: {segmentItemData.segmentContent}</span>
+        </Container>
+    )
 }
 
 const Container = styled.div`

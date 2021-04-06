@@ -62,9 +62,11 @@ class CourseControllerTest {
         //GIVEN
         String newCourseName = "Yoga for beginners";
         String newCourseSize = "8";
+        String newCourseDescription = "some description";
         AddCourseDto courseDto = AddCourseDto.builder()
                 .courseName(newCourseName)
                 .courseSize(newCourseSize)
+                .courseDescription(newCourseDescription)
                 .build();
 
         //WHEN
@@ -76,8 +78,9 @@ class CourseControllerTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(Course.builder()
-                .name(newCourseName)
-                .size(newCourseSize)
+                .courseName(newCourseName)
+                .courseSize(newCourseSize)
+                .courseDescription(newCourseDescription)
                 .build()));
         assertTrue(courseMongoDb.existsById(newCourseName));
     }
@@ -86,8 +89,8 @@ class CourseControllerTest {
     @DisplayName("GET to /api/course should return a list of all courses")
     public void getAllCourses() {
         //GIVEN
-        courseMongoDb.save(new Course("Yoga1", "10"));
-        courseMongoDb.save(new Course("Yoga2", "10"));
+        courseMongoDb.save(new Course("Yoga1", "10", "some description"));
+        courseMongoDb.save(new Course("Yoga2", "10", "some description"));
         //WHEN
         String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
@@ -98,16 +101,16 @@ class CourseControllerTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), arrayContainingInAnyOrder(
-                new Course("Yoga1", "10"),
-                new Course("Yoga2", "10")));
+                new Course("Yoga1", "10", "some description"),
+                new Course("Yoga2", "10", "some description")));
     }
 
     @Test
     @DisplayName("DELETE to /api/course/<name> deletes the course")
     public void deleteCourse() {
         //GIVEN
-        courseMongoDb.save(new Course("Yoga1", "10"));
-        courseMongoDb.save(new Course("Yoga2", "10"));
+        courseMongoDb.save(new Course("Yoga1", "10", "some description"));
+        courseMongoDb.save(new Course("Yoga2", "10", "some description"));
         //WHEN
         String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
@@ -124,7 +127,7 @@ class CourseControllerTest {
     @DisplayName("GET to /api/course/<name> returns specified course")
     public void getCourseByName() {
         //GIVEN
-        courseMongoDb.save(new Course("Yoga1", "10"));
+        courseMongoDb.save(new Course("Yoga1", "10", "some description"));
         //WHEN
         String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
@@ -133,7 +136,7 @@ class CourseControllerTest {
         ResponseEntity<Course> response = testRestTemplate.exchange(getUrl() + "/Yoga1", HttpMethod.GET, entity, Course.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(response.getBody(), is(new Course("Yoga1", "10")));
+        assertThat(response.getBody(), is(new Course("Yoga1", "10", "some description")));
     }
 
 }
