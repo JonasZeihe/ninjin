@@ -22,6 +22,11 @@ export const getCourseByName = (courseName) =>
 //DELETE
 export const deleteCourseById = (courseName) =>
   axiosConfig.axiosInstance.delete(`${courseUrl}/${courseName}`)
+//UPDATE
+export const updateCourseDescription = (courseName, updatedCourseDescription) =>
+    axiosConfig.axiosInstance
+        .put(courseUrl + '/' + courseName, { courseName, updatedCourseDescription })
+        .then((response) => response.data)
 
 //--USER
 //POST
@@ -52,7 +57,7 @@ export const updateSegmentContent = (segmentName, updatedSegmentContent) =>
 //GET
 export const getSegmentsByCourseName = (courseName) =>
   axiosConfig.axiosInstance
-    .get(`${segmentUrl}/${courseName}`)
+    .get(`${segmentUrl}/${courseName}/segments`)
     .then((response) => response.data)
 
 export const getSegmentById = (segmentName) =>
@@ -69,7 +74,7 @@ export const postElements = (courseName, elementContent, courseSize) =>
 //GET
 export const getElementsBySegmentName = (segmentName) =>
   axiosConfig.axiosInstance
-    .get(`${elementUrl}/${segmentName}`)
+    .get(`${elementUrl}/${segmentName}/elements`)
     .then((response) => response.data)
 export const getElementById = (elementName) =>
   axiosConfig.axiosInstance
@@ -84,5 +89,5 @@ export const updateElementContent = (elementName, updatedElementContent) =>
 
 export const updateElementGroupContent = (segmentName, elementContent) =>
   axiosConfig.axiosInstance
-    .put(elementUrl + '/' + segmentName, { segmentName, elementContent })
+    .put(elementUrl + '/' + segmentName + '/elements', { segmentName, elementContent })
     .then((response) => response.data)

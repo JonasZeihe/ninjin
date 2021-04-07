@@ -8,6 +8,7 @@ import {
 } from '../services/apiService'
 import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
 import ElementCard from "../components/Cards/ElementCard";
+import CreateElementItemContent from "../components/Forms/CreateElementItemContent";
 
 export default function ElementDetails() {
   const [elementItemData, setElementItemData] = useState("")
@@ -36,13 +37,15 @@ export default function ElementDetails() {
       })
       .catch((error) => console.error(error))
 
+
+
   return (
     <Wrapper>
         {elementItemData && (
             <ElementCard elementItemData={elementItemData}/>
         )}
         {!elementItemData && <span>Loading elementData</span>}
-      <CreateElementGroupContent onAddElement={createElementItemContent} />
+      <CreateElementItemContent createElementItemContent={createElementItemContent} />
     </Wrapper>
   )
 }

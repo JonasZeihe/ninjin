@@ -2,6 +2,8 @@ package jonaszeihe.ninjin.controller;
 
 import jonaszeihe.ninjin.model.AddCourseDto;
 import jonaszeihe.ninjin.model.Course;
+import jonaszeihe.ninjin.model.UpdatedCourseDescriptionDto;
+import jonaszeihe.ninjin.model.UpdatedSegmentContentDto;
 import jonaszeihe.ninjin.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,5 +42,13 @@ public class CourseController {
     @DeleteMapping("{courseName}")
     public void deleteCourse(@PathVariable String courseName) {
         courseService.deleteCourse(courseName);
+    }
+
+    @PutMapping("/{courseName}")
+    public void updateCourseDescription(@PathVariable String courseName, @RequestBody UpdatedCourseDescriptionDto dto) {
+        if(!courseName.equals(dto.getCourseName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        this.courseService.updateCourseDescription(dto.getCourseName(), dto.getUpdatedCourseDescription());
     }
 }

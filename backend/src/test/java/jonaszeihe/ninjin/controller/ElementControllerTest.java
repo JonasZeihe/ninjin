@@ -106,7 +106,7 @@ class ElementControllerTest {
         headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<Element[]> response = testRestTemplate.exchange(
-                getUrl() + "/yoga 1", HttpMethod.GET, entity, Element[].class);
+                getUrl() + "/yoga 1/elements", HttpMethod.GET, entity, Element[].class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));

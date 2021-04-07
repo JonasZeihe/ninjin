@@ -4,7 +4,7 @@ import {
   getCourseByName,
   getSegmentsByCourseName,
   getUsersByCourseName,
-  postUser,
+  postUser, updateCourseDescription, updateSegmentContent,
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
 import UserList from '../components/Lists/UserList'
@@ -13,6 +13,7 @@ import { useAuth } from '../auth/AuthContext'
 import SegmentList from '../components/Lists/SegmentList'
 import styled from 'styled-components/macro'
 import CourseCard from "../components/Cards/CourseCard";
+import CreateCourseDescription from "../components/Forms/CreateCourseDescription";
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([""])
@@ -58,12 +59,22 @@ export default function CourseDetails() {
     })
   }
 
+  const createCourseDescription = (updatedCourseDescription) =>
+      updateCourseDescription(courseName, updatedCourseDescription)
+          .then((newCourseDescription) => {
+            const newDescription = [...courseData, newCourseDescription]
+            setCourseData(newDescription)
+          })
+          .catch((error) => console.error(error))
+
+
   return (
     <Wrapper>
         {courseData && (
             <CourseCard courseData={courseData}/>
         )}
         {!courseData && <span>Loading courseData</span>}
+        <CreateCourseDescription onAddDescription={createCourseDescription}/>
       <AddNewUser onAdd={addNewUser} />
       <UserList users={users} onDeleteUser={deleteUser} />
       <SegmentList segmentData={segmentData} />

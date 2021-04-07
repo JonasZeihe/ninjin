@@ -91,7 +91,7 @@ class SegmentControllerTest {
         headers.setBearerAuth(jwtToken);
         HttpEntity <Void> entity = new HttpEntity<>(headers);
         ResponseEntity<Segment[]> response = testRestTemplate.exchange(
-                getUrl() + "/yoga", HttpMethod.GET, entity, Segment[].class);
+                getUrl() + "/yoga/segments", HttpMethod.GET, entity, Segment[].class);
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
@@ -102,6 +102,7 @@ class SegmentControllerTest {
     }
     //Test adding a course with a size higher than 42 should throw exception
     //Test adding a course with a size lower than 1 should throw exception
+    //Test get single course
 
 
 }

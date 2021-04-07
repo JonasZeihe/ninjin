@@ -1,33 +1,33 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
 
-export default function CreateElementItemContent({ createElementItemContent }) {
-  const [elementContent, setElementContent] = useState('')
+export default function CreateCourseDescription({ onAddDescription }) {
+    const [updatedCourseDescription, setUpdatedCourseDescription] = useState('')
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    if (!elementContent) {
-      return
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        if (!updatedCourseDescription) {
+            return
+        }
+        onAddDescription(updatedCourseDescription)
+        setUpdatedCourseDescription('')
     }
-    createElementItemContent(elementContent)
-    setElementContent('')
-  }
-  return (
-    <Wrapper>
-      <Form onSubmit={handleSubmit}>
-        <Title>Create new content for this Element</Title>
-        <Input
-          type="text"
-          placeholder="content"
-          value={elementContent}
-          onChange={({ target }) => setElementContent(target.value)}
-        />
-        <Button disabled={!elementContent} type="submit">
-          submit
-        </Button>
-      </Form>
-    </Wrapper>
-  )
+    return (
+        <Wrapper>
+            <Form onSubmit={handleSubmit}>
+                <Title>Create a new description for your Course</Title>
+                <Input
+                    type="text"
+                    placeholder="content"
+                    value={updatedCourseDescription}
+                    onChange={({ target }) => setUpdatedCourseDescription(target.value)}
+                />
+                <Button disabled={!updatedCourseDescription} type="submit">
+                    submit
+                </Button>
+            </Form>
+        </Wrapper>
+    )
 }
 
 const Wrapper = styled.section`

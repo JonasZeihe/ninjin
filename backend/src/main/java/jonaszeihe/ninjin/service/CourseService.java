@@ -2,6 +2,7 @@ package jonaszeihe.ninjin.service;
 
 import jonaszeihe.ninjin.db.CourseMongoDb;
 import jonaszeihe.ninjin.model.Course;
+import jonaszeihe.ninjin.model.Segment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -38,6 +39,12 @@ public class CourseService {
 
     public void deleteCourse(String courseName) {
         courseMongoDb.deleteById(courseName);
+    }
 
+    public void updateCourseDescription(String courseName, String updatedCourseDescription) {
+        Course existingCourse = courseMongoDb.findById(courseName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Course updatedCourse = existingCourse.toBuilder().courseDescription(updatedCourseDescription).build();
+
+        courseMongoDb.save(updatedCourse);
     }
 }

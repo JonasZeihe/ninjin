@@ -2,6 +2,7 @@ package jonaszeihe.ninjin.controller;
 
 import jonaszeihe.ninjin.model.AddSegmentDto;
 import jonaszeihe.ninjin.model.Segment;
+import jonaszeihe.ninjin.model.UpdatedElementGroupContentDto;
 import jonaszeihe.ninjin.model.UpdatedSegmentContentDto;
 import jonaszeihe.ninjin.service.SegmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class SegmentController {
         this.segmentService.addSegments(dto.getCourseName(), dto.getSegmentContent(), dto.getCourseSize());
     }
 
-    @GetMapping("{courseName}")
+    @GetMapping("{courseName}/segments")
     public List<Segment> listSegmentsByCourseName(@PathVariable String courseName) {
         return segmentService.listSegmentsByCourseName(courseName);
     }
@@ -47,5 +48,4 @@ public class SegmentController {
         }
         this.segmentService.updateSegmentContent(dto.getSegmentName(), dto.getUpdatedSegmentContent());
     }
-
 }

@@ -26,7 +26,7 @@ public class ElementController {
     public void addElements(@RequestBody AddElementDto dto) {
         this.elementService.addElements(dto.getCourseName(), dto.getElementContent(), dto.getCourseSize());    }
 
-    @GetMapping("{segmentName}")
+    @GetMapping("{segmentName}/elements")
     public List<Element> listElementsBySegmentName(@PathVariable String segmentName) {
         return elementService.listElementsBySegmentName(segmentName);
     }
@@ -35,7 +35,6 @@ public class ElementController {
     public Element getElementByElementName(@PathVariable String elementName) {
         return elementService.getElementByElementName(elementName)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Element not found"));
-
     }
 
     @PutMapping("/{elementName}")
@@ -46,7 +45,7 @@ public class ElementController {
         return this.elementService.updateElementContent(dto.getElementName(), dto.getUpdatedElementContent());
     }
 
-    @PutMapping("/{segmentName}")
+    @PutMapping("/{segmentName}/elements")
     public void updateElementGroupContent(@PathVariable String segmentName, @RequestBody UpdatedElementGroupContentDto dto) {
         if(!segmentName.contains(dto.getSegmentName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
