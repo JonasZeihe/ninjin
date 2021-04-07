@@ -89,5 +89,5 @@ export const updateElementContent = (elementName, updatedElementContent) =>
 
 export const updateElementGroupContent = (segmentName, elementContent) =>
   axiosConfig.axiosInstance
-    .put(elementUrl + '/' + segmentName + '/elements', { segmentName, elementContent })
+    .put(elementUrl + '/' + segmentName + '/elements', { segmentName, updatedElementContent: elementContent })
     .then((response) => response.data)

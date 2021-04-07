@@ -9,6 +9,7 @@ import {
 import { useState, useEffect } from 'react'
 import CourseList from '../components/Lists/CourseList'
 import styled from 'styled-components/macro'
+import {Title, Wrapper} from "../components/GlobalStyle";
 
 export default function CourseOverview() {
   const [courses, setCourses] = useState([])
@@ -44,6 +45,7 @@ export default function CourseOverview() {
 
   return (
     <Wrapper>
+      <Title>Course Overview</Title>
         <CreateNewCourse
         onAddCourse={createNewCourse}
         onAddSegment={createCourseSegments}
@@ -54,12 +56,4 @@ export default function CourseOverview() {
   )
 }
 
-const Wrapper = styled.section`
-  background-image: linear-gradient(#2c2c91, white);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-`
+

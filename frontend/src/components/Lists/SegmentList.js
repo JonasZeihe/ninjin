@@ -1,18 +1,13 @@
-import styled from 'styled-components/macro'
 import SegmentItem from '../Items/SegmentItem'
+import {ListWrapper} from "../GlobalStyle";
 
 export default function SegmentList({ segmentData }) {
   return (
-    <Wrapper>
+    <ListWrapper>
       {segmentData.map((segment) => (
-        <SegmentItem key={segment.courseName} segment={segment} />
+        <SegmentItem key={segment.id} segment={segment} />
       ))}
-    </Wrapper>
+    </ListWrapper>
   )
 }
-const Wrapper = styled.div`
-  list-style-type: none;
-  flex-flow: column;
-  flex-wrap: wrap;
-  flex-direction: row;
-`
+

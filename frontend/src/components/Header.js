@@ -3,22 +3,25 @@ import logo from '../images/mizu-kiri.png.svg'
 
 export default function Header() {
   return (
-    <Wrapper>
+    <HeaderWrapper>
       <div>
         <h2>shizen</h2>
       </div>
 
+{/*
       <Logo src={logo} />
-    </Wrapper>
+*/}
+    </HeaderWrapper>
   )
 }
 
-const Wrapper = styled.section`
-  background: linear-gradient(white, #2c2c91);
+const HeaderWrapper = styled.section`
   display: flex;
   flex-flow: row;
   padding-left: 2em;
   position: relative;
+  height: auto;
+  background-image: url("../images/carrot old logo.png");
 `
 const Logo = styled.img`
   width: 15em;

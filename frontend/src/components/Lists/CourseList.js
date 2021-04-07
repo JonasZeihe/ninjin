@@ -1,23 +1,17 @@
 import CourseListItem from '../Items/CourseListItem'
 import styled from 'styled-components/macro'
+import {ListWrapper} from "../GlobalStyle";
 
 export default function CourseList({ courses, onDeleteCourse }) {
   return (
-    <Wrapper>
+    <ListWrapper>
       {courses.map((course) => (
         <CourseListItem
-          key={course.courseName}
+          key={course.id}
           course={course}
           onDeleteCourse={onDeleteCourse}
         />
       ))}
-    </Wrapper>
+    </ListWrapper>
   )
 }
-
-const Wrapper = styled.div`
-  list-style-type: none;
-  flex-flow: column;
-  flex-wrap: wrap;
-  flex-direction: row;
-`

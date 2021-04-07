@@ -9,9 +9,10 @@ import {
 import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
 import ElementCard from "../components/Cards/ElementCard";
 import CreateElementItemContent from "../components/Forms/CreateElementItemContent";
+import {Title, Wrapper} from "../components/GlobalStyle";
 
 export default function ElementDetails() {
-  const [elementItemData, setElementItemData] = useState("")
+  const [elementItemData, setElementItemData] = useState({})
   const { elementName } = useParams()
   const { token } = useAuth()
 
@@ -29,10 +30,10 @@ export default function ElementDetails() {
     )
   }
 
-  const createElementItemContent = (elementContent) =>
-    updateElementContent(elementName, elementContent)
-      .then((updatedSegmentContent) => {
-        const updatedContent = [...elementItemData, updatedSegmentContent]
+  const editElementItemContent = (updatedElementContent) =>
+    updateElementContent(elementName, updatedElementContent)
+      .then(() => {
+        const updatedContent = {...elementItemData, elementContent: updatedElementContent}
         setElementItemData(updatedContent)
       })
       .catch((error) => console.error(error))
@@ -41,21 +42,14 @@ export default function ElementDetails() {
 
   return (
     <Wrapper>
+        <Title>Element Details</Title>
         {elementItemData && (
             <ElementCard elementItemData={elementItemData}/>
         )}
         {!elementItemData && <span>Loading elementData</span>}
-      <CreateElementItemContent createElementItemContent={createElementItemContent} />
+      <CreateElementItemContent createElementItemContent={editElementItemContent} />
     </Wrapper>
   )
 }
 
-const Wrapper = styled.section`
-  background-image: linear-gradient(#2c2c91, white);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-`
+

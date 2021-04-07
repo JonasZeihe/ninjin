@@ -1,18 +1,13 @@
-import styled from 'styled-components/macro'
 import ElementItem from '../Items/ElementItem'
+import {ListWrapper} from "../GlobalStyle";
 
 export default function ElementList({ elements }) {
   return (
-    <Wrapper>
+    <ListWrapper>
       {elements.map((element) => (
-        <ElementItem key={element.segmentName} element={element} />
+        <ElementItem key={element.id} element={element} />
       ))}
-    </Wrapper>
+    </ListWrapper>
   )
 }
-const Wrapper = styled.div`
-  list-style-type: none;
-  flex-flow: column;
-  flex-wrap: wrap;
-  flex-direction: row;
-`
+

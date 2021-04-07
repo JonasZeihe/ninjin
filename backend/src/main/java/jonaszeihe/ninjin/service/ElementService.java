@@ -60,7 +60,9 @@ public class ElementService {
 
     public void updateElementGroupContentBySegmentName(String segmentName, String updatedElementContent) {
         List<Element> existingElementGroup = elementMongoDb.findAllBySegmentName(segmentName);
-        existingElementGroup.forEach(elementContentUpdate -> Element.builder().elementContent(updatedElementContent).build().toBuilder());
+        existingElementGroup.forEach(element -> element.setElementContent(updatedElementContent));
+
+        elementMongoDb.saveAll(existingElementGroup);
     }
 
 

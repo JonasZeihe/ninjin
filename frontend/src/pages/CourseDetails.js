@@ -14,10 +14,11 @@ import SegmentList from '../components/Lists/SegmentList'
 import styled from 'styled-components/macro'
 import CourseCard from "../components/Cards/CourseCard";
 import CreateCourseDescription from "../components/Forms/CreateCourseDescription";
+import {Title, Wrapper} from "../components/GlobalStyle";
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([""])
-  const [courseData, setCourseData] = useState("")
+  const [courseData, setCourseData] = useState({})
   const [segmentData, setSegmentData] = useState([""])
   const { courseName } = useParams()
   const { token } = useAuth()
@@ -59,22 +60,23 @@ export default function CourseDetails() {
     })
   }
 
-  const createCourseDescription = (updatedCourseDescription) =>
+  const editCourseDescription = (updatedCourseDescription) =>
       updateCourseDescription(courseName, updatedCourseDescription)
-          .then((newCourseDescription) => {
-            const newDescription = [...courseData, newCourseDescription]
-            setCourseData(newDescription)
+          .then(() => {
+            const updatedCourseData = {...courseData, courseDescription: updatedCourseDescription}
+            setCourseData(updatedCourseData)
           })
           .catch((error) => console.error(error))
 
 
   return (
     <Wrapper>
+        <Title>Course Details</Title>
         {courseData && (
             <CourseCard courseData={courseData}/>
         )}
         {!courseData && <span>Loading courseData</span>}
-        <CreateCourseDescription onAddDescription={createCourseDescription}/>
+        <CreateCourseDescription onAddDescription={editCourseDescription}/>
       <AddNewUser onAdd={addNewUser} />
       <UserList users={users} onDeleteUser={deleteUser} />
       <SegmentList segmentData={segmentData} />
@@ -82,12 +84,4 @@ export default function CourseDetails() {
   )
 }
 
-const Wrapper = styled.section`
-  background-image: linear-gradient(#2c2c91, white);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-`
+
