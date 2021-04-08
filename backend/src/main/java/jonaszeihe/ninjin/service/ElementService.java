@@ -26,28 +26,27 @@ public class ElementService {
         } catch (NumberFormatException e) {
             size = 1;
         }
-        {
-            if (size > 42) {
-                throw new IllegalArgumentException();
-            } else {
-                for (int count = 1; count <= size; count++) {
-                    String segmentName = courseName + " " + count;
-                    int elementSize = 7;
-                    for (int elementCount = 1; elementCount <= elementSize; elementCount++) {
-                        String elementName = segmentName + " " + "Element" + " " + elementCount;
-                        Element element = Element.builder().elementName(elementName).elementContent(elementContent).segmentName(segmentName).build();
-                        elementMongoDb.save(element);
-                    }
-                }
+
+        if (size > 42) {
+            throw new IllegalArgumentException();
+        }
+        for (int count = 1; count <= size; count++) {
+            String segmentName = courseName + " " + count;
+            int elementSize = 7;
+            for (int elementCount = 1; elementCount <= elementSize; elementCount++) {
+                String elementName = segmentName + " " + "Element" + " " + elementCount;
+                Element element = Element.builder().elementName(elementName).elementContent(elementContent).segmentName(segmentName).build();
+                elementMongoDb.save(element);
             }
         }
     }
+
 
     public List<Element> listElementsBySegmentName(String segmentName) {
         return elementMongoDb.findAllBySegmentName(segmentName);
     }
 
-    public Optional<Element> getElementByElementName (String elementName) {
+    public Optional<Element> getElementByElementName(String elementName) {
         return elementMongoDb.findById(elementName);
     }
 
@@ -58,9 +57,11 @@ public class ElementService {
         return elementMongoDb.save(updatedElement);
     }
 
-    public void updateElementGroupContentBySegmentName(String segmentName, String updatedElementContent) {
+    public List<Element> updateElementGroupContentBySegmentName(String segmentName, String updatedElementContent) {
         List<Element> existingElementGroup = elementMongoDb.findAllBySegmentName(segmentName);
-        existingElementGroup.forEach(elementContentUpdate -> Element.builder().elementContent(updatedElementContent).build().toBuilder());
+        existingElementGroup.forEach(element -> element.setElementContent(updatedElementContent));
+        elementMongoDb.saveAll(existingElementGroup);
+        return existingElementGroup;
     }
 
 

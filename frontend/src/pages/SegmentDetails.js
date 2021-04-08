@@ -2,80 +2,76 @@ import { useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { useEffect, useState } from 'react'
 import {
-    getElementsBySegmentName,
-    updateSegmentContent,
-    updateElementGroupContent,
-    getSegmentById
+  getElementsBySegmentName,
+  updateSegmentContent,
+  updateElementGroupContent,
+  getSegmentById,
 } from '../services/apiService'
 import CreateSegmentContent from '../components/Forms/CreateSegmentContent'
 import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
 import ElementList from '../components/Lists/ElementList'
-import styled from 'styled-components/macro'
-import SegmentCard from "../components/Cards/SegmentCard";
+import SegmentCard from '../components/Cards/SegmentCard'
+import { Title, Wrapper } from '../components/GlobalStyle'
+import Spinner from '../components/Spinner'
 
 export default function SegmentDetails() {
-  const [segmentItemData, setSegmentItemData] = useState("")
-  const [elementGroupData, setElementGroupData] = useState([""])
+  const [segmentItemData, setSegmentItemData] = useState({})
+  const [elementGroupData, setElementGroupData] = useState([])
+
   const { segmentName } = useParams()
+  console.log(elementGroupData)
   const { token } = useAuth()
 
   useEffect(() => {
-      getSegmentById(segmentName, token).then(setSegmentItemData)
-      getElementsBySegmentName(segmentName, token)
-          .then(setElementGroupData)
-          .catch((error) => console.error(error))
+    getSegmentById(segmentName, token).then(setSegmentItemData)
+    getElementsBySegmentName(segmentName, token)
+      .then(setElementGroupData)
+      .catch((error) => console.error(error))
   }, [segmentName])
 
   if (!segmentItemData) {
     return (
-      <section>
+      <Spinner>
         <p>Waiting for segmentData</p>
-      </section>
+      </Spinner>
     )
   }
   if (!elementGroupData) {
     return (
-      <section>
+      <Spinner>
         <p>Waiting for elementGroupData</p>
-      </section>
+      </Spinner>
     )
   }
 
-  const createSegmentContent = (updatedSegmentContent) =>
+  const editSegmentContent = (updatedSegmentContent) =>
     updateSegmentContent(segmentName, updatedSegmentContent)
-      .then((updatedSegmentContent) => {
-        const updatedContent = [...segmentItemData, updatedSegmentContent]
-        setSegmentItemData(updatedContent)
+      .then(() => {
+        const updatedSegmentItemData = {
+          ...segmentItemData,
+          segmentContent: updatedSegmentContent,
+        }
+        setSegmentItemData(updatedSegmentItemData)
       })
       .catch((error) => console.error(error))
 
-  const createNewElementGroupContent = (elementContent) =>
-    updateElementGroupContent(segmentName, elementContent)
-      .then((updatedElementContent) => {
-        const updatedContent = [...elementGroupData, updatedElementContent]
-        setElementGroupData(updatedContent)
+  const createNewElementGroupContent = (newElementContent) =>
+    updateElementGroupContent(segmentName, newElementContent)
+      .then(() => {
+        getElementsBySegmentName(segmentName, token).then(setElementGroupData)
       })
       .catch((error) => console.error(error))
 
   return (
     <Wrapper>
-        {segmentItemData && (
-            <SegmentCard segmentItemData={segmentItemData}/>
-            )}
-        {!segmentItemData && <span>Loading segmentData</span>}
-      <CreateSegmentContent onAddSegment={createSegmentContent} />
-      <CreateElementGroupContent onAddElementGroupContent={createNewElementGroupContent}/>
+      <Title>Segment Details</Title>
+      {segmentItemData && <SegmentCard segmentItemData={segmentItemData} />}
+      {!segmentItemData && <span>Loading segmentData</span>}
+      <CreateSegmentContent onAddSegment={editSegmentContent} />
+      <CreateElementGroupContent
+        onAddElementGroupContent={createNewElementGroupContent}
+      />
       <ElementList elements={elementGroupData} />
     </Wrapper>
   )
 }
-
-const Wrapper = styled.section`
-  background-image: linear-gradient(#2c2c91, white);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-`

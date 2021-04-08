@@ -24,9 +24,9 @@ export const deleteCourseById = (courseName) =>
   axiosConfig.axiosInstance.delete(`${courseUrl}/${courseName}`)
 //UPDATE
 export const updateCourseDescription = (courseName, updatedCourseDescription) =>
-    axiosConfig.axiosInstance
-        .put(courseUrl + '/' + courseName, { courseName, updatedCourseDescription })
-        .then((response) => response.data)
+  axiosConfig.axiosInstance
+    .put(courseUrl + '/' + courseName, { courseName, updatedCourseDescription })
+    .then((response) => response.data)
 
 //--USER
 //POST
@@ -89,5 +89,8 @@ export const updateElementContent = (elementName, updatedElementContent) =>
 
 export const updateElementGroupContent = (segmentName, elementContent) =>
   axiosConfig.axiosInstance
-    .put(elementUrl + '/' + segmentName + '/elements', { segmentName, elementContent })
+    .put(elementUrl + '/' + segmentName + '/elements', {
+      segmentName,
+      updatedElementContent: elementContent,
+    })
     .then((response) => response.data)
