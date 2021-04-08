@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, Input, Textarea, Title, Wrapper} from '../GlobalStyle'
 
 export default function CreateElementItemContent({ createElementItemContent }) {
   const [updatedElementContent, setUpdatedElementContent] = useState('')
@@ -14,9 +14,9 @@ export default function CreateElementItemContent({ createElementItemContent }) {
   }
   return (
     <Wrapper>
+      <Title>Add Content</Title>
       <Form onSubmit={handleSubmit}>
-        <Title>Add Content</Title>
-        <Input
+        <Textarea
           type="text"
           placeholder="content"
           value={updatedElementContent}

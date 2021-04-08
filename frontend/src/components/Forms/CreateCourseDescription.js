@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, Input, Textarea, Title, Wrapper} from '../GlobalStyle'
 
 export default function CreateCourseDescription({ onAddDescription }) {
   const [updatedCourseDescription, setUpdatedCourseDescription] = useState('')
@@ -14,9 +14,9 @@ export default function CreateCourseDescription({ onAddDescription }) {
   }
   return (
     <Wrapper>
+      <Title>Add description</Title>
       <Form onSubmit={handleSubmit}>
-        <Title>Add description</Title>
-        <Input
+        <Textarea
           type="text"
           placeholder="content"
           value={updatedCourseDescription}

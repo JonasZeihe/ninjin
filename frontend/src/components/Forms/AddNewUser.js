@@ -14,10 +14,11 @@ export default function AddNewUser({ onAdd, course }) {
   }
   return (
     <Wrapper>
+      <Title>users</Title>
       <Form onSubmit={handleSubmit}>
-        <Title>users</Title>
         <Input
           type="text"
+          maxlength="30"
           placeholder="username"
           value={userName}
           onChange={({ target }) => setUserName(target.value)}

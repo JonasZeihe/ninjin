@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { getElementById, updateElementContent } from '../services/apiService'
 import ElementCard from '../components/Cards/ElementCard'
 import CreateElementItemContent from '../components/Forms/CreateElementItemContent'
-import { Title, Wrapper } from '../components/GlobalStyle'
+import {FormWrapper, Title, Wrapper} from '../components/GlobalStyle'
+import Spinner from "../components/Spinner";
 
 export default function ElementDetails() {
   const [elementItemData, setElementItemData] = useState({})
@@ -40,10 +41,12 @@ export default function ElementDetails() {
     <Wrapper>
       <Title>Element Details</Title>
       {elementItemData && <ElementCard elementItemData={elementItemData} />}
-      {!elementItemData && <span>Loading elementData</span>}
+      {!elementItemData && <Spinner/>}
+      <FormWrapper>
       <CreateElementItemContent
         createElementItemContent={editElementItemContent}
       />
+      </FormWrapper>
     </Wrapper>
   )
 }

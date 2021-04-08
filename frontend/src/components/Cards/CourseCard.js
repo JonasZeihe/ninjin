@@ -1,11 +1,15 @@
 import { CardContainer } from '../GlobalStyle'
+import ReactMarkdown from 'react-markdown'
+import emoji from 'emoji-dictionary'
 
 export default function CourseCard({ courseData }) {
-  return (
+    const emojiSupport = text => text.value.replace(/:\w+:/gi, name => emoji.getUnicode(name));
+
+    return (
     <CardContainer>
       <span>{courseData.courseName}</span>
       <span>Size: {courseData.courseSize}</span>
-      <span>{courseData.courseDescription}</span>
+        <ReactMarkdown source={courseData.courseDescription} renderers={{ text: emojiSupport }}   />
     </CardContainer>
   )
 }

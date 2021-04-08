@@ -6,9 +6,9 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import AuthProvider from './auth/AuthProvider'
 import SegmentDetails from './pages/SegmentDetails'
 import Header from './components/Header'
-import GridWrapper from './components/GridWrapper'
 import LandingPage from './pages/LandingPage'
 import ElementDetails from './pages/ElementDetails'
+import {GridWrapper} from "./components/GlobalStyle";
 
 function App() {
   return (

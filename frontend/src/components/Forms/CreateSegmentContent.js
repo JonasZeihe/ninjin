@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, Input, Textarea, Title, Wrapper} from '../GlobalStyle'
 
 export default function CreateSegmentContent({ onAddSegment }) {
   const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')
@@ -13,9 +13,9 @@ export default function CreateSegmentContent({ onAddSegment }) {
   }
   return (
     <Wrapper>
+      <Title>Add Content</Title>
       <Form onSubmit={handleSubmit}>
-        <Title>Add Content</Title>
-        <Input
+        <Textarea
           type="text"
           placeholder="content"
           value={updatedSegmentContent}

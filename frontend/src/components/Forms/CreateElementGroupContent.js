@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, Input, Textarea, Title, Wrapper} from '../GlobalStyle'
 
 export default function CreateElementGroupContent({
   onAddElementGroupContent,
@@ -16,9 +16,9 @@ export default function CreateElementGroupContent({
   }
   return (
     <Wrapper>
+      <Title>Add element group Content</Title>
       <Form onSubmit={handleSubmit}>
-        <Title>Add element group Content</Title>
-        <Input
+        <Textarea
           type="text"
           placeholder="content"
           value={newElementContent}

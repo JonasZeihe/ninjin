@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, Input, Textarea, Title, Wrapper} from '../GlobalStyle'
 
 export default function CreateNewCourse({
   onAddCourse,
@@ -23,8 +23,8 @@ export default function CreateNewCourse({
 
   return (
     <Wrapper>
+      <Title>Create a new course and set a size</Title>
       <Form onSubmit={handleSubmit}>
-        <Title>Create a new course and set a size</Title>
         <Input
           type="text"
           placeholder="course name"

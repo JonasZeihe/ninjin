@@ -2,10 +2,17 @@ import Spinner from '../Spinner'
 import randomAdvice from '../RandomAdvice'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, ButtonLink, Container } from '../GlobalStyle'
+import {AdviceContainer, Button, ButtonLink, Container, ListItemContainer} from '../GlobalStyle'
+/*
+import ReactMarkdown from 'react-markdown'
+import emoji from 'emoji-dictionary'
+*/
 
 export default function ElementItem({ element }) {
-  const [loading, setLoading] = useState(false)
+/*
+    const emojiSupport = text => text.value.replace(/:\w+:/gi, name => emoji.getUnicode(name));
+*/
+    const [loading, setLoading] = useState(false)
   const [adviceData, setAdvice] = useState()
 
   function getRandomAdvice() {
@@ -16,18 +23,14 @@ export default function ElementItem({ element }) {
   }
 
   return (
-    <Container>
-      <span>Element: {element.elementName}</span>
-      <span>Content: {element.elementContent}</span>
-      <span>Segment: {element.segmentName}</span>
-      {loading && <Spinner />}
+    <ListItemContainer as={Link} to={`/element/${element.elementName}`}>
+      <span>{element.elementName}</span>
+{/*        <ReactMarkdown source={element.elementContent} renderers={{ text: emojiSupport }}   />
+*/}      {loading && <Spinner />}
       <Button onClick={() => getRandomAdvice()}>
         Get me some daily advice!
       </Button>
-      {adviceData && <Container>{adviceData.advice}</Container>}
-      <ButtonLink as={Link} to={`/element/${element.elementName}`}>
-        details
-      </ButtonLink>
-    </Container>
+      {adviceData && <AdviceContainer>{adviceData.advice}</AdviceContainer>}
+    </ListItemContainer>
   )
 }

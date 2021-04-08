@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { loginUser } from '../services/loginService'
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import { Button, Form, Input, Wrapper } from '../components/GlobalStyle'
+import {Button, Form, Input, Title, Wrapper} from '../components/GlobalStyle'
 
 export default function Login() {
   const { token, setToken } = useAuth()
@@ -34,7 +34,7 @@ export default function Login() {
           value={userName}
           onChange={({ target }) => setUserName(target.value)}
         />
-        <input
+        <Input
           placeholder="Password"
           type="password"
           value={userPassword}
@@ -45,10 +45,3 @@ export default function Login() {
     </Wrapper>
   )
 }
-
-const Title = styled.h2`
-  font-weight: normal;
-  color: #2a2a29;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
-  text-align: center;
-`

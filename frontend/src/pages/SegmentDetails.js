@@ -11,7 +11,7 @@ import CreateSegmentContent from '../components/Forms/CreateSegmentContent'
 import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
 import ElementList from '../components/Lists/ElementList'
 import SegmentCard from '../components/Cards/SegmentCard'
-import { Title, Wrapper } from '../components/GlobalStyle'
+import {FormWrapper, ListWrapper, Title, Wrapper} from '../components/GlobalStyle'
 import Spinner from '../components/Spinner'
 
 export default function SegmentDetails() {
@@ -66,11 +66,13 @@ export default function SegmentDetails() {
     <Wrapper>
       <Title>Segment Details</Title>
       {segmentItemData && <SegmentCard segmentItemData={segmentItemData} />}
-      {!segmentItemData && <span>Loading segmentData</span>}
+      {!segmentItemData && <Spinner/>}
+      <FormWrapper>
       <CreateSegmentContent onAddSegment={editSegmentContent} />
       <CreateElementGroupContent
         onAddElementGroupContent={createNewElementGroupContent}
       />
+      </FormWrapper>
       <ElementList elements={elementGroupData} />
     </Wrapper>
   )
