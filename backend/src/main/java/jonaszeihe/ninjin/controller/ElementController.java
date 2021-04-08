@@ -24,7 +24,8 @@ public class ElementController {
 
     @PostMapping
     public void addElements(@RequestBody AddElementDto dto) {
-        this.elementService.addElements(dto.getCourseName(), dto.getElementContent(), dto.getCourseSize());    }
+        this.elementService.addElements(dto.getCourseName(), dto.getElementContent(), dto.getCourseSize());
+    }
 
     @GetMapping("{segmentName}/elements")
     public List<Element> listElementsBySegmentName(@PathVariable String segmentName) {
@@ -34,23 +35,23 @@ public class ElementController {
     @GetMapping("{elementName}")
     public Element getElementByElementName(@PathVariable String elementName) {
         return elementService.getElementByElementName(elementName)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Element not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Element not found"));
     }
 
     @PutMapping("/{elementName}")
     public Element updateElementContent(@PathVariable String elementName, @RequestBody UpdatedElementContentDto dto) {
-        if(!elementName.equals(dto.getElementName())){
+        if (!elementName.equals(dto.getElementName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return this.elementService.updateElementContent(dto.getElementName(), dto.getUpdatedElementContent());
     }
 
     @PutMapping("/{segmentName}/elements")
-    public void updateElementGroupContent(@PathVariable String segmentName, @RequestBody UpdatedElementGroupContentDto dto) {
-        if(!segmentName.contains(dto.getSegmentName())){
+    public List<Element> updateElementGroupContent(@PathVariable String segmentName, @RequestBody UpdatedElementGroupContentDto dto) {
+        if (!segmentName.contains(dto.getSegmentName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        this.elementService.updateElementGroupContentBySegmentName(dto.getSegmentName(), dto.getUpdatedElementContent());
+        return this.elementService.updateElementGroupContentBySegmentName(dto.getSegmentName(), dto.getUpdatedElementContent());
     }
 
 }

@@ -1,5 +1,5 @@
 import ElementItem from '../Items/ElementItem'
-import {ListWrapper} from "../GlobalStyle";
+import { ListWrapper } from '../GlobalStyle'
 
 export default function ElementList({ elements }) {
   return (
@@ -10,4 +10,3 @@ export default function ElementList({ elements }) {
     </ListWrapper>
   )
 }
-

@@ -1,5 +1,4 @@
-import {AvatarCard, Button} from "../GlobalStyle";
-import axios from "axios";
+import { AvatarCard, Button } from '../GlobalStyle'
 
 export default function UserItem({ user, onDeleteUser }) {
   return (

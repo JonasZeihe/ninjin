@@ -1,5 +1,5 @@
 import UserItem from '../Items/UserItem'
-import {ListWrapper} from "../GlobalStyle";
+import { ListWrapper } from '../GlobalStyle'
 
 export default function UserList({ users, onDeleteUser }) {
   return (
@@ -10,4 +10,3 @@ export default function UserList({ users, onDeleteUser }) {
     </ListWrapper>
   )
 }
-

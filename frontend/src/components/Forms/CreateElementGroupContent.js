@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Button, Form, Input, Title, Wrapper} from "../GlobalStyle";
+import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
 
 export default function CreateElementGroupContent({
   onAddElementGroupContent,
@@ -22,7 +22,7 @@ export default function CreateElementGroupContent({
           type="text"
           placeholder="content"
           value={newElementContent}
-          onChange={( event ) => setNewElementContent(event.target.value)}
+          onChange={(event) => setNewElementContent(event.target.value)}
         />
         <Button disabled={!newElementContent} type="submit">
           submit

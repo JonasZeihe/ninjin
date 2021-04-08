@@ -1,6 +1,11 @@
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
-import {ButtonLink, Container, Title, Wrapper} from "../components/GlobalStyle";
+import {
+  ButtonLink,
+  Container,
+  Title,
+  Wrapper,
+} from '../components/GlobalStyle'
 
 export default function LandingPage() {
   return (
@@ -62,10 +67,10 @@ const Footer = styled.footer`
   text-align: center;
 `
 
-const Icon = styled.img`
+/*const Icon = styled.img`
   box-shadow: 0 0 10px 2px hotpink;
   width: 3.3em;
   height: 3.3em;
   border-radius: 50%;
   left: 1.75em;
-`
+`*/

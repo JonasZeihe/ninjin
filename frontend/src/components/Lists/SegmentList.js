@@ -1,5 +1,5 @@
 import SegmentItem from '../Items/SegmentItem'
-import {ListWrapper} from "../GlobalStyle";
+import { ListWrapper } from '../GlobalStyle'
 
 export default function SegmentList({ segmentData }) {
   return (
@@ -10,4 +10,3 @@ export default function SegmentList({ segmentData }) {
     </ListWrapper>
   )
 }
-

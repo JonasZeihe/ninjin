@@ -58,11 +58,11 @@ public class ElementService {
         return elementMongoDb.save(updatedElement);
     }
 
-    public void updateElementGroupContentBySegmentName(String segmentName, String updatedElementContent) {
+    public List<Element> updateElementGroupContentBySegmentName(String segmentName, String updatedElementContent) {
         List<Element> existingElementGroup = elementMongoDb.findAllBySegmentName(segmentName);
         existingElementGroup.forEach(element -> element.setElementContent(updatedElementContent));
-
         elementMongoDb.saveAll(existingElementGroup);
+        return existingElementGroup;
     }
 
 

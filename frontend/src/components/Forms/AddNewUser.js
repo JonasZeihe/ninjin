@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Button, Form, Input, Title, Wrapper} from "../GlobalStyle";
+import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
 
 export default function AddNewUser({ onAdd, course }) {
   const [userName, setUserName] = useState('')

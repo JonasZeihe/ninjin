@@ -8,8 +8,7 @@ import {
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
 import CourseList from '../components/Lists/CourseList'
-import styled from 'styled-components/macro'
-import {Title, Wrapper} from "../components/GlobalStyle";
+import { Title, Wrapper } from '../components/GlobalStyle'
 
 export default function CourseOverview() {
   const [courses, setCourses] = useState([])
@@ -20,8 +19,8 @@ export default function CourseOverview() {
       .catch((error) => console.error(error))
   }, [])
 
-    const courseDescription = 'this could be your course description'
-    const createNewCourse = (courseName, courseSize) =>
+  const courseDescription = 'this could be your course description'
+  const createNewCourse = (courseName, courseSize) =>
     postCourse(courseName, courseSize, courseDescription)
       .then((newCourse) => {
         const updatedCourses = [...courses, newCourse]
@@ -46,7 +45,7 @@ export default function CourseOverview() {
   return (
     <Wrapper>
       <Title>Course Overview</Title>
-        <CreateNewCourse
+      <CreateNewCourse
         onAddCourse={createNewCourse}
         onAddSegment={createCourseSegments}
         onAddElement={createElements}
@@ -55,5 +54,3 @@ export default function CourseOverview() {
     </Wrapper>
   )
 }
-
-

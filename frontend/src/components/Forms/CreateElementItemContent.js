@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Button, Form, Input, Title, Wrapper} from "../GlobalStyle";
+import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
 
 export default function CreateElementItemContent({ createElementItemContent }) {
   const [updatedElementContent, setUpdatedElementContent] = useState('')
@@ -20,7 +20,7 @@ export default function CreateElementItemContent({ createElementItemContent }) {
           type="text"
           placeholder="content"
           value={updatedElementContent}
-          onChange={( event ) => setUpdatedElementContent(event.target.value)}
+          onChange={(event) => setUpdatedElementContent(event.target.value)}
         />
         <Button disabled={!updatedElementContent} type="submit">
           submit

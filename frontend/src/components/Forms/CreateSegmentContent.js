@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import styled from 'styled-components/macro'
-import {Button, Form, Input, Title, Wrapper} from "../GlobalStyle";
+import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
 
 export default function CreateSegmentContent({ onAddSegment }) {
   const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')
@@ -20,7 +19,7 @@ export default function CreateSegmentContent({ onAddSegment }) {
           type="text"
           placeholder="content"
           value={updatedSegmentContent}
-          onChange={( event ) => setUpdatedSegmentContent(event.target.value)}
+          onChange={(event) => setUpdatedSegmentContent(event.target.value)}
         />
         <Button disabled={!updatedSegmentContent} type="submit">
           submit
@@ -29,5 +28,3 @@ export default function CreateSegmentContent({ onAddSegment }) {
     </Wrapper>
   )
 }
-
-

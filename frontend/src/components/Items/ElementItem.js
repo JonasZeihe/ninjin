@@ -2,7 +2,7 @@ import Spinner from '../Spinner'
 import randomAdvice from '../RandomAdvice'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {Button, ButtonLink, Container} from "../GlobalStyle";
+import { Button, ButtonLink, Container } from '../GlobalStyle'
 
 export default function ElementItem({ element }) {
   const [loading, setLoading] = useState(false)

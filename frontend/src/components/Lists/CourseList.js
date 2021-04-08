@@ -1,6 +1,5 @@
 import CourseListItem from '../Items/CourseListItem'
-import styled from 'styled-components/macro'
-import {ListWrapper} from "../GlobalStyle";
+import { ListWrapper } from '../GlobalStyle'
 
 export default function CourseList({ courses, onDeleteCourse }) {
   return (

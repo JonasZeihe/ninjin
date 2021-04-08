@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import {Button, ButtonLink, Container} from "../GlobalStyle";
+import { Button, ButtonLink, Container } from '../GlobalStyle'
 
 export default function CourseListItem({ course, onDeleteCourse }) {
   return (

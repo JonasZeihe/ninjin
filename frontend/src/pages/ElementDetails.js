@@ -1,15 +1,10 @@
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { useEffect, useState } from 'react'
-import styled from 'styled-components/macro'
-import {
-    getElementById,
-    updateElementContent,
-} from '../services/apiService'
-import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
-import ElementCard from "../components/Cards/ElementCard";
-import CreateElementItemContent from "../components/Forms/CreateElementItemContent";
-import {Title, Wrapper} from "../components/GlobalStyle";
+import { getElementById, updateElementContent } from '../services/apiService'
+import ElementCard from '../components/Cards/ElementCard'
+import CreateElementItemContent from '../components/Forms/CreateElementItemContent'
+import { Title, Wrapper } from '../components/GlobalStyle'
 
 export default function ElementDetails() {
   const [elementItemData, setElementItemData] = useState({})
@@ -33,23 +28,22 @@ export default function ElementDetails() {
   const editElementItemContent = (updatedElementContent) =>
     updateElementContent(elementName, updatedElementContent)
       .then(() => {
-        const updatedContent = {...elementItemData, elementContent: updatedElementContent}
+        const updatedContent = {
+          ...elementItemData,
+          elementContent: updatedElementContent,
+        }
         setElementItemData(updatedContent)
       })
       .catch((error) => console.error(error))
 
-
-
   return (
     <Wrapper>
-        <Title>Element Details</Title>
-        {elementItemData && (
-            <ElementCard elementItemData={elementItemData}/>
-        )}
-        {!elementItemData && <span>Loading elementData</span>}
-      <CreateElementItemContent createElementItemContent={editElementItemContent} />
+      <Title>Element Details</Title>
+      {elementItemData && <ElementCard elementItemData={elementItemData} />}
+      {!elementItemData && <span>Loading elementData</span>}
+      <CreateElementItemContent
+        createElementItemContent={editElementItemContent}
+      />
     </Wrapper>
   )
 }
-
-

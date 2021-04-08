@@ -1,14 +1,10 @@
-import {CardContainer} from "../GlobalStyle";
+import { CardContainer } from '../GlobalStyle'
 
 export default function ElementCard({ elementItemData }) {
-
-    return (
-        <CardContainer>
-            <span>{elementItemData.elementName}</span>
-            <span>{elementItemData.elementContent}</span>
-        </CardContainer>
-    )
+  return (
+    <CardContainer>
+      <span>{elementItemData.elementName}</span>
+      <span>{elementItemData.elementContent}</span>
+    </CardContainer>
+  )
 }
-
-
-
