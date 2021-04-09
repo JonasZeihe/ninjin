@@ -46,14 +46,14 @@ export const Wrapper = styled.section`
   max-width: 1400px;
   justify-content: flex-start;
 `
-export const ListWrapper = styled.div`
+export const ListWrapper = styled.section`
   list-style-type: none;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 `
-export const FormWrapper = styled.div`
+export const FormWrapper = styled.section`
   list-style-type: none;
   display: flex;
   flex-flow: column;
@@ -63,7 +63,7 @@ export const FormWrapper = styled.div`
 export const Form = styled.form`
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 `
 export const Input = styled.input`
   height: 3rem;
@@ -98,7 +98,7 @@ export const Button = styled.button`
     background: #ca9499;
   }
 `
-export const ButtonLink = styled.div`
+export const ButtonLink = styled.section`
   max-width: 30%;
   font-size: 13px;
   align-content: center;
@@ -129,8 +129,20 @@ export const Title = styled.h2`
   color: #2a2a29;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
+
 // CONTAINER
-export const Container = styled.div`
+
+export const PreviewContainer = styled.section`
+  width: 15rem;
+  height: 6rem;
+  font-size: 1rem;
+  overflow: hidden;
+  /*
+  filter: blur(2px) sepia(100%);
+  */
+`
+
+export const Container = styled.section`
   background: rgba(191, 114, 121, 0.2);
   margin: 2rem 2rem;
   padding: 2rem;
@@ -143,7 +155,7 @@ export const Container = styled.div`
   text-decoration: none;
   color: inherit;
 `
-export const ListItemContainer = styled.div`
+export const ListItemContainer = styled.section`
   background: rgba(191, 114, 121, 0.2);
   display: flex;
   width: 20rem;
@@ -160,7 +172,7 @@ export const ListItemContainer = styled.div`
   :hover {
     background: rgb(255, 240, 240);
 `
-export const AdviceContainer = styled.div`
+export const AdviceContainer = styled.section`
   background: rgb(191, 114, 121, 0.2);
   text-align: center;
   max-width: 25rem;
@@ -169,7 +181,7 @@ export const AdviceContainer = styled.div`
   border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
-export const CardContainer = styled.div`
+export const CardContainer = styled.section`
   background: rgb(0, 152, 255, 0.2);
   width: 100vh;
   margin: 2rem 2rem;
@@ -180,7 +192,7 @@ export const CardContainer = styled.div`
   display: flex;
   flex-flow: column;
 `
-export const AvatarCard = styled.div`
+export const AvatarCard = styled.section`
   padding: 1rem;
   display: flex;
   flex-flow: column;
