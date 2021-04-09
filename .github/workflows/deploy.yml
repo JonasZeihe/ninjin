@@ -1,4 +1,4 @@
-name: Deploy ninjin app
+name: Deploy shizen app
 
 on:
   push:
@@ -43,23 +43,23 @@ jobs:
       - name: upload backend
         uses: actions/upload-artifact@v2
         with:
-          name: ninjin.jar
-          path: backend/target/ninjin.jar
+          name: shizen.jar
+          path: backend/target/shizen.jar
 
   deploy-to-heroku:
     runs-on: ubuntu-latest
     needs: build-backend
     environment:
       name: production
-      url: https://ninjin-mizu-kiri.herokuapp.com/
+      url: https://shizen.herokuapp.com/
     env:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
-          name: ninjin.jar
+          name: shizen.jar
           path: backend/target
       - run: heroku container:login
-      - run: heroku container:push web -a ninjin-mizu-kiri
-      - run: heroku container:release web -a ninjin-mizu-kiri
+      - run: heroku container:push web -a shizen
+      - run: heroku container:release web -a shizen
