@@ -24,8 +24,7 @@ export default function CourseDetails() {
   useEffect(() => {
     getCourseByName(courseName).then(setCourseData)
     getUsersByCourseName(courseName).then(setUsers)
-    getSegmentsByCourseName(courseName)
-      .then(setSegmentData)
+    getSegmentsByCourseName(courseName).then(setSegmentData)
       .catch((error) => console.error(error))
   }, [courseName])
 
@@ -55,7 +54,8 @@ export default function CourseDetails() {
   const deleteUser = (userName) => {
     deleteUserByCourseNameAndUserName(courseName, userName).then(() => {
       setUsers(users.filter((user) => user.userName !== userName))
-    })
+    }).catch((error) => console.error(error))
+
   }
 
   const editCourseDescription = (updatedCourseDescription) =>
@@ -63,9 +63,20 @@ export default function CourseDetails() {
       .then(() => {
         const updatedCourseData = {
           ...courseData,
-          courseDescription: updatedCourseDescription,
+          courseDescription: updatedCourseDescription
         }
         setCourseData(updatedCourseData)
+      })
+      .catch((error) => console.error(error))
+
+    const editCourseImage = (base64String) =>
+    updateCourseDescription(courseName, base64String)
+      .then(() => {
+        const updatedStringData = {
+          ...courseData,
+          courseImage: base64String
+        }
+        setCourseData(updatedStringData)
       })
       .catch((error) => console.error(error))
 
@@ -75,7 +86,7 @@ export default function CourseDetails() {
       {courseData && <CourseCard courseData={courseData} />}
       {!courseData && <span>Loading courseData</span>}
       <FormWrapper>
-      <CreateCourseDescription onAddDescription={editCourseDescription} />
+      <CreateCourseDescription onAddImage={editCourseImage} onAddDescription={editCourseDescription} />
       <AddNewUser onAdd={addNewUser} />
       </FormWrapper>
       <UserList users={users} onDeleteUser={deleteUser} />
