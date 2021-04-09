@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <HeaderWrapper>
       <HeaderSection>
-        <h1>ninjin</h1>
+        <h1>shizen</h1>
       </HeaderSection>
     </HeaderWrapper>
   )

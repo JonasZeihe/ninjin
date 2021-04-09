@@ -13,7 +13,7 @@ import emoji from 'emoji-dictionary'
 export default function LandingPage() {
 
   const markdown = `
-# ninjin
+# shizen
 ## mizu kiri 
 
 
