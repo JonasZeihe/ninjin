@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom'
-import { useAuth } from '../auth/AuthContext'
 import { useEffect, useState } from 'react'
 import { getElementById, updateElementContent } from '../services/apiService'
 import ElementCard from '../components/Cards/ElementCard'
@@ -10,10 +9,9 @@ import Spinner from "../components/Spinner";
 export default function ElementDetails() {
   const [elementItemData, setElementItemData] = useState({})
   const { elementName } = useParams()
-  const { token } = useAuth()
 
   useEffect(() => {
-    getElementById(elementName, token)
+    getElementById(elementName)
       .then(setElementItemData)
       .catch((error) => console.error(error))
   }, [elementName])

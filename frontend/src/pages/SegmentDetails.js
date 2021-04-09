@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom'
-import { useAuth } from '../auth/AuthContext'
 import { useEffect, useState } from 'react'
 import {
   getElementsBySegmentName,
@@ -20,11 +19,10 @@ export default function SegmentDetails() {
 
   const { segmentName } = useParams()
   console.log(elementGroupData)
-  const { token } = useAuth()
 
   useEffect(() => {
-    getSegmentById(segmentName, token).then(setSegmentItemData)
-    getElementsBySegmentName(segmentName, token)
+    getSegmentById(segmentName).then(setSegmentItemData)
+    getElementsBySegmentName(segmentName)
       .then(setElementGroupData)
       .catch((error) => console.error(error))
   }, [segmentName])
@@ -58,7 +56,7 @@ export default function SegmentDetails() {
   const createNewElementGroupContent = (newElementContent) =>
     updateElementGroupContent(segmentName, newElementContent)
       .then(() => {
-        getElementsBySegmentName(segmentName, token).then(setElementGroupData)
+        getElementsBySegmentName(segmentName).then(setElementGroupData)
       })
       .catch((error) => console.error(error))
 

@@ -1,4 +1,4 @@
-import axiosConfig from './axiosConfig'
+import axiosConfig from "./axiosConfig";
 
 const userUrl = '/api/user'
 const courseUrl = '/api/course'

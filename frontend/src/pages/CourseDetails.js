@@ -10,7 +10,6 @@ import {
 import { useState, useEffect } from 'react'
 import UserList from '../components/Lists/UserList'
 import { useParams } from 'react-router-dom'
-import { useAuth } from '../auth/AuthContext'
 import SegmentList from '../components/Lists/SegmentList'
 import CourseCard from '../components/Cards/CourseCard'
 import CreateCourseDescription from '../components/Forms/CreateCourseDescription'
@@ -21,12 +20,11 @@ export default function CourseDetails() {
   const [courseData, setCourseData] = useState({})
   const [segmentData, setSegmentData] = useState([])
   const { courseName } = useParams()
-  const { token } = useAuth()
 
   useEffect(() => {
-    getCourseByName(courseName, token).then(setCourseData)
-    getUsersByCourseName(courseName, token).then(setUsers)
-    getSegmentsByCourseName(courseName, token)
+    getCourseByName(courseName).then(setCourseData)
+    getUsersByCourseName(courseName).then(setUsers)
+    getSegmentsByCourseName(courseName)
       .then(setSegmentData)
       .catch((error) => console.error(error))
   }, [courseName])
