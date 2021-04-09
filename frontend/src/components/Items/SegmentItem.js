@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import {ButtonLink, Container, ListItemContainer} from '../GlobalStyle'
+import {ListItemContainer} from '../GlobalStyle'
 /*
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'

@@ -2,7 +2,7 @@ import Spinner from '../Spinner'
 import randomAdvice from '../RandomAdvice'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {AdviceContainer, Button, ButtonLink, Container, ListItemContainer} from '../GlobalStyle'
+import {AdviceContainer, Button, ListItemContainer} from '../GlobalStyle'
 /*
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'

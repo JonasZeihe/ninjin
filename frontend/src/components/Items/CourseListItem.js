@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import {Button, ButtonLink, Container, ListItemContainer, PreviewContainer} from '../GlobalStyle'
+import {Button, ListItemContainer, PreviewContainer} from '../GlobalStyle'
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'
 
@@ -12,9 +12,9 @@ export default function CourseListItem({ course, onDeleteCourse }) {
         <PreviewContainer>
         <ReactMarkdown source={course.courseDescription} renderers={{ text: emojiSupport }}   />
         </PreviewContainer>
-{/*        <Button onClick={() => onDeleteCourse(course.courseName)} type="button">
+        <Button onClick={() => onDeleteCourse(course.courseName)} type="button">
         delete
-      </Button>*/}
+      </Button>
     </ListItemContainer>
   )
 }

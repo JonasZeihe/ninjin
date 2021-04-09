@@ -2,7 +2,6 @@ import { useAuth } from '../auth/AuthContext'
 import { Redirect } from 'react-router-dom'
 import { loginUser } from '../services/loginService'
 import { useState } from 'react'
-import styled from 'styled-components/macro'
 import {Button, Form, Input, Title, Wrapper} from '../components/GlobalStyle'
 
 export default function Login() {

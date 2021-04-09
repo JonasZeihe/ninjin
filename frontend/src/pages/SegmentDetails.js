@@ -11,7 +11,7 @@ import CreateSegmentContent from '../components/Forms/CreateSegmentContent'
 import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
 import ElementList from '../components/Lists/ElementList'
 import SegmentCard from '../components/Cards/SegmentCard'
-import {FormWrapper, ListWrapper, Title, Wrapper} from '../components/GlobalStyle'
+import {FormWrapper, Title, Wrapper} from '../components/GlobalStyle'
 import Spinner from '../components/Spinner'
 
 export default function SegmentDetails() {
