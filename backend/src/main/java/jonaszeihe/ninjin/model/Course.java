@@ -10,10 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @Document(collection = "courses")
 public class Course {
     @Id
-    private String name;
-    private String duration;
+    private String courseName;
+    private String courseSize;
+    private String courseDescription;
 }

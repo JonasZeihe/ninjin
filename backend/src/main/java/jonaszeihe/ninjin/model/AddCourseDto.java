@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AddCourseDto {
-
-    private String name;
-    private String duration;
-
-
-}
+    private String courseName;
+    private String courseSize;
+    private String courseDescription;
+    }

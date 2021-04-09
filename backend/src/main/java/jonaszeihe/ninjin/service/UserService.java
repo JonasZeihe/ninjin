@@ -16,12 +16,12 @@ public class UserService {
         this.userMongoDb = userMongoDb;
     }
 
-    public User addUser(String name, String courseName) {
-        if (userMongoDb.existsByNameAndCourseName(name, courseName)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + name + " is already in this course");
+    public User addUser(String userName, String courseName) {
+        if (userMongoDb.existsByUserNameAndCourseName(userName, courseName)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User " + userName + " is already in this course");
         }
 
-        User user = User.builder().name(name).courseName(courseName).build();
+        User user = User.builder().userName(userName).courseName(courseName).build();
         return userMongoDb.save(user);
     }
 
@@ -33,11 +33,7 @@ public class UserService {
         return userMongoDb.findAllByCourseName(courseName);
     }
 
-    public void deleteUser(String id) {
-        userMongoDb.deleteById(id);
-    }
-
-    public void deleteByCourseNameAndName(String courseName, String name) {
-        userMongoDb.removeByCourseNameAndName(courseName, name);
+    public void deleteByCourseNameAndUserName(String courseName, String userName) {
+        userMongoDb.removeByCourseNameAndUserName(courseName, userName);
     }
 }

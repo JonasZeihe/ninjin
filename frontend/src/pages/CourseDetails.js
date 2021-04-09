@@ -1,56 +1,87 @@
-import AddNewUser from '../components/AddNewUser'
+import AddNewUser from '../components/Forms/AddNewUser'
 import {
-  deleteByCourseNameAndName,
-  deleteUserById,
-  deleteUserByName,
+  deleteUserByCourseNameAndUserName,
   getCourseByName,
+  getSegmentsByCourseName,
   getUsersByCourseName,
   postUser,
+  updateCourseDescription,
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
-import UserList from '../components/UserList'
+import UserList from '../components/Lists/UserList'
 import { useParams } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
+import SegmentList from '../components/Lists/SegmentList'
+import CourseCard from '../components/Cards/CourseCard'
+import CreateCourseDescription from '../components/Forms/CreateCourseDescription'
+import {FormWrapper, Title, Wrapper} from '../components/GlobalStyle'
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([])
-  const [courseData, setCourseData] = useState()
+  const [courseData, setCourseData] = useState({})
+  const [segmentData, setSegmentData] = useState([])
   const { courseName } = useParams()
   const { token } = useAuth()
 
   useEffect(() => {
     getCourseByName(courseName, token).then(setCourseData)
-    getUsersByCourseName(courseName, token)
-      .then(setUsers)
+    getUsersByCourseName(courseName, token).then(setUsers)
+    getSegmentsByCourseName(courseName, token)
+      .then(setSegmentData)
       .catch((error) => console.error(error))
   }, [courseName])
 
   if (!courseData) {
     return (
       <section>
-        <p>Loading</p>
+        <p>Waiting for courseData</p>
+      </section>
+    )
+  }
+  if (!segmentData) {
+    return (
+      <section>
+        <p>Waiting for segmentData</p>
       </section>
     )
   }
 
-  const addNewUser = (name) =>
-    postUser(name, courseName)
+  const addNewUser = (userName) =>
+    postUser(userName, courseName)
       .then((newUser) => {
         const updatedUsers = [...users, newUser]
         setUsers(updatedUsers)
       })
       .catch((error) => console.error(error))
 
-  const deleteUser = (name) => {
-    deleteByCourseNameAndName(courseName, name).then(() => {
-      setUsers(users.filter((user) => user.name !== name))
+  const deleteUser = (userName) => {
+    deleteUserByCourseNameAndUserName(courseName, userName).then(() => {
+      setUsers(users.filter((user) => user.userName !== userName))
     })
   }
 
+  const editCourseDescription = (updatedCourseDescription) =>
+    updateCourseDescription(courseName, updatedCourseDescription)
+      .then(() => {
+        const updatedCourseData = {
+          ...courseData,
+          courseDescription: updatedCourseDescription,
+        }
+        setCourseData(updatedCourseData)
+      })
+      .catch((error) => console.error(error))
+
   return (
-    <div>
+    <Wrapper>
+      <Title>Course Details</Title>
+      {courseData && <CourseCard courseData={courseData} />}
+      {!courseData && <span>Loading courseData</span>}
+      <FormWrapper>
+      <CreateCourseDescription onAddDescription={editCourseDescription} />
       <AddNewUser onAdd={addNewUser} />
+      </FormWrapper>
       <UserList users={users} onDeleteUser={deleteUser} />
-    </div>
+      <SegmentList segmentData={segmentData} />
+    </Wrapper>
   )
 }

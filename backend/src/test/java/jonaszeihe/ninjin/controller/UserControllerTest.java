@@ -60,9 +60,9 @@ class UserControllerTest {
     @DisplayName("Adding a user adds a user to the database")
     public void addNewUser() {
         //GIVEN
-        String newUser = "Frank";
-        String course = "Yoga";
-        AddUserDto userDto = AddUserDto.builder().name(newUser).courseName(course).build();
+        String newUserName = "Frank";
+        String newCourseName = "Yoga";
+        AddUserDto userDto = AddUserDto.builder().userName(newUserName).courseName(newCourseName).build();
 
         //WHEN
         String jwtToken = loginToApp();
@@ -72,8 +72,8 @@ class UserControllerTest {
         ResponseEntity<User> response = testRestTemplate.exchange(getUrl(), HttpMethod.POST, entity, User.class);
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(response.getBody(), is(User.builder().name(newUser).courseName(course).build()));
-        assertTrue(userMongoDb.existsByNameAndCourseName(newUser, course));
+        assertThat(response.getBody(), is(User.builder().userName(newUserName).courseName(newCourseName).build()));
+        assertTrue(userMongoDb.existsByUserNameAndCourseName(newUserName, newCourseName));
     }
 
     @Test
@@ -113,9 +113,9 @@ class UserControllerTest {
 
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(userMongoDb.existsByNameAndCourseName("Frank", "Yoga"), is(false));
-        assertThat(userMongoDb.existsByNameAndCourseName("Frank1", "Yoga"), is(true));
-        assertThat(userMongoDb.existsByNameAndCourseName("Frank", "Yoga1"), is(true));
+        assertThat(userMongoDb.existsByUserNameAndCourseName("Frank", "Yoga"), is(false));
+        assertThat(userMongoDb.existsByUserNameAndCourseName("Frank1", "Yoga"), is(true));
+        assertThat(userMongoDb.existsByUserNameAndCourseName("Frank", "Yoga1"), is(true));
     }
 
     @Test

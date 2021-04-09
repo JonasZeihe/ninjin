@@ -25,17 +25,17 @@ class UserServiceTest {
     @DisplayName("Add a new user to the database")
     public void testAddUser() {
         //GIVEN
-        String newUser = "Frank";
-        String courseName = "Yoga";
-        when(userMongoDb.existsById(newUser)).thenReturn(false);
-        User mockUser = User.builder().name(newUser).courseName(courseName).build();
+        String newUserName = "Frank";
+        String newCourseName = "Yoga";
+        when(userMongoDb.existsById(newUserName)).thenReturn(false);
+        User mockUser = User.builder().userName(newUserName).courseName(newCourseName).build();
         when(userMongoDb.save(mockUser))
                 .thenReturn(mockUser);
         //WHEN
-        User actual = userService.addUser(newUser, courseName);
+        User actual = userService.addUser(newUserName, newCourseName);
 
         //THEN
-        User expectedUser = User.builder().name(newUser).courseName(courseName).build();
+        User expectedUser = User.builder().userName(newUserName).courseName(newCourseName).build();
         assertThat(actual, is(expectedUser));
         verify(userMongoDb).save(expectedUser);
     }
@@ -44,11 +44,11 @@ class UserServiceTest {
     @DisplayName("An already existing user cannot be added again to the same course")
     public void testAddExistingUser() {
         //GIVEN
-        String existingUser = "Frank";
-        String existingCourse = "Yoga";
-        when(userMongoDb.existsByNameAndCourseName(existingUser, existingCourse)).thenReturn(true);
+        String existingUserName = "Frank";
+        String existingCourseName = "Yoga";
+        when(userMongoDb.existsByUserNameAndCourseName(existingUserName, existingCourseName)).thenReturn(true);
         //WHEN
-        assertThrows(ResponseStatusException.class, () -> userService.addUser(existingUser, existingCourse));
+        assertThrows(ResponseStatusException.class, () -> userService.addUser(existingUserName, existingCourseName));
         //THEN
         verify(userMongoDb, never()).save(any());
     }
@@ -72,10 +72,10 @@ class UserServiceTest {
     @DisplayName("DeleteUser deletes user from db ")
     public void deleteFromDb() {
         //WHEN
-        userService.deleteByCourseNameAndName("yoga", "frank");
+        userService.deleteByCourseNameAndUserName("yoga", "frank");
 
         //THEN
-        verify(userMongoDb).removeByCourseNameAndName("yoga", "frank");
+        verify(userMongoDb).removeByCourseNameAndUserName("yoga", "frank");
     }
 
     @Test
@@ -90,8 +90,8 @@ class UserServiceTest {
         List<User> users = userService.listUsersByCourse("yoga");
         //THEN
         assertThat(users, is(List.of(
-                User.builder().name("Frank").courseName("yoga").build(),
-                User.builder().name("Jonas").courseName("yoga").build()
+                User.builder().userName("Frank").courseName("yoga").build(),
+                User.builder().userName("Jonas").courseName("yoga").build()
         )));
     }
 }
