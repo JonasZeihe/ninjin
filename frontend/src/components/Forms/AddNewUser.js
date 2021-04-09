@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styled from 'styled-components/macro'
+import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
 
 export default function AddNewUser({ onAdd, course }) {
   const [userName, setUserName] = useState('')
@@ -14,44 +14,19 @@ export default function AddNewUser({ onAdd, course }) {
   }
   return (
     <Wrapper>
+      <Title>users</Title>
       <Form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
+          maxlength="30"
+          placeholder="username"
           value={userName}
           onChange={({ target }) => setUserName(target.value)}
         />
         <Button disabled={!userName} type="submit">
-          Add User
+          submit
         </Button>
       </Form>
     </Wrapper>
   )
 }
-
-const Form = styled.form`
-  display: flex;
-  padding: 10% 25% 0em 25%;
-  input {
-    flex-grow: 1;
-  }
-`
-
-const Wrapper = styled.div``
-
-const Button = styled.button`
-  background: #babeae;
-  border-radius: 5px;
-  border: none;
-  font-size: 0.75em;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  margin-left: 0.25em;
-  :disabled {
-    background: #807d7a;
-  }
-`

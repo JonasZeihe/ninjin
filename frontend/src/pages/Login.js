@@ -2,6 +2,8 @@ import { useAuth } from '../auth/AuthContext'
 import { Redirect } from 'react-router-dom'
 import { loginUser } from '../services/loginService'
 import { useState } from 'react'
+import styled from 'styled-components/macro'
+import {Button, Form, Input, Title, Wrapper} from '../components/GlobalStyle'
 
 export default function Login() {
   const { token, setToken } = useAuth()
@@ -19,28 +21,27 @@ export default function Login() {
   }
 
   if (token) {
-    return <Redirect to="/home"  />
+    return <Redirect to="/home" />
   }
 
   return (
-    <section>
-      <p>Please Login</p>
-
-      <form onSubmit={handleSubmit}>
-        <input
+    <Wrapper>
+      <Form onSubmit={handleSubmit}>
+        <Title>Login</Title>
+        <Input
           placeholder="Username"
           type="text"
           value={userName}
           onChange={({ target }) => setUserName(target.value)}
         />
-        <input
+        <Input
           placeholder="Password"
           type="password"
           value={userPassword}
           onChange={({ target }) => setUserPassword(target.value)}
         />
-        <button type="submit">login</button>
-      </form>
-    </section>
+        <Button type="submit">submit</Button>
+      </Form>
+    </Wrapper>
   )
 }

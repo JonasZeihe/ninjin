@@ -2,6 +2,7 @@ package jonaszeihe.ninjin.service;
 
 import jonaszeihe.ninjin.db.CourseMongoDb;
 import jonaszeihe.ninjin.model.Course;
+import jonaszeihe.ninjin.model.Segment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,13 +19,13 @@ public class CourseService {
         this.courseMongoDb = courseMongoDb;
     }
 
-    public Course addCourse(String name, String duration) {
+    public Course addCourse(String courseName, String courseSize, String courseDescription) {
 
-        if (courseMongoDb.existsById(name)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course " + name + " already exists");
+        if (courseMongoDb.existsById(courseName)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course " + courseName + " already exists");
         }
 
-        Course course = Course.builder().name(name).duration(duration).build();
+        Course course = Course.builder().courseName(courseName).courseSize(courseSize).courseDescription(courseDescription).build();
         return courseMongoDb.save(course);
     }
 
@@ -36,8 +37,14 @@ public class CourseService {
         return courseMongoDb.findAll();
     }
 
-    public void deleteCourse(String name) {
-        courseMongoDb.deleteById(name);
+    public void deleteCourse(String courseName) {
+        courseMongoDb.deleteById(courseName);
+    }
 
+    public void updateCourseDescription(String courseName, String updatedCourseDescription) {
+        Course existingCourse = courseMongoDb.findById(courseName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Course updatedCourse = existingCourse.toBuilder().courseDescription(updatedCourseDescription).build();
+
+        courseMongoDb.save(updatedCourse);
     }
 }

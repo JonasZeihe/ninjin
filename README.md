@@ -7,4 +7,4 @@
 ## When skipping stones, you try to make the stone bounce as many times as possible on the surface, but always in a playful way.
 ## You want to practice something and make a habit of it? Have fun and play! 
 
-![Logo](images/mizu-kiri-final1.png)
+![Logo](frontend/images/mizu-kiri-final1.png)
