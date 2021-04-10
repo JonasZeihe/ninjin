@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   Button,
-  Container, Footer, Nav,
+  Container, Footer, LandingWrapper, Nav,
   Wrapper
 } from '../components/GlobalStyle'
 import ReactMarkdown from 'react-markdown'
@@ -37,7 +37,7 @@ You want to practice something and make a habit of it? Have fun and play!
   const emojiSupport = text => text.value.replace(/:\w+:/gi, name => emoji.getUnicode(name));
 
   return (
-    <Wrapper>
+    <LandingWrapper>
       <Container>
         <ReactMarkdown source={markdown} allowDangerousHtml={true} renderers={{ text: emojiSupport }}/>
       </Container>
@@ -57,7 +57,7 @@ You want to practice something and make a habit of it? Have fun and play!
           </Button>
         </Nav>
       </Footer>
-    </Wrapper>
+    </LandingWrapper>
   )
 }
 
