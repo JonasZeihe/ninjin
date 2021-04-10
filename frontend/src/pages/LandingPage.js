@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   Button,
-  Container, Footer, LandingWrapper, Nav,
-  Wrapper
+  Container, Footer, LandingWrapper, Nav
 } from '../components/GlobalStyle'
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'
