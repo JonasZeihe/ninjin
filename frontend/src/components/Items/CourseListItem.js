@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom'
-import {Button, ListItemContainer, PreviewContainer, PreviewImage} from '../GlobalStyle'
+import {Button, ListItemContainer, PreviewContainer, PreviewImage, PreviewSpan} from '../GlobalStyle'
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'
 
-export default function CourseListItem({ course, onDeleteCourse }) {
+export default function CourseListItem({ courseItem, onDeleteCourseItem }) {
     const emojiSupport = text => text.value.replace(/:\w+:/gi, name => emoji.getUnicode(name));
     return (
-    <ListItemContainer as={Link} to={`/course/${course.courseName}`}>
-      <span>{course.courseName}</span>
-        <span>size: {course.courseSize}</span>
+    <ListItemContainer as={Link} to={`/course/${courseItem.courseName}`}>
+        <PreviewImage src={courseItem.courseImage}/>
+        <PreviewSpan>{courseItem.courseName}</PreviewSpan>
+        <PreviewSpan>size: {courseItem.courseSize}</PreviewSpan>
         <PreviewContainer>
-        <ReactMarkdown source={course.courseDescription} renderers={{ text: emojiSupport }}   />
+        <ReactMarkdown source={courseItem.courseDescription} renderers={{ text: emojiSupport }}   />
         </PreviewContainer>
-        <PreviewImage src={course.courseImage}/>
-        <Button onClick={() => onDeleteCourse(course.courseName)} type="button">
+        <Button onClick={() => onDeleteCourseItem(courseItem.courseName)} type="button">
         delete
       </Button>
     </ListItemContainer>

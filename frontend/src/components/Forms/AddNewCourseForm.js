@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {Button, Form, Input, Title, Wrapper} from '../GlobalStyle'
 
-export default function CreateNewCourse({
+export default function AddNewCourseForm({
   onAddCourse,
   onAddSegment,
   onAddElement,

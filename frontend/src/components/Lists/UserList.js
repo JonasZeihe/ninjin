@@ -1,11 +1,11 @@
 import UserItem from '../Items/UserItem'
 import { ListWrapper } from '../GlobalStyle'
 
-export default function UserList({ users, onDeleteUser }) {
+export default function UserList({ usersList, onDeleteUser }) {
   return (
     <ListWrapper>
-      {users.map((user) => (
-        <UserItem key={user.userName} user={user} onDeleteUser={onDeleteUser} />
+      {usersList.map((user, index) => (
+        <UserItem key={`${user.userName}_${index}`} userItem={user} onDeleteUser={onDeleteUser} />
       ))}
     </ListWrapper>
   )

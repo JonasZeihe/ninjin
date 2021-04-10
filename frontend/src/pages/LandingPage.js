@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
-  ButtonLink, Container, Footer, Nav,
+  Button,
+  Container, Footer, Nav,
   Wrapper
 } from '../components/GlobalStyle'
 import ReactMarkdown from 'react-markdown'
@@ -42,18 +43,18 @@ You want to practice something and make a habit of it? Have fun and play!
       </Container>
       <Footer>
         <Nav>
-          <ButtonLink as={Link} to={`/login`}>
-            Login for Instructors
-          </ButtonLink>
-          <ButtonLink as={Link} to={`/login`}>
-            Login for Participants
-          </ButtonLink>
-          <ButtonLink as={Link} to={`/login`}>
+          <Button as={Link} to={`/login`}>
+            Instructors
+          </Button>
+          <Button as={Link} to={`/login`}>
+            Participants
+          </Button>
+          <Button as={Link} to={`/login`}>
             Contact
-          </ButtonLink>
-          <ButtonLink as={Link} to={`/login`}>
+          </Button>
+          <Button as={Link} to={`/login`}>
             Impressum
-          </ButtonLink>
+          </Button>
         </Nav>
       </Footer>
     </Wrapper>

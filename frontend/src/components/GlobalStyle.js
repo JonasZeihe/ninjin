@@ -33,8 +33,6 @@ export const HeaderSection = styled.section`
   font-family: "Montserrat", sans-serif;
 `
 export const HeaderImage = styled.img`
-  background-image: url(${bgHeader});
-  width: 500px;
 `
 
 // WRAPPER
@@ -87,7 +85,10 @@ export const Input = styled.input`
   }
 `
 export const Button = styled.button`
-  max-width: 30%;
+  width: 5.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+  height: 2rem;
   align-self: flex-end;
   align-content: center;
   color: rgb(253, 249, 243);
@@ -95,7 +96,7 @@ export const Button = styled.button`
   text-transform: uppercase;
   background: #bf7279;
   border: none;
-  border-radius: 3px;
+  border-radius: 3px 3px 40px 3px;
   outline: 0;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -163,15 +164,19 @@ export const PreviewContainer = styled.section`
   */
 `
 export const PreviewImage = styled.img`
-  width: 17rem;
+  margin-top: -1rem;
+  width: inherit;
+  max-height: 12.5rem;
   border-radius: 0 40px 0 40px;
-  filter: opacity(0.7);
+  filter: opacity(0.9);
   align-self: center;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 5px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.2);
   :hover {
     filter: opacity(1);
-  \`
+  }
 `
+
 
 export const Container = styled.section`
   background-image: linear-gradient(hsl(190, 10%, 98%), hsl(190, 10%, 94%));
@@ -189,7 +194,7 @@ export const Container = styled.section`
 
 `
 export const ListItemContainer = styled.section`
-  background-image: linear-gradient(hsl(0, 0%, 96%), hsl(0, 0%, 87%));
+  background-image: linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 87%));
   display: flex;
   width: 20rem;
   min-height: 20rem;
@@ -212,7 +217,7 @@ export const AdviceContainer = styled.section`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
 export const CardContainer = styled.section`
-  background-image: linear-gradient(hsl(0, 0%, 96%), hsl(0, 0%, 87%));
+  background-image: linear-gradient(hsl(0, 0%, 94%), hsl(0, 0%, 87%));
   width: 100vh;
   margin: 2rem 2rem;
   padding: 2rem;
@@ -247,10 +252,9 @@ export const AvatarCard = styled.section`
   }
 `
 export const Nav = styled.section`
-  display: grid;
+  display: flex;
+  float: none;
   justify-content: space-evenly;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-gap: 0.25em;
   border-radius: 5px;
   background: rgba(212, 212, 212, 0.2);
   padding: 1.5em;
@@ -267,6 +271,11 @@ text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
 export const CardSpan = styled.span`
+  font-weight: bold;
+  color: #2a2a29;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+`
+export const PreviewSpan = styled.span`
   font-weight: bold;
   color: #2a2a29;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);

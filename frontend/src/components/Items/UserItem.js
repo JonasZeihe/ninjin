@@ -1,12 +1,12 @@
-import { AvatarCard, Button } from '../GlobalStyle'
+import {Button, ListItemContainer, PreviewSpan} from '../GlobalStyle'
 
-export default function UserItem({ user, onDeleteUser }) {
+export default function UserItem({ userItem, onDeleteUser }) {
   return (
-    <AvatarCard>
-      <div>{user.userName}</div>
-      <Button onClick={() => onDeleteUser(user.userName)} type="button">
+    <ListItemContainer>
+      <PreviewSpan>{userItem.userName}</PreviewSpan>
+      <Button onClick={() => onDeleteUser(userItem.userName)} type="button">
         delete
       </Button>
-    </AvatarCard>
+    </ListItemContainer>
   )
 }

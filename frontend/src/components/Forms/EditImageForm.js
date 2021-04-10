@@ -1,49 +1,50 @@
 import {useEffect, useRef, useState} from 'react'
 import {Button, Form, Input, Title, Wrapper} from '../GlobalStyle'
 
-export default function UpdateCourseImage({ onAddImage }) {
-    const [image, setImage] = useState()
-    const [updatedCourseImage, setUpdatedCourseImage] = useState()
+export default function EditImageForm({ onAddImage }) {
+    const [imageStringContainer, setImageStringContainer] = useState()
+    const [updatedImageString, setUpdatedImageString] = useState()
 
     useEffect(() => {
-        if (image) {
+        if (imageStringContainer) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setUpdatedCourseImage(reader.result);
+                setUpdatedImageString(reader.result);
             };
-            reader.readAsDataURL(image);
+            reader.readAsDataURL(imageStringContainer);
         } else {
-            setUpdatedCourseImage(null)
+            setUpdatedImageString(null)
         }
-    }, [image]);
+    }, [imageStringContainer]);
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        if (!updatedCourseImage) {
+        if (!updatedImageString) {
             return
         }
-        onAddImage(updatedCourseImage)
-        setImage('')
+        onAddImage(updatedImageString)
+        setImageStringContainer('')
     }
 
    const onChange = (event) => {
         const file = event.target.files[0];
        if(!(file.size > 5242880)&&(file && file.type.substr(0, 5) === "image")){
-           setImage(file);
+           setImageStringContainer(file);
         } else {
            alert("File is too big, max filesize is 5MB!");
-           setImage(null);
+           setImageStringContainer(null);
         }
     }
 
     const fileInputRef = useRef(HTMLInputElement)
+
 
     return (
         <Wrapper>
             <Title>Add Image</Title>
             <Form>
                 <Input type="file"  ref={fileInputRef} accept="image/*" onChange={onChange}/>
-                <Button disabled={!updatedCourseImage} onClick={handleSubmit}>
+                <Button disabled={!updatedImageString} onClick={handleSubmit}>
                     submit
                 </Button>
             </Form>

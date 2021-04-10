@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
 
-export default function AddNewUser({ onAdd, course }) {
+export default function AddNewUserForm({ onAdd, course }) {
   const [userName, setUserName] = useState('')
 
   const handleSubmit = (event) => {

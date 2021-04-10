@@ -1,17 +1,18 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {
-  getElementsBySegmentName,
-  updateSegmentContent,
-  updateElementGroupContent,
-  getSegmentById,
+    getElementsBySegmentName,
+    updateSegmentContent,
+    updateElementGroupContent,
+    getSegmentById, updateElementGroupImage, updateSegmentImage,
 } from '../services/apiService'
-import CreateSegmentContent from '../components/Forms/CreateSegmentContent'
-import CreateElementGroupContent from '../components/Forms/CreateElementGroupContent'
+import EditSegmentContentForm from '../components/Forms/EditSegmentContentForm'
+import EditElementGroupContentForm from '../components/Forms/EditElementGroupContentForm'
 import ElementList from '../components/Lists/ElementList'
 import SegmentCard from '../components/Cards/SegmentCard'
 import {FormWrapper, Title, Wrapper} from '../components/GlobalStyle'
 import Spinner from '../components/Spinner'
+import EditImageForm from "../components/Forms/EditImageForm";
 
 export default function SegmentDetails() {
   const [segmentItemData, setSegmentItemData] = useState({})
@@ -27,20 +28,12 @@ export default function SegmentDetails() {
       .catch((error) => console.error(error))
   }, [segmentName])
 
-  if (!segmentItemData) {
+  if ((!segmentItemData)||!(elementGroupData)){
     return (
-      <Spinner>
-        <p>Waiting for segmentData</p>
-      </Spinner>
+      <Spinner/>
     )
   }
-  if (!elementGroupData) {
-    return (
-      <Spinner>
-        <p>Waiting for elementGroupData</p>
-      </Spinner>
-    )
-  }
+
 
   const editSegmentContent = (updatedSegmentContent) =>
     updateSegmentContent(segmentName, updatedSegmentContent)
@@ -60,16 +53,42 @@ export default function SegmentDetails() {
       })
       .catch((error) => console.error(error))
 
-  return (
+    const editSegmentImage = (updatedSegmentImage) =>
+        updateSegmentImage(segmentName, updatedSegmentImage)
+            .then(() => {
+                const updatedSegmentItemImage = {
+                    ...segmentItemData,
+                    segmentImage: updatedSegmentImage,
+                }
+                setSegmentItemData(updatedSegmentItemImage)
+            })
+            .catch((error) => console.error(error))
+
+    const editElementGroupImage = (updatedElementImage) =>
+        updateElementGroupImage(segmentName, updatedElementImage)
+            .then(() => {
+                getElementsBySegmentName(segmentName).then(setElementGroupData)
+            })
+            .catch((error) => console.error(error))
+
+
+    return (
     <Wrapper>
       <Title>Segment Details</Title>
-      {segmentItemData && <SegmentCard segmentItemData={segmentItemData} />}
-      {!segmentItemData && <Spinner/>}
+      {segmentItemData &&
+      <SegmentCard segmentItemData={segmentItemData} />}
+      {!segmentItemData &&
+      <Spinner/>}
       <FormWrapper>
-      <CreateSegmentContent onAddSegment={editSegmentContent} />
-      <CreateElementGroupContent
+      <EditSegmentContentForm onAddSegment={editSegmentContent} />
+      <EditElementGroupContentForm
         onAddElementGroupContent={createNewElementGroupContent}
       />
+      <p>segment</p>
+      <EditImageForm onAddImage={editSegmentImage}/>
+      <p>elementgroup</p>
+      <EditImageForm onAddImage={editElementGroupImage}/>
+
       </FormWrapper>
       <ElementList elements={elementGroupData} />
     </Wrapper>

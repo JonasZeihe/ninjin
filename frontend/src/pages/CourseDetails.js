@@ -1,4 +1,4 @@
-import AddNewUser from '../components/Forms/AddNewUser'
+import AddNewUserForm from '../components/Forms/AddNewUserForm'
 import {
     deleteUserByCourseNameAndUserName,
     getCourseByName,
@@ -12,9 +12,10 @@ import UserList from '../components/Lists/UserList'
 import { useParams } from 'react-router-dom'
 import SegmentList from '../components/Lists/SegmentList'
 import CourseCard from '../components/Cards/CourseCard'
-import CreateCourseDescription from '../components/Forms/CreateCourseDescription'
+import EditCourseDescriptionForm from '../components/Forms/EditCourseDescriptionForm'
 import {FormWrapper, PageTitle, Wrapper} from '../components/GlobalStyle'
-import UpdateCourseImage from "../components/Forms/UpdateCourseImage";
+import EditImageForm from "../components/Forms/EditImageForm";
+import Spinner from "../components/Spinner";
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([])
@@ -29,18 +30,9 @@ export default function CourseDetails() {
       .catch((error) => console.error(error))
   }, [courseName])
 
-  if (!courseData) {
+  if ((!courseData)||(!segmentData)) {
     return (
-      <section>
-        <p>Waiting for courseData</p>
-      </section>
-    )
-  }
-  if (!segmentData) {
-    return (
-      <section>
-        <p>Waiting for segmentData</p>
-      </section>
+      <Spinner/>
     )
   }
 
@@ -84,15 +76,14 @@ export default function CourseDetails() {
   return (
     <Wrapper>
       <PageTitle>Course Details</PageTitle>
-      {courseData && <CourseCard courseData={courseData} />}
-      {!courseData && <span>Loading courseData</span>}
+      <CourseCard courseData={courseData}/>
       <FormWrapper>
-      <CreateCourseDescription onAddDescription={editCourseDescription} />
-      <UpdateCourseImage onAddImage={editCourseImage}/>
-      <AddNewUser onAdd={addNewUser} />
+      <EditCourseDescriptionForm onAddDescription={editCourseDescription} />
+      <EditImageForm onAddImage={editCourseImage}/>
+      <AddNewUserForm onAdd={addNewUser} />
       </FormWrapper>
-      <UserList users={users} onDeleteUser={deleteUser} />
-      <SegmentList segmentData={segmentData} />
+      <UserList usersList={users} onDeleteUser={deleteUser} />
+      <SegmentList segmentList={segmentData} />
     </Wrapper>
   )
 }

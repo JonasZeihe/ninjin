@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {Button, Form, Textarea, Title, Wrapper} from '../GlobalStyle'
 
-export default function CreateSegmentContent({ onAddSegment }) {
+export default function EditSegmentContentForm({ onAddSegment }) {
   const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')
   const handleSubmit = (event) => {
     event.preventDefault()
