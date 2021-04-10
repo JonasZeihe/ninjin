@@ -20,7 +20,7 @@ public class SegmentService {
         this.segmentMongoDb = segmentMongoDb;
     }
 
-    public void addSegments(String courseName, String segmentContent, String courseSize) {
+    public void addSegments(String courseName, String segmentImage, String segmentContent, String courseSize) {
         int size;
         try {
             size = Integer.parseInt(courseSize);
@@ -33,7 +33,7 @@ public class SegmentService {
             } else {
                 for (int count = 1; count <= size; count++) {
                     String segmentName = courseName + " " + count;
-                    Segment segment = Segment.builder().segmentName(segmentName).segmentContent(segmentContent).courseName(courseName).build();
+                    Segment segment = Segment.builder().segmentName(segmentName).segmentImage(segmentImage).segmentContent(segmentContent).courseName(courseName).build();
                     segmentMongoDb.save(segment);
                 }
             }
@@ -51,6 +51,12 @@ public class SegmentService {
     public void updateSegmentContent(String segmentName, String updatedSegmentContent) {
         Segment existingSegment = segmentMongoDb.findById(segmentName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Segment updatedSegment = existingSegment.toBuilder().segmentContent(updatedSegmentContent).build();
+
+        segmentMongoDb.save(updatedSegment);
+    }
+    public void updateSegmentImage(String segmentName, String updatedSegmentImage) {
+        Segment existingSegment = segmentMongoDb.findById(segmentName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Segment updatedSegment = existingSegment.toBuilder().segmentImage(updatedSegmentImage).build();
 
         segmentMongoDb.save(updatedSegment);
     }

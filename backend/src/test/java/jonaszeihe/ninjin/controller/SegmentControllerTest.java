@@ -57,10 +57,12 @@ class SegmentControllerTest {
     public void addNewCourseSegments() {
         //GIVEN
         String newCourseName = "Yoga for beginners";
+        String newSegmentImage = "some base64String";
         String newSegmentContent = "some content";
         String courseSize = "3";
         AddSegmentDto request = AddSegmentDto.builder()
                 .courseName(newCourseName)
+                .segmentImage(newSegmentImage)
                 .segmentContent(newSegmentContent)
                 .courseSize(courseSize)
                 .build();
@@ -80,11 +82,11 @@ class SegmentControllerTest {
     @DisplayName("GET to api/segment/{courseName} should return a list of segments of the courseName")
     public void getSegmentsByCourseName() {
         //GIVEN
-        segmentMongoDb.save(new Segment("yoga 1", "some content", "yoga"));
-        segmentMongoDb.save(new Segment("yoga 2", "some content", "yoga"));
-        segmentMongoDb.save(new Segment("yoga 3", "some content", "yoga"));
-        segmentMongoDb.save(new Segment("some segment 1", "some content", "some course"));
-        segmentMongoDb.save(new Segment("some segment 2", "some content", "some course"));
+        segmentMongoDb.save(new Segment("yoga 1","some base64String", "some content", "yoga"));
+        segmentMongoDb.save(new Segment("yoga 2","some base64String", "some content", "yoga"));
+        segmentMongoDb.save(new Segment("yoga 3","some base64String", "some content", "yoga"));
+        segmentMongoDb.save(new Segment("some segment 1","some base64String", "some content", "some course"));
+        segmentMongoDb.save(new Segment("some segment 2","some base64String", "some content", "some course"));
         //WHEN
         String jwtToken = loginToApp();
         HttpHeaders headers = new HttpHeaders();
@@ -96,9 +98,9 @@ class SegmentControllerTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), arrayContainingInAnyOrder(
-                new Segment("yoga 1", "some content", "yoga"),
-                new Segment("yoga 2", "some content", "yoga"),
-                new Segment("yoga 3", "some content", "yoga")));
+                new Segment("yoga 1","some base64String", "some content", "yoga"),
+                new Segment("yoga 2","some base64String", "some content", "yoga"),
+                new Segment("yoga 3","some base64String", "some content", "yoga")));
     }
     //Test adding a course with a size higher than 42 should throw exception
     //Test adding a course with a size lower than 1 should throw exception

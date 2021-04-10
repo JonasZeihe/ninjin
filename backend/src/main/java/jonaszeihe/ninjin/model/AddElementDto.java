@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AddElementDto {
     private String courseName;
+    private String elementImage;
     private String elementContent;
     private String courseSize;
 }

@@ -14,9 +14,6 @@ export default function LandingPage() {
 # shizen
 ## mizu kiri 
 
-
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
-
 # :hole: :sweat_drops:
 
 ### A simple app for:
@@ -29,8 +26,7 @@ export default function LandingPage() {
 
 :droplet: get things done easier!
 
-Mizu Kiri (jap. 水切り "the art of cutting water") - further known as stone skipping 
-
+Mizu Kiri (jap. 水切り "the art of cutting water") - stone skipping 
 
 When skipping stones, you try to make the stone bounce as many  
 times as possible on the surface but always in a playful way.  

@@ -1,11 +1,11 @@
 import AddNewUser from '../components/Forms/AddNewUser'
 import {
-  deleteUserByCourseNameAndUserName,
-  getCourseByName,
-  getSegmentsByCourseName,
-  getUsersByCourseName,
-  postUser,
-  updateCourseDescription,
+    deleteUserByCourseNameAndUserName,
+    getCourseByName,
+    getSegmentsByCourseName,
+    getUsersByCourseName,
+    postUser,
+    updateCourseDescription, updateCourseImage,
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
 import UserList from '../components/Lists/UserList'
@@ -13,7 +13,8 @@ import { useParams } from 'react-router-dom'
 import SegmentList from '../components/Lists/SegmentList'
 import CourseCard from '../components/Cards/CourseCard'
 import CreateCourseDescription from '../components/Forms/CreateCourseDescription'
-import {FormWrapper, Title, Wrapper} from '../components/GlobalStyle'
+import {FormWrapper, PageTitle, Wrapper} from '../components/GlobalStyle'
+import UpdateCourseImage from "../components/Forms/UpdateCourseImage";
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([])
@@ -69,12 +70,12 @@ export default function CourseDetails() {
       })
       .catch((error) => console.error(error))
 
-    const editCourseImage = (base64String) =>
-    updateCourseDescription(courseName, base64String)
+    const editCourseImage = (updatedCourseImage) =>
+    updateCourseImage(courseName, updatedCourseImage)
       .then(() => {
         const updatedStringData = {
           ...courseData,
-          courseImage: base64String
+          courseImage: updatedCourseImage
         }
         setCourseData(updatedStringData)
       })
@@ -82,11 +83,12 @@ export default function CourseDetails() {
 
   return (
     <Wrapper>
-      <Title>Course Details</Title>
+      <PageTitle>Course Details</PageTitle>
       {courseData && <CourseCard courseData={courseData} />}
       {!courseData && <span>Loading courseData</span>}
       <FormWrapper>
-      <CreateCourseDescription onAddImage={editCourseImage} onAddDescription={editCourseDescription} />
+      <CreateCourseDescription onAddDescription={editCourseDescription} />
+      <UpdateCourseImage onAddImage={editCourseImage}/>
       <AddNewUser onAdd={addNewUser} />
       </FormWrapper>
       <UserList users={users} onDeleteUser={deleteUser} />

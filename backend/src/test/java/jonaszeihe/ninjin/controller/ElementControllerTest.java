@@ -59,10 +59,12 @@ class ElementControllerTest {
         //GIVEN
         String newCourseName ="Yoga for beginners";
         String newCourseSize = "2";
+        String newElementImage = "some base64String";
         String newElementContent = "some content";
         AddElementDto request = AddElementDto.builder()
                 .courseName(newCourseName)
                 .courseSize(newCourseSize)
+                .elementImage(newElementImage)
                 .elementContent(newElementContent)
                 .build();
         //WHEN
@@ -93,12 +95,12 @@ class ElementControllerTest {
     @DisplayName("GET to api/element/{segmentName} should return a list of elements of the segmentName")
     public void getElementsBySegmentName() {
         //GIVEN
-        elementMongoDb.save(new Element("yoga 1 Element 1", "some content", "yoga 1"));
-        elementMongoDb.save(new Element("yoga 1 Element 2", "some content", "yoga 1"));
-        elementMongoDb.save(new Element("yoga 1 Element 3", "some content", "yoga 1"));
-        elementMongoDb.save(new Element("yoga 1 Element 4", "some content", "yoga 1"));
-        elementMongoDb.save(new Element("yoga 2 Element 1", "some content", "yoga 2"));
-        elementMongoDb.save(new Element("yoga 2 Element 2", "some content", "yoga 2"));
+        elementMongoDb.save(new Element("yoga 1 Element 1","some base64String", "some content", "yoga 1"));
+        elementMongoDb.save(new Element("yoga 1 Element 2","some base64String", "some content", "yoga 1"));
+        elementMongoDb.save(new Element("yoga 1 Element 3","some base64String", "some content", "yoga 1"));
+        elementMongoDb.save(new Element("yoga 1 Element 4","some base64String", "some content", "yoga 1"));
+        elementMongoDb.save(new Element("yoga 2 Element 1","some base64String", "some content", "yoga 2"));
+        elementMongoDb.save(new Element("yoga 2 Element 2","some base64String", "some content", "yoga 2"));
 
         //WHEN
         String jwtToken = loginToApp();
@@ -111,10 +113,10 @@ class ElementControllerTest {
         //THEN
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), arrayContainingInAnyOrder(
-                new Element("yoga 1 Element 1", "some content", "yoga 1"),
-                new Element("yoga 1 Element 2", "some content", "yoga 1"),
-                new Element("yoga 1 Element 3", "some content", "yoga 1"),
-                new Element("yoga 1 Element 4", "some content", "yoga 1")));
+                new Element("yoga 1 Element 1","some base64String", "some content", "yoga 1"),
+                new Element("yoga 1 Element 2","some base64String", "some content", "yoga 1"),
+                new Element("yoga 1 Element 3","some base64String", "some content", "yoga 1"),
+                new Element("yoga 1 Element 4","some base64String", "some content", "yoga 1")));
     }
     //Test adding a course with a size higher than 42 should throw exception
     //Test adding a course with a size lower than 1 should throw exception

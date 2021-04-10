@@ -1,9 +1,6 @@
 package jonaszeihe.ninjin.controller;
 
-import jonaszeihe.ninjin.model.AddCourseDto;
-import jonaszeihe.ninjin.model.Course;
-import jonaszeihe.ninjin.model.UpdatedCourseDescriptionDto;
-import jonaszeihe.ninjin.model.UpdatedSegmentContentDto;
+import jonaszeihe.ninjin.model.*;
 import jonaszeihe.ninjin.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +22,7 @@ public class CourseController {
 
     @PostMapping
     public Course addCourse(@RequestBody AddCourseDto dto) {
-        return this.courseService.addCourse(dto.getCourseName(), dto.getCourseSize(), dto.getCourseDescription());
+        return this.courseService.addCourse(dto.getCourseName(), dto.getCourseSize(), dto.getCourseImage(), dto.getCourseDescription());
     }
 
     @GetMapping("{courseName}")
@@ -50,5 +47,12 @@ public class CourseController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         this.courseService.updateCourseDescription(dto.getCourseName(), dto.getUpdatedCourseDescription());
+    }
+    @PutMapping("/{courseName}/image")
+    public void updateCourseImage(@PathVariable String courseName, @RequestBody UpdatedCourseImageDto dto) {
+        if(!courseName.equals(dto.getCourseName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        this.courseService.updateCourseImage(dto.getCourseName(), dto.getUpdatedCourseImage());
     }
 }

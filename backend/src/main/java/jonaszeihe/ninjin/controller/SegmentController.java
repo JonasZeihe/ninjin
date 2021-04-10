@@ -1,9 +1,6 @@
 package jonaszeihe.ninjin.controller;
 
-import jonaszeihe.ninjin.model.AddSegmentDto;
-import jonaszeihe.ninjin.model.Segment;
-import jonaszeihe.ninjin.model.UpdatedElementGroupContentDto;
-import jonaszeihe.ninjin.model.UpdatedSegmentContentDto;
+import jonaszeihe.ninjin.model.*;
 import jonaszeihe.ninjin.service.SegmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +24,7 @@ public class SegmentController {
 
     @PostMapping
     public void addSegments(@RequestBody AddSegmentDto dto) {
-        this.segmentService.addSegments(dto.getCourseName(), dto.getSegmentContent(), dto.getCourseSize());
+        this.segmentService.addSegments(dto.getCourseName(), dto.getSegmentImage(), dto.getSegmentContent(), dto.getCourseSize());
     }
 
     @GetMapping("{courseName}/segments")
@@ -47,5 +44,12 @@ public class SegmentController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         this.segmentService.updateSegmentContent(dto.getSegmentName(), dto.getUpdatedSegmentContent());
+    }
+    @PutMapping("/{segmentName}/image")
+    public void updateSegmentImage(@PathVariable String segmentName, @RequestBody UpdatedSegmentImageDto dto) {
+        if(!segmentName.equals(dto.getSegmentName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        this.segmentService.updateSegmentImage(dto.getSegmentName(), dto.getUpdatedSegmentImage());
     }
 }

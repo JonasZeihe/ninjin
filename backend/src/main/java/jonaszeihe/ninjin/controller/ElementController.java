@@ -24,7 +24,7 @@ public class ElementController {
 
     @PostMapping
     public void addElements(@RequestBody AddElementDto dto) {
-        this.elementService.addElements(dto.getCourseName(), dto.getElementContent(), dto.getCourseSize());
+        this.elementService.addElements(dto.getCourseName(), dto.getElementImage(), dto.getElementContent(), dto.getCourseSize());
     }
 
     @GetMapping("{segmentName}/elements")
@@ -52,6 +52,22 @@ public class ElementController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return this.elementService.updateElementGroupContentBySegmentName(dto.getSegmentName(), dto.getUpdatedElementContent());
+    }
+
+    @PutMapping("/{elementName}/image")
+    public Element updateElementImage(@PathVariable String elementName, @RequestBody UpdatedElementImageDto dto) {
+        if (!elementName.equals(dto.getElementName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return this.elementService.updateElementImage(dto.getElementName(), dto.getUpdatedElementImage());
+    }
+
+    @PutMapping("/{segmentName}/imageGroup")
+    public List<Element> updateElementGroupImage(@PathVariable String segmentName, @RequestBody UpdatedElementGroupImageDto dto) {
+        if (!segmentName.contains(dto.getSegmentName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return this.elementService.updateElementGroupImageBySegmentName(dto.getSegmentName(), dto.getUpdatedElementImage());
     }
 
 }
