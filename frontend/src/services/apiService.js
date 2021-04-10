@@ -7,9 +7,9 @@ const elementUrl = '/api/element'
 
 //--COURSE
 //POST
-export const postCourse = (courseName, courseSize, courseDescription) =>
+export const postCourse = (courseName, courseSize, courseImage, courseDescription) =>
   axiosConfig.axiosInstance
-    .post(courseUrl, { courseName, courseSize, courseDescription })
+    .post(courseUrl, { courseName, courseSize, courseImage, courseDescription })
     .then((response) => response.data)
 //GET
 export const getCourses = () =>
@@ -26,6 +26,11 @@ export const deleteCourseById = (courseName) =>
 export const updateCourseDescription = (courseName, updatedCourseDescription) =>
   axiosConfig.axiosInstance
     .put(courseUrl + '/' + courseName, { courseName, updatedCourseDescription })
+    .then((response) => response.data)
+
+export const updateCourseImage = (courseName, updatedCourseImage) =>
+  axiosConfig.axiosInstance
+    .put(courseUrl + '/' + courseName + '/image', { courseName, updatedCourseImage })
     .then((response) => response.data)
 
 //--USER
@@ -45,14 +50,18 @@ export const deleteUserByCourseNameAndUserName = (courseName, userName) =>
 
 //--SEGMENT
 //POST
-export const postCourseSegments = (courseName, segmentContent, courseSize) =>
+export const postCourseSegments = (courseName, segmentImage, segmentContent, courseSize) =>
   axiosConfig.axiosInstance
-    .post(segmentUrl, { courseName, segmentContent, courseSize })
+    .post(segmentUrl, { courseName, segmentImage, segmentContent, courseSize })
     .then((response) => response.data)
 //UPDATE
 export const updateSegmentContent = (segmentName, updatedSegmentContent) =>
   axiosConfig.axiosInstance
     .put(segmentUrl + '/' + segmentName, { segmentName, updatedSegmentContent })
+    .then((response) => response.data)
+export const updateSegmentImage = (segmentName, updatedSegmentImage) =>
+  axiosConfig.axiosInstance
+    .put(segmentUrl + '/' + segmentName + '/image', { segmentName, updatedSegmentImage })
     .then((response) => response.data)
 //GET
 export const getSegmentsByCourseName = (courseName) =>
@@ -67,9 +76,9 @@ export const getSegmentById = (segmentName) =>
 
 //--ELEMENT
 //POST
-export const postElements = (courseName, elementContent, courseSize) =>
+export const postElements = (courseName, elementImage, elementContent, courseSize) =>
   axiosConfig.axiosInstance
-    .post(elementUrl, { courseName, elementContent, courseSize })
+    .post(elementUrl, { courseName, elementImage, elementContent, courseSize })
     .then((response) => response.data)
 //GET
 export const getElementsBySegmentName = (segmentName) =>
@@ -92,5 +101,18 @@ export const updateElementGroupContent = (segmentName, elementContent) =>
     .put(elementUrl + '/' + segmentName + '/elements', {
       segmentName,
       updatedElementContent: elementContent,
+    })
+    .then((response) => response.data)
+
+export const updateElementImage = (elementName, updatedElementImage) =>
+  axiosConfig.axiosInstance
+    .put(elementUrl + '/' + elementName + '/image', { elementName, updatedElementImage })
+    .then((response) => response.data)
+
+export const updateElementGroupImage = (segmentName, updatedElementGroupImage) =>
+  axiosConfig.axiosInstance
+    .put(elementUrl + '/' + segmentName + '/imageGroup', {
+      segmentName,
+      updatedElementImage: updatedElementGroupImage,
     })
     .then((response) => response.data)

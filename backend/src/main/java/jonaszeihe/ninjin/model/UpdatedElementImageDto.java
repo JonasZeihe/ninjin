@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddSegmentDto {
-    private String courseName;
-    private String segmentImage;
-    private String segmentContent;
-    private String courseSize;
+public class UpdatedElementImageDto {
+    private String elementName;
+    private String updatedElementImage;
 }

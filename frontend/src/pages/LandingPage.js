@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import {
-  ButtonLink,
+  Button,
   Container, Footer, Nav,
   Wrapper
 } from '../components/GlobalStyle'
@@ -15,9 +15,6 @@ export default function LandingPage() {
 # shizen
 ## mizu kiri 
 
-
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
-
 # :hole: :sweat_drops:
 
 ### A simple app for:
@@ -30,8 +27,7 @@ export default function LandingPage() {
 
 :droplet: get things done easier!
 
-Mizu Kiri (jap. 水切り "the art of cutting water") - further known as stone skipping 
-
+Mizu Kiri (jap. 水切り "the art of cutting water") - stone skipping 
 
 When skipping stones, you try to make the stone bounce as many  
 times as possible on the surface but always in a playful way.  
@@ -43,22 +39,22 @@ You want to practice something and make a habit of it? Have fun and play!
   return (
     <Wrapper>
       <Container>
-        <ReactMarkdown source={markdown} allowDangerousHtml={true} renderers={{ text: emojiSupport }}   />
+        <ReactMarkdown source={markdown} allowDangerousHtml={true} renderers={{ text: emojiSupport }}/>
       </Container>
       <Footer>
         <Nav>
-          <ButtonLink as={Link} to={`/login`}>
-            Login for Instructors
-          </ButtonLink>
-          <ButtonLink as={Link} to={`/login`}>
-            Login for Participants
-          </ButtonLink>
-          <ButtonLink as={Link} to={`/login`}>
+          <Button as={Link} to={`/login`}>
+            Instructors
+          </Button>
+          <Button as={Link} to={`/login`}>
+            Participants
+          </Button>
+          <Button as={Link} to={`/login`}>
             Contact
-          </ButtonLink>
-          <ButtonLink as={Link} to={`/login`}>
+          </Button>
+          <Button as={Link} to={`/login`}>
             Impressum
-          </ButtonLink>
+          </Button>
         </Nav>
       </Footer>
     </Wrapper>

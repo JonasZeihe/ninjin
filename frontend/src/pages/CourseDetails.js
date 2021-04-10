@@ -1,19 +1,21 @@
-import AddNewUser from '../components/Forms/AddNewUser'
+import AddNewUserForm from '../components/Forms/AddNewUserForm'
 import {
-  deleteUserByCourseNameAndUserName,
-  getCourseByName,
-  getSegmentsByCourseName,
-  getUsersByCourseName,
-  postUser,
-  updateCourseDescription,
+    deleteUserByCourseNameAndUserName,
+    getCourseByName,
+    getSegmentsByCourseName,
+    getUsersByCourseName,
+    postUser,
+    updateCourseDescription, updateCourseImage,
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
 import UserList from '../components/Lists/UserList'
 import { useParams } from 'react-router-dom'
 import SegmentList from '../components/Lists/SegmentList'
 import CourseCard from '../components/Cards/CourseCard'
-import CreateCourseDescription from '../components/Forms/CreateCourseDescription'
-import {FormWrapper, Title, Wrapper} from '../components/GlobalStyle'
+import EditCourseDescriptionForm from '../components/Forms/EditCourseDescriptionForm'
+import {FormWrapper, PageTitle, Wrapper} from '../components/GlobalStyle'
+import EditImageForm from "../components/Forms/EditImageForm";
+import Spinner from "../components/Spinner";
 
 export default function CourseDetails() {
   const [users, setUsers] = useState([])
@@ -24,23 +26,13 @@ export default function CourseDetails() {
   useEffect(() => {
     getCourseByName(courseName).then(setCourseData)
     getUsersByCourseName(courseName).then(setUsers)
-    getSegmentsByCourseName(courseName)
-      .then(setSegmentData)
+    getSegmentsByCourseName(courseName).then(setSegmentData)
       .catch((error) => console.error(error))
   }, [courseName])
 
-  if (!courseData) {
+  if ((!courseData)||(!segmentData)) {
     return (
-      <section>
-        <p>Waiting for courseData</p>
-      </section>
-    )
-  }
-  if (!segmentData) {
-    return (
-      <section>
-        <p>Waiting for segmentData</p>
-      </section>
+      <Spinner/>
     )
   }
 
@@ -55,7 +47,8 @@ export default function CourseDetails() {
   const deleteUser = (userName) => {
     deleteUserByCourseNameAndUserName(courseName, userName).then(() => {
       setUsers(users.filter((user) => user.userName !== userName))
-    })
+    }).catch((error) => console.error(error))
+
   }
 
   const editCourseDescription = (updatedCourseDescription) =>
@@ -63,23 +56,34 @@ export default function CourseDetails() {
       .then(() => {
         const updatedCourseData = {
           ...courseData,
-          courseDescription: updatedCourseDescription,
+          courseDescription: updatedCourseDescription
         }
         setCourseData(updatedCourseData)
       })
       .catch((error) => console.error(error))
 
+    const editCourseImage = (updatedCourseImage) =>
+    updateCourseImage(courseName, updatedCourseImage)
+      .then(() => {
+        const updatedStringData = {
+          ...courseData,
+          courseImage: updatedCourseImage
+        }
+        setCourseData(updatedStringData)
+      })
+      .catch((error) => console.error(error))
+
   return (
     <Wrapper>
-      <Title>Course Details</Title>
-      {courseData && <CourseCard courseData={courseData} />}
-      {!courseData && <span>Loading courseData</span>}
+      <PageTitle>Course Details</PageTitle>
+      <CourseCard courseData={courseData}/>
       <FormWrapper>
-      <CreateCourseDescription onAddDescription={editCourseDescription} />
-      <AddNewUser onAdd={addNewUser} />
+      <EditCourseDescriptionForm onAddDescription={editCourseDescription} />
+      <EditImageForm onAddImage={editCourseImage}/>
+      <AddNewUserForm onAdd={addNewUser} />
       </FormWrapper>
-      <UserList users={users} onDeleteUser={deleteUser} />
-      <SegmentList segmentData={segmentData} />
+      <UserList usersList={users} onDeleteUser={deleteUser} />
+      <SegmentList segmentList={segmentData} />
     </Wrapper>
   )
 }

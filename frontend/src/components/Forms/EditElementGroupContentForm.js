@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {Button, Form, Textarea, Title, Wrapper} from '../GlobalStyle'
 
-export default function CreateElementGroupContent({
+export default function EditElementGroupContentForm({
   onAddElementGroupContent,
 }) {
   const [newElementContent, setNewElementContent] = useState('')

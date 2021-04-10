@@ -16,5 +16,6 @@ public class Course {
     @Id
     private String courseName;
     private String courseSize;
+    private String courseImage;
     private String courseDescription;
 }

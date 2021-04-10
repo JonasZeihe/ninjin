@@ -19,13 +19,13 @@ public class CourseService {
         this.courseMongoDb = courseMongoDb;
     }
 
-    public Course addCourse(String courseName, String courseSize, String courseDescription) {
+    public Course addCourse(String courseName, String courseSize, String courseImage, String courseDescription) {
 
         if (courseMongoDb.existsById(courseName)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Course " + courseName + " already exists");
         }
 
-        Course course = Course.builder().courseName(courseName).courseSize(courseSize).courseDescription(courseDescription).build();
+        Course course = Course.builder().courseName(courseName).courseSize(courseSize).courseImage(courseImage).courseDescription(courseDescription).build();
         return courseMongoDb.save(course);
     }
 
@@ -44,6 +44,13 @@ public class CourseService {
     public void updateCourseDescription(String courseName, String updatedCourseDescription) {
         Course existingCourse = courseMongoDb.findById(courseName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Course updatedCourse = existingCourse.toBuilder().courseDescription(updatedCourseDescription).build();
+
+        courseMongoDb.save(updatedCourse);
+    }
+
+    public void updateCourseImage(String courseName, String updatedCourseImage) {
+        Course existingCourse = courseMongoDb.findById(courseName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Course updatedCourse = existingCourse.toBuilder().courseImage(updatedCourseImage).build();
 
         courseMongoDb.save(updatedCourse);
     }

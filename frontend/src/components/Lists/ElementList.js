@@ -4,8 +4,8 @@ import { ListWrapper } from '../GlobalStyle'
 export default function ElementList({ elements }) {
   return (
     <ListWrapper>
-      {elements.map((element) => (
-        <ElementItem key={element.id} element={element} />
+      {elements.map((element, index) => (
+        <ElementItem key={`${element.elementName}_${index}`} elementItem={element} />
       ))}
     </ListWrapper>
   )

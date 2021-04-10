@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import styled from 'styled-components/macro'
-import bgHeader from "../images/Appheader.png";
+import bgHeader from "../images/mizu-kiri.png.svg";
 
 export default createGlobalStyle`
   * {
@@ -9,14 +9,15 @@ export default createGlobalStyle`
 
   html, body {
     margin: 0;
-    font-family: sans-serif;
+    font-family: Helvetica, sans-serif;
     padding: 0;
+    background-image: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 97%));
   }
 `
 // HEADER
 export const HeaderWrapper = styled.section`
   background-image: url(${bgHeader});
-  background-position: center center; 
+  background-repeat: no-repeat;
   position: relative; 
   height: 100%;
   width: 150vmax;
@@ -31,6 +32,9 @@ export const HeaderSection = styled.section`
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
   font-family: "Montserrat", sans-serif;
 `
+export const HeaderImage = styled.img`
+`
+
 // WRAPPER
 export const GridWrapper = styled.section`
   max-width: 1400px;
@@ -74,13 +78,17 @@ export const Input = styled.input`
   font-size: 1rem;
   transition: all 0.3s ease-out;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+
   :focus,
   :hover {
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 3px rgba(162, 162, 162, 0.15), 0 1px 5px rgba(84, 84, 84, 0.1);
   }
 `
 export const Button = styled.button`
-  max-width: 30%;
+  width: 5.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+  height: 2rem;
   align-self: flex-end;
   align-content: center;
   color: rgb(253, 249, 243);
@@ -88,7 +96,7 @@ export const Button = styled.button`
   text-transform: uppercase;
   background: #bf7279;
   border: none;
-  border-radius: 3px;
+  border-radius: 3px 3px 40px 3px;
   outline: 0;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -129,6 +137,20 @@ export const Title = styled.h2`
   color: #2a2a29;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
+export const PageTitle = styled.h1`
+  font-weight: bold;
+  align-self: center;
+  text-align: center;
+  color: #2a2a29;
+  width: 100%;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(hsl(0, 0%, 94%), hsl(0, 0%, 100%));
+  margin: 2rem 2rem;
+  padding: 2rem;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+`
+
 
 // CONTAINER
 
@@ -141,9 +163,23 @@ export const PreviewContainer = styled.section`
   filter: blur(2px) sepia(100%);
   */
 `
+export const PreviewImage = styled.img`
+  margin-top: -1rem;
+  width: inherit;
+  max-height: 12.5rem;
+  border-radius: 0 40px 0 40px;
+  filter: opacity(0.9);
+  align-self: center;
+  margin-bottom: 1rem;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.2);
+  :hover {
+    filter: opacity(1);
+  }
+`
+
 
 export const Container = styled.section`
-  background: rgba(191, 114, 121, 0.2);
+  background-image: linear-gradient(hsl(190, 10%, 98%), hsl(190, 10%, 94%));
   margin: 2rem 2rem;
   padding: 2rem;
   border-radius: 3px;
@@ -154,9 +190,11 @@ export const Container = styled.section`
   transition: all 0.3s ease-out;
   text-decoration: none;
   color: inherit;
+  font-family: "Helvetica" , sans-serif;
+
 `
 export const ListItemContainer = styled.section`
-  background: rgba(191, 114, 121, 0.2);
+  background-image: linear-gradient(hsl(0, 0%, 95%), hsl(0, 0%, 87%));
   display: flex;
   width: 20rem;
   min-height: 20rem;
@@ -168,12 +206,9 @@ export const ListItemContainer = styled.section`
   transition: all 0.1s ease-out;
   text-decoration: none;
   color: inherit;
-
-  :hover {
-    background: rgb(255, 240, 240);
 `
 export const AdviceContainer = styled.section`
-  background: rgb(191, 114, 121, 0.2);
+  background: rgba(212, 212, 212, 0.2);
   text-align: center;
   max-width: 25rem;
   margin: 2rem 2rem;
@@ -182,7 +217,7 @@ export const AdviceContainer = styled.section`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
 export const CardContainer = styled.section`
-  background: rgb(0, 152, 255, 0.2);
+  background-image: linear-gradient(hsl(0, 0%, 94%), hsl(0, 0%, 87%));
   width: 100vh;
   margin: 2rem 2rem;
   padding: 2rem;
@@ -212,22 +247,44 @@ export const AvatarCard = styled.section`
     height: 1.5em;
     width: 18em;
     padding: 0.5em 2em 1.75em 4em;
-    background: #f6f3e7;
+    background: rgba(212, 212, 212, 0.2);
     text-align: center;
   }
 `
 export const Nav = styled.section`
-  display: grid;
+  display: flex;
+  float: none;
   justify-content: space-evenly;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-gap: 0.25em;
   border-radius: 5px;
-  background: rgb(191, 114, 121, 0.3);
+  background: rgba(212, 212, 212, 0.2);
   padding: 1.5em;
 `
 
 export const Footer = styled.footer`
   width: 90%;
   text-align: center;
+`
+export const Span = styled.span`
+text-align: center;
+  font-weight: bold;
+  color: #2a2a29;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+`
+export const CardSpan = styled.span`
+  font-weight: bold;
+  color: #2a2a29;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+`
+export const PreviewSpan = styled.span`
+  font-weight: bold;
+  color: #2a2a29;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+`
+
+export const CardImage = styled.img`
+  width: 34rem;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 5px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
 `
 

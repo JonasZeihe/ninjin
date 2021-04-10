@@ -4,11 +4,11 @@ import { ListWrapper } from '../GlobalStyle'
 export default function CourseList({ courses, onDeleteCourse }) {
   return (
     <ListWrapper>
-      {courses.map((course) => (
+      {courses.map((course, index) => (
         <CourseListItem
-          key={course.id}
-          course={course}
-          onDeleteCourse={onDeleteCourse}
+            key={`${course.courseName}_${index}`}
+          courseItem={course}
+          onDeleteCourseItem={onDeleteCourse}
         />
       ))}
     </ListWrapper>

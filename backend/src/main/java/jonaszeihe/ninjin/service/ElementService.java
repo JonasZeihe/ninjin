@@ -19,7 +19,7 @@ public class ElementService {
         this.elementMongoDb = elementMongoDb;
     }
 
-    public void addElements(String courseName, String elementContent, String courseSize) {
+    public void addElements(String courseName, String elementImage, String elementContent, String courseSize) {
         int size;
         try {
             size = Integer.parseInt(courseSize);
@@ -35,7 +35,7 @@ public class ElementService {
             int elementSize = 7;
             for (int elementCount = 1; elementCount <= elementSize; elementCount++) {
                 String elementName = segmentName + " " + "Element" + " " + elementCount;
-                Element element = Element.builder().elementName(elementName).elementContent(elementContent).segmentName(segmentName).build();
+                Element element = Element.builder().elementName(elementName).elementImage(elementImage).elementContent(elementContent).segmentName(segmentName).build();
                 elementMongoDb.save(element);
             }
         }
@@ -60,6 +60,19 @@ public class ElementService {
     public List<Element> updateElementGroupContentBySegmentName(String segmentName, String updatedElementContent) {
         List<Element> existingElementGroup = elementMongoDb.findAllBySegmentName(segmentName);
         existingElementGroup.forEach(element -> element.setElementContent(updatedElementContent));
+        elementMongoDb.saveAll(existingElementGroup);
+        return existingElementGroup;
+    }
+    public Element updateElementImage(String elementName, String updatedElementImage) {
+        Element existingElement = elementMongoDb.findById(elementName).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Element updatedElement = existingElement.toBuilder().elementImage(updatedElementImage).build();
+
+        return elementMongoDb.save(updatedElement);
+    }
+
+    public List<Element> updateElementGroupImageBySegmentName(String segmentName, String updatedElementImage) {
+        List<Element> existingElementGroup = elementMongoDb.findAllBySegmentName(segmentName);
+        existingElementGroup.forEach(element -> element.setElementImage(updatedElementImage));
         elementMongoDb.saveAll(existingElementGroup);
         return existingElementGroup;
     }

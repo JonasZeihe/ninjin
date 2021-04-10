@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Element {
     @Id
     private String elementName;
+    private String elementImage;
     private String elementContent;
     private String segmentName;
 }
