@@ -6,7 +6,7 @@ export default function CourseList({ courses, onDeleteCourse }) {
     <ListWrapper>
       {courses.map((course, index) => (
         <CourseListItem
-            key={`${course.courseName}_${index}`}
+          key={`${course.courseName}_${index}`}
           courseItem={course}
           onDeleteCourseItem={onDeleteCourse}
         />

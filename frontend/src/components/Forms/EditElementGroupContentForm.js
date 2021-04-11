@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Button, Form, Textarea, Title, Wrapper} from '../GlobalStyle'
+import {Button, Form, FormTitle, Textarea, Wrapper} from '../GlobalStyle'
 
 export default function EditElementGroupContentForm({
   onAddElementGroupContent,
@@ -16,7 +16,7 @@ export default function EditElementGroupContentForm({
   }
   return (
     <Wrapper>
-      <Title>Add element group Content</Title>
+      <FormTitle>Add element group Content</FormTitle>
       <Form onSubmit={handleSubmit}>
         <Textarea
           type="text"
@@ -25,7 +25,7 @@ export default function EditElementGroupContentForm({
           onChange={(event) => setNewElementContent(event.target.value)}
         />
         <Button disabled={!newElementContent} type="submit">
-          submit
+          insert
         </Button>
       </Form>
     </Wrapper>

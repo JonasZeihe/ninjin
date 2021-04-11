@@ -5,7 +5,10 @@ export default function SegmentList({ segmentList }) {
   return (
     <ListWrapper>
       {segmentList.map((segment, index) => (
-        <SegmentItem key={`${segment.segmentName}_${index}`} segmentItem={segment} />
+        <SegmentItem
+          key={`${segment.segmentName}_${index}`}
+          segmentItem={segment}
+        />
       ))}
     </ListWrapper>
   )

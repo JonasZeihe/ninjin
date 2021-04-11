@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, FormTitle, Input, Wrapper} from '../GlobalStyle'
 
 export default function AddNewUserForm({ onAdd, course }) {
   const [userName, setUserName] = useState('')
@@ -14,7 +14,7 @@ export default function AddNewUserForm({ onAdd, course }) {
   }
   return (
     <Wrapper>
-      <Title>users</Title>
+      <FormTitle>Users</FormTitle>
       <Form onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -24,7 +24,7 @@ export default function AddNewUserForm({ onAdd, course }) {
           onChange={({ target }) => setUserName(target.value)}
         />
         <Button disabled={!userName} type="submit">
-          submit
+          add
         </Button>
       </Form>
     </Wrapper>

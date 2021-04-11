@@ -1,11 +1,15 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import {getElementById, updateElementContent, updateElementImage} from '../services/apiService'
+import {
+  getElementById,
+  updateElementContent,
+  updateElementImage,
+} from '../services/apiService'
 import ElementCard from '../components/Cards/ElementCard'
 import EditElementItemContentForm from '../components/Forms/EditElementItemContentForm'
-import {FormWrapper, Title, Wrapper} from '../components/GlobalStyle'
-import Spinner from "../components/Spinner";
-import EditImageForm from "../components/Forms/EditImageForm";
+import {FormWrapper, PageTitle, Wrapper} from '../components/GlobalStyle'
+import Spinner from '../components/Spinner'
+import EditImageForm from '../components/Forms/EditImageForm'
 
 export default function ElementDetails() {
   const [elementItemData, setElementItemData] = useState({})
@@ -36,29 +40,27 @@ export default function ElementDetails() {
       })
       .catch((error) => console.error(error))
 
-    const editElementItemImage = (updatedElementImage) =>
-        updateElementImage(elementName, updatedElementImage)
-            .then(() => {
-                const updatedStringData = {
-                    ...elementItemData,
-                    elementImage: updatedElementImage
-                }
-                setElementItemData(updatedStringData)
-            })
-            .catch((error) => console.error(error))
+  const editElementItemImage = (updatedElementImage) =>
+    updateElementImage(elementName, updatedElementImage)
+      .then(() => {
+        const updatedStringData = {
+          ...elementItemData,
+          elementImage: updatedElementImage,
+        }
+        setElementItemData(updatedStringData)
+      })
+      .catch((error) => console.error(error))
 
-
-
-    return (
+  return (
     <Wrapper>
-      <Title>Element Details</Title>
+      <PageTitle>Element Details</PageTitle>
       {elementItemData && <ElementCard elementItemData={elementItemData} />}
-      {!elementItemData && <Spinner/>}
+      {!elementItemData && <Spinner />}
       <FormWrapper>
-      <EditElementItemContentForm
-        createElementItemContent={editElementItemContent}
-      />
-      <EditImageForm onAddImage={editElementItemImage}/>
+        <EditElementItemContentForm
+          createElementItemContent={editElementItemContent}
+        />
+        <EditImageForm onAddImage={editElementItemImage} />
       </FormWrapper>
     </Wrapper>
   )
