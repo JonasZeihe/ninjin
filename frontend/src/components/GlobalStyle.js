@@ -5,15 +5,14 @@ import bgHeader from '../images/mizu-kiri.png.svg'
 export default createGlobalStyle`
   * {
     box-sizing: border-box;
-  }
+      }
 
   html, body {
     margin: 0;
     font-family: Helvetica, sans-serif;
-    padding: 0;
-    /*
     background-image: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 97%));
-    */
+  }  
+  body{
   }
 `
 // HEADER
@@ -31,8 +30,14 @@ export const HeaderImage = styled.img``
 
 // WRAPPER
 export const GridWrapper = styled.section`
-  display: grid;
-  grid-template-rows: auto 1vmax auto;
+  display: flex;
+  flex-flow: column;
+`
+export const ContentWrapper = styled.section`
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-flow: column;
 `
 export const Wrapper = styled.section`
   display: flex;
@@ -125,7 +130,6 @@ export const PreviewContainer = styled.section`
   */
 `
 export const PreviewImage = styled.img`
-  width: inherit;
   border-radius: 40px 0 0 0;
   filter: opacity(0.9);
   align-self: center;

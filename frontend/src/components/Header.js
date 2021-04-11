@@ -1,20 +1,9 @@
 import styled from 'styled-components/macro'
-import { useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import BackButton from "./BackButton";
 
 export default function Header() {
-    const Item = () => {
-        let history = useHistory()
-        return (
-            <>
-                <MobileNavbar.Item onClick={() => history.goBack()}>
-                    Back
-                </MobileNavbar.Item>
-            </>
-        )
-    }
-
     const [windowDimension, setWindowDimension] = useState(null)
 
     useEffect(() => {
@@ -37,8 +26,8 @@ export default function Header() {
             {isMobile ? (
                 <MobileNavbar.Wrapper>
                     <MobileNavbar.Items>
-                        <Item />
-                        <MobileNavbar.Item as={Link} to={`/login`}>
+                    <BackButton/>
+                    <MobileNavbar.Item as={Link} to={`/login`}>
                             home
                         </MobileNavbar.Item>
                         <MobileNavbar.Item as={Link} to={`/login`}>
@@ -67,9 +56,10 @@ export default function Header() {
 
 const Navbar = {
     Wrapper: styled.nav`
-    flex: 1;
-    align-self: flex-start;
-    padding: 1rem 3rem;
+      height: 5rem;
+      width: 100vw;
+      position: fixed;
+      top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,29 +69,21 @@ const Navbar = {
     border: 1px solid gray;
     padding: 0.5rem 1rem;
   `,
-    Items: styled.ul`
+    Items: styled.section`
     display: flex;
-    list-style: none;
   `,
-    Item: styled.li`
+    Item: styled.section`
     cursor: pointer;
     text-decoration: none;
-    width: 100%;
-    font-size: 1rem;
-    border: none;
-    transition: all 0.3s ease-out;
-    :hover, :active {
-      background: #dbdbdb;
-    }
-
   `,
 }
 
 const MobileNavbar = {
     Wrapper: styled(Navbar.Wrapper)`
-    position: fixed;
+      z-index: 100;
     width: 100vw;
-    top: 0;
+      height: 3rem;
+      top: 0;
     justify-content: center;
   `,
     Items: styled(Navbar.Items)`
@@ -111,5 +93,8 @@ const MobileNavbar = {
     Item: styled(Navbar.Item)`
     color: inherit;
     text-decoration: none;
-  `,
+      :hover, :active, :visited {
+        text-decoration: none;
+      }
+  `
 }

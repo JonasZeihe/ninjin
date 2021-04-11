@@ -21,7 +21,6 @@ export default function SegmentDetails() {
   const [elementGroupData, setElementGroupData] = useState([])
 
   const { segmentName } = useParams()
-  console.log(elementGroupData)
 
   useEffect(() => {
     getSegmentById(segmentName).then(setSegmentItemData)

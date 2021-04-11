@@ -8,7 +8,7 @@ import SegmentDetails from './pages/SegmentDetails'
 import Header from './components/Header'
 import LandingPage from './pages/LandingPage'
 import ElementDetails from './pages/ElementDetails'
-import { GridWrapper } from './components/GlobalStyle'
+import {ContentWrapper, GridWrapper} from './components/GlobalStyle'
 import Footer from './components/Footer'
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
       <Switch>
         <GridWrapper>
           <Header />
+          <ContentWrapper>
           <Route exact path="/">
             <LandingPage />
           </Route>
@@ -36,6 +37,7 @@ function App() {
             path="/element/:elementName"
             component={ElementDetails}
           />
+          </ContentWrapper>
           <Footer/>
         </GridWrapper>
       </Switch>

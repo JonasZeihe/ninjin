@@ -37,10 +37,9 @@ export default function ElementItem({ elementItem }) {
         />
       </PreviewContainer>
       {loading && <Spinner />}
-      <Button onClick={() => getRandomAdvice()}>
-        Get me some daily advice!
-      </Button>
       {adviceData && <AdviceContainer>{adviceData.advice}</AdviceContainer>}
+        <Button onClick={() => getRandomAdvice()} title="random advice"/>
     </ListItemContainer>
+
   )
 }

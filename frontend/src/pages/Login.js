@@ -26,7 +26,7 @@ export default function Login() {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>Login</Title>
+        <Title>Instructor</Title>
         <Input
           placeholder="Username"
           type="text"
@@ -40,6 +40,18 @@ export default function Login() {
           onChange={({ target }) => setUserPassword(target.value)}
         />
         <Button type="submit">submit</Button>
+      </Form>
+      <Form>
+        <Title>Participant</Title>
+        <Input
+          placeholder="Username"
+          type="text"
+        />
+        <Input
+          placeholder="Password"
+          type="password"
+        />
+        <Button >submit</Button>
       </Form>
     </Wrapper>
   )
