@@ -2,7 +2,7 @@ import { useAuth } from '../auth/AuthContext'
 import { Redirect } from 'react-router-dom'
 import { loginUser } from '../services/loginService'
 import { useState } from 'react'
-import {Button, Form, FormTitle, FormWrapper, Input, Title, Wrapper} from '../components/GlobalStyle'
+import {Button, Form, FormTitle, FormWrapper, Input, Wrapper} from '../components/GlobalStyle'
 
 export default function Login() {
   const { token, setToken } = useAuth()
