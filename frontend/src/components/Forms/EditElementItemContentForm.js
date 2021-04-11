@@ -1,7 +1,9 @@
 import { useState } from 'react'
-import {Button, Form, Textarea, Title, Wrapper} from '../GlobalStyle'
+import { Button, Form, Textarea, Title, Wrapper } from '../GlobalStyle'
 
-export default function EditElementItemContentForm({ createElementItemContent }) {
+export default function EditElementItemContentForm({
+  createElementItemContent,
+}) {
   const [updatedElementContent, setUpdatedElementContent] = useState('')
 
   const handleSubmit = (event) => {

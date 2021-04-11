@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import styled from 'styled-components/macro'
-import bgHeader from "../images/mizu-kiri.png.svg";
+import bgHeader from '../images/mizu-kiri.png.svg'
 
 export default createGlobalStyle`
   * {
@@ -20,17 +20,14 @@ export default createGlobalStyle`
 export const HeaderWrapper = styled.section`
   background-image: url(${bgHeader});
   background-repeat: no-repeat;
-  max-width: 1400px;
-  max-height: 471px;
 `
 export const HeaderSection = styled.section`
   font-size: 3em;
   color: white;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 `
-export const HeaderImage = styled.img`
-`
+export const HeaderImage = styled.img``
 
 // WRAPPER
 export const GridWrapper = styled.section`
@@ -46,6 +43,7 @@ export const Wrapper = styled.section`
 export const LandingWrapper = styled.section`
   display: flex;
   flex-direction: column;
+  margin: 1rem;
   max-width: 1400px;
   justify-content: flex-start;
 `
@@ -58,9 +56,6 @@ export const ListWrapper = styled.section`
 `
 export const FormWrapper = styled.section`
   list-style-type: none;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
 `
 // FORM
 export const Form = styled.form`
@@ -68,8 +63,7 @@ export const Form = styled.form`
   flex-direction: column;
 `
 export const Input = styled.input`
-  height: 3rem;
-  width: 10rem;
+  margin:0 1rem 0 1rem;
   background: #f9f9fa;
   border-radius: 4px;
   border: 1px solid rgba(245, 245, 245, 0.7);
@@ -78,18 +72,16 @@ export const Input = styled.input`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
   :focus,
   :hover {
-    box-shadow: 0 0 3px rgba(162, 162, 162, 0.15), 0 1px 5px rgba(84, 84, 84, 0.1);
+    box-shadow: 0 0 3px rgba(162, 162, 162, 0.15),
+      0 1px 5px rgba(84, 84, 84, 0.1);
   }
 `
 export const Button = styled.button`
-  width: 5.5rem;
+  margin: 0 0.1rem 0 0.1rem;
   text-decoration: none;
-  font-size: 1rem;
   height: 2rem;
-  align-self: flex-end;
   align-content: center;
   color: rgb(253, 249, 243);
-  font-weight: 600;
   text-transform: uppercase;
   background: #bf7279;
   border: none;
@@ -98,7 +90,6 @@ export const Button = styled.button`
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-out;
-  z-index: 1;
   :hover {
     background: #ca9499;
   }
@@ -107,28 +98,20 @@ export const Textarea = styled.textarea`
   background-image: linear-gradient(hsl(190, 10%, 98%), hsl(190, 10%, 94%));
   min-width: 2vh;
   min-height: 5rem;
-  font-size: 1vh;
+  resize:vertical;
+  border-radius: 3px;
   color: #000000;
 `
-export const Title = styled.h2`
+export const Title = styled.h3`
   font-weight: bold;
   color: #2a2a29;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
-export const PageTitle = styled.h1`
+export const PageTitle = styled.h2`
   font-weight: bold;
   align-self: center;
   text-align: center;
   color: #2a2a29;
-  width: 100%;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
-  background-image: linear-gradient(hsl(0, 0%, 94%), hsl(0, 0%, 100%));
-  margin: 2rem 2rem;
-  padding: 2rem;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
 `
-
 
 // CONTAINER
 
@@ -142,7 +125,6 @@ export const PreviewContainer = styled.section`
   */
 `
 export const PreviewImage = styled.img`
-  margin-top: -1rem;
   width: inherit;
   border-radius: 40px 0 0 0;
   filter: opacity(0.9);
@@ -152,10 +134,11 @@ export const PreviewImage = styled.img`
   max-height: 100%;
   bottom: 0;
   left: 0;
-  overflow: auto;
   -o-object-fit: contain;
   object-fit: contain;
+  /*
   box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.2);
+  */
   :hover {
     filter: opacity(1);
   }
@@ -171,7 +154,7 @@ export const Container = styled.section`
   transition: all 0.3s ease-out;
   text-decoration: none;
   color: inherit;
-  font-family: "Helvetica" , sans-serif;
+  font-family: 'Helvetica', sans-serif;
 `
 
 export const ListItemContainer = styled.section`
@@ -204,22 +187,12 @@ export const CardContainer = styled.section`
   display: flex;
   flex-flow: column;
 `
-
-export const Nav = styled.section`
-  display: flex;
-  float: none;
-  justify-content: space-evenly;
-  border-radius: 5px;
-  background: rgba(212, 212, 212, 0.2);
-  padding: 1em;
-`
-
 export const Footer = styled.footer`
   text-align: center;
 `
 
 export const Span = styled.span`
-text-align: center;
+  text-align: center;
   font-weight: bold;
   color: #2a2a29;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -249,4 +222,3 @@ export const CardImage = styled.img`
   -o-object-fit: contain;
   object-fit: contain;
 `
-

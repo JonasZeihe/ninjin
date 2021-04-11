@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Button, Form, Textarea, Title, Wrapper} from '../GlobalStyle'
+import { Button, Form, Textarea, Title, Wrapper } from '../GlobalStyle'
 
 export default function EditSegmentContentForm({ onAddSegment }) {
   const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')

@@ -1,7 +1,7 @@
-import {useState} from 'react'
-import {Button, Form, Textarea, Title, Wrapper} from '../GlobalStyle'
+import { useState } from 'react'
+import { Button, Form, Textarea, Title, Wrapper } from '../GlobalStyle'
 
-export default function EditCourseDescriptionForm({onAddDescription}) {
+export default function EditCourseDescriptionForm({ onAddDescription }) {
   const [updatedCourseDescription, setUpdatedCourseDescription] = useState('')
 
   const handleSubmit1 = (event) => {
@@ -26,8 +26,7 @@ export default function EditCourseDescriptionForm({onAddDescription}) {
         <Button disabled={!updatedCourseDescription} type="submit">
           submit
         </Button>
-        </Form>
+      </Form>
     </Wrapper>
   )
-
 }

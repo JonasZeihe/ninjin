@@ -1,4 +1,4 @@
-import {Button, ListItemContainer, PreviewSpan} from '../GlobalStyle'
+import { Button, ListItemContainer, PreviewSpan } from '../GlobalStyle'
 
 export default function UserItem({ userItem, onDeleteUser }) {
   return (

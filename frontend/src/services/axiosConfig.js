@@ -6,10 +6,9 @@ function setAxiosAuthToken(token) {
   axiosInstance.defaults.headers.common.Authorization = 'Bearer ' + token
 }
 
-
 const axiosC = {
   axiosInstance,
-  setAxiosAuthToken
+  setAxiosAuthToken,
 }
 
-export default axiosC;
+export default axiosC

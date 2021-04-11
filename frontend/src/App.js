@@ -8,7 +8,8 @@ import SegmentDetails from './pages/SegmentDetails'
 import Header from './components/Header'
 import LandingPage from './pages/LandingPage'
 import ElementDetails from './pages/ElementDetails'
-import {GridWrapper} from "./components/GlobalStyle";
+import { GridWrapper } from './components/GlobalStyle'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             path="/element/:elementName"
             component={ElementDetails}
           />
+          <Footer/>
         </GridWrapper>
       </Switch>
     </AuthProvider>
