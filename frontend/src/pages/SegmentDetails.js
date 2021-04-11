@@ -12,7 +12,7 @@ import EditSegmentContentForm from '../components/Forms/EditSegmentContentForm'
 import EditElementGroupContentForm from '../components/Forms/EditElementGroupContentForm'
 import ElementList from '../components/Lists/ElementList'
 import SegmentCard from '../components/Cards/SegmentCard'
-import { FormWrapper, Title, Wrapper } from '../components/GlobalStyle'
+import {FormTitle, FormWrapper, PageTitle, Wrapper} from '../components/GlobalStyle'
 import Spinner from '../components/Spinner'
 import EditImageForm from '../components/Forms/EditImageForm'
 
@@ -71,19 +71,20 @@ export default function SegmentDetails() {
 
   return (
     <Wrapper>
-      <Title>Segment Details</Title>
+      <PageTitle>Segment Details</PageTitle>
       {segmentItemData && <SegmentCard segmentItemData={segmentItemData} />}
       {!segmentItemData && <Spinner />}
-      <FormWrapper>
-        <EditSegmentContentForm onAddSegment={editSegmentContent} />
-        <EditElementGroupContentForm
-          onAddElementGroupContent={createNewElementGroupContent}
-        />
-        <p>segment</p>
-        <EditImageForm onAddImage={editSegmentImage} />
-        <p>elementgroup</p>
-        <EditImageForm onAddImage={editElementGroupImage} />
-      </FormWrapper>
+          <FormWrapper>
+              <FormTitle>Segment</FormTitle>
+              <EditSegmentContentForm onAddSegment={editSegmentContent} />
+          <EditImageForm onAddImage={editSegmentImage} />
+          </FormWrapper>
+        <FormWrapper>
+            <FormTitle>Elementgroup</FormTitle>
+            <EditElementGroupContentForm
+                onAddElementGroupContent={createNewElementGroupContent}/>
+            <EditImageForm onAddImage={editElementGroupImage} />
+        </FormWrapper>
       <ElementList elements={elementGroupData} />
     </Wrapper>
   )

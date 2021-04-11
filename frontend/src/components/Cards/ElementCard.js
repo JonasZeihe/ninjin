@@ -1,4 +1,4 @@
-import { CardContainer, CardImage, CardSpan } from '../GlobalStyle'
+import {CardContainer, CardImage, CardSpan, MarkdownContainer} from '../GlobalStyle'
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'
 
@@ -12,10 +12,12 @@ export default function ElementCard({ elementItemData }) {
         alt="preview image for each element"
       />
       <CardSpan>{elementItemData.elementName}</CardSpan>
-      <ReactMarkdown
+        <MarkdownContainer>
+        <ReactMarkdown
         source={elementItemData.elementContent}
         renderers={{ text: emojiSupport }}
       />
+        </MarkdownContainer>
     </CardContainer>
   )
 }

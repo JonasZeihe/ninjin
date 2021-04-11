@@ -2,7 +2,7 @@ import { useAuth } from '../auth/AuthContext'
 import { Redirect } from 'react-router-dom'
 import { loginUser } from '../services/loginService'
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../components/GlobalStyle'
+import {Button, Form, FormTitle, FormWrapper, Input, Title, Wrapper} from '../components/GlobalStyle'
 
 export default function Login() {
   const { token, setToken } = useAuth()
@@ -25,8 +25,9 @@ export default function Login() {
 
   return (
     <Wrapper>
+      <FormWrapper>
       <Form onSubmit={handleSubmit}>
-        <Title>Instructor</Title>
+        <FormTitle>Instructor</FormTitle>
         <Input
           placeholder="Username"
           type="text"
@@ -41,18 +42,8 @@ export default function Login() {
         />
         <Button type="submit">submit</Button>
       </Form>
-      <Form>
-        <Title>Participant</Title>
-        <Input
-          placeholder="Username"
-          type="text"
-        />
-        <Input
-          placeholder="Password"
-          type="password"
-        />
-        <Button >submit</Button>
-      </Form>
+      </FormWrapper>
+
     </Wrapper>
   )
 }

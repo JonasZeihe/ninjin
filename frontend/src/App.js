@@ -10,9 +10,11 @@ import LandingPage from './pages/LandingPage'
 import ElementDetails from './pages/ElementDetails'
 import {ContentWrapper, GridWrapper} from './components/GlobalStyle'
 import Footer from './components/Footer'
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
+      <ScrollToTop>
     <AuthProvider>
       <Switch>
         <GridWrapper>
@@ -42,6 +44,7 @@ function App() {
         </GridWrapper>
       </Switch>
     </AuthProvider>
+      </ScrollToTop>
   )
 }
 

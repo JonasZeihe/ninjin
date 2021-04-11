@@ -1,12 +1,13 @@
 import {useHistory} from "react-router-dom";
+import {ChevronLeft} from "react-feather";
 
 export default function BackButton() {
         let history = useHistory()
         return (
             <>
-                <section onClick={() => history.goBack()}>
+                <ChevronLeft size={30} color="black" onClick={() => history.goBack()}>
                     Back
-                </section>
+                </ChevronLeft>
             </>
         )
     }

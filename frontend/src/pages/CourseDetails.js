@@ -81,10 +81,13 @@ export default function CourseDetails() {
       <FormWrapper>
         <EditCourseDescriptionForm onAddDescription={editCourseDescription} />
         <EditImageForm onAddImage={editCourseImage} />
-        <AddNewUserForm onAdd={addNewUser} />
       </FormWrapper>
-      <UserList usersList={users} onDeleteUser={deleteUser} />
       <SegmentList segmentList={segmentData} />
+        <FormWrapper>
+            <AddNewUserForm onAdd={addNewUser} />
+        </FormWrapper>
+        <UserList usersList={users} onDeleteUser={deleteUser} />
+
     </Wrapper>
   )
 }

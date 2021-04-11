@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Textarea, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, FormTitle, Textarea, Wrapper} from '../GlobalStyle'
 
 export default function EditElementItemContentForm({
   createElementItemContent,
@@ -16,7 +16,7 @@ export default function EditElementItemContentForm({
   }
   return (
     <Wrapper>
-      <Title>Add Content</Title>
+      <FormTitle>Add Content</FormTitle>
       <Form onSubmit={handleSubmit}>
         <Textarea
           type="text"
@@ -25,7 +25,7 @@ export default function EditElementItemContentForm({
           onChange={(event) => setUpdatedElementContent(event.target.value)}
         />
         <Button disabled={!updatedElementContent} type="submit">
-          submit
+          insert
         </Button>
       </Form>
     </Wrapper>

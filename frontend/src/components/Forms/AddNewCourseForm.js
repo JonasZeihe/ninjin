@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, FormTitle, Input, Wrapper} from '../GlobalStyle'
 
 export default function AddNewCourseForm({
   onAddCourse,
@@ -23,7 +23,7 @@ export default function AddNewCourseForm({
 
   return (
     <Wrapper>
-      <Title>Create a new course and set a size</Title>
+      <FormTitle>Create a new course and set a size</FormTitle>
       <Form onSubmit={handleSubmit}>
         <Input
           type="text"
@@ -41,7 +41,7 @@ export default function AddNewCourseForm({
           onChange={({ target }) => setCourseSize(target.value)}
         />
         <Button disabled={!courseName} type="submit">
-          submit
+          create
         </Button>
       </Form>
     </Wrapper>

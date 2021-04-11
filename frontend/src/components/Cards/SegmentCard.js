@@ -1,4 +1,4 @@
-import { CardContainer, CardImage, CardSpan } from '../GlobalStyle'
+import {CardContainer, CardImage, CardSpan, MarkdownContainer} from '../GlobalStyle'
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'
 
@@ -12,10 +12,12 @@ export default function SegmentCard({ segmentItemData }) {
         alt="preview image for each segment"
       />
       <CardSpan>{segmentItemData.segmentName}</CardSpan>
-      <ReactMarkdown
+        <MarkdownContainer>
+        <ReactMarkdown
         source={segmentItemData.segmentContent}
         renderers={{ text: emojiSupport }}
       />
+        </MarkdownContainer>
     </CardContainer>
   )
 }

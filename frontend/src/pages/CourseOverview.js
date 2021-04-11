@@ -8,7 +8,7 @@ import {
 } from '../services/apiService'
 import { useState, useEffect } from 'react'
 import CourseList from '../components/Lists/CourseList'
-import { Title, Wrapper } from '../components/GlobalStyle'
+import {FormWrapper, PageTitle, Wrapper} from '../components/GlobalStyle'
 import Spinner from '../components/Spinner'
 
 export default function CourseOverview() {
@@ -22,7 +22,7 @@ export default function CourseOverview() {
 
   const courseDescription = 'this could be your course description'
   const courseImage =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAABDklEQVR42u3SQREAAAQAMEI7YZRVwNNzy7Csrgl4lmIhFmIhlliIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWYomFWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYsFtAUmaKk7KOgINAAAAAElFTkSuQmCC'
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAYAAADDhn8LAAAA0klEQVR42u3TQREAAAQAMPpHc6cSBXz9tg7Lqp4ATikICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAKCCAKCgCAgCAgCgoAgIAgIAoIAgoAgIAgIAoKAICAICAKCgCCAICAICAKCgCAgCAgCgoAggCAgCAgCgoAgIAgIAoKAICAIIAgIAoKAICAICAKCgCAgCCAICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAKCCAKCgCAgCAgCgoAgIAgIAoIAgoAgIAh8Wj6PUyCdIyQbAAAAAElFTkSuQmCC'
   const createNewCourse = (courseName, courseSize) =>
     postCourse(courseName, courseSize, courseImage, courseDescription)
       .then((newCourse) => {
@@ -33,30 +33,32 @@ export default function CourseOverview() {
 
   const segmentContent = 'this could be your segment content'
   const segmentImage =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAABDklEQVR42u3SQREAAAQAMEI7YZRVwNNzy7Csrgl4lmIhFmIhlliIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWYomFWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYsFtAUmaKk7KOgINAAAAAElFTkSuQmCC'
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAYAAADDhn8LAAAA0klEQVR42u3TQREAAAQAMPpHc6cSBXz9tg7Lqp4ATikICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAKCCAKCgCAgCAgCgoAgIAgIAoIAgoAgIAgIAoKAICAICAKCgCCAICAICAKCgCAgCAgCgoAggCAgCAgCgoAgIAgIAoKAICAIIAgIAoKAICAICAKCgCAgCCAICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAKCCAKCgCAgCAgCgoAgIAgIAoIAgoAgIAh8Wj6PUyCdIyQbAAAAAElFTkSuQmCC'
   const createCourseSegments = (courseName, courseSize) =>
     postCourseSegments(courseName, segmentImage, segmentContent, courseSize)
 
   const elementContent = 'this could be your elementContent'
   const elementImage =
-    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAABDklEQVR42u3SQREAAAQAMEI7YZRVwNNzy7Csrgl4lmIhFmIhlliIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWYomFWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYoFYiIVYIBZiIRaIhViIBWIhFmKBWIiFWCAWYiEWiIVYiAViIRZigViIhVggFmIhFoiFWIgFYiEWYsFtAUmaKk7KOgINAAAAAElFTkSuQmCC'
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAYAAADDhn8LAAAA0klEQVR42u3TQREAAAQAMPpHc6cSBXz9tg7Lqp4ATikICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAKCCAKCgCAgCAgCgoAgIAgIAoIAgoAgIAgIAoKAICAICAKCgCCAICAICAKCgCAgCAgCgoAggCAgCAgCgoAgIAgIAoKAICAIIAgIAoKAICAICAKCgCAgCCAICAKCgCAgCAgCgoAgIAgIAggCgoAgIAgIAoKAICAICAKCCAKCgCAgCAgCgoAgIAgIAoIAgoAgIAh8Wj6PUyCdIyQbAAAAAElFTkSuQmCC'
   const createElements = (courseName, courseSize) =>
     postElements(courseName, elementImage, elementContent, courseSize)
 
   const deleteCourse = (courseId) => {
     deleteCourseById(courseId).then(() => {
-      setCourses(courses.filter((course) => course.name !== courseId))
+      setCourses(courses.filter((course) => course.courseName !== courseId))
     })
   }
 
   return (
     <Wrapper>
-      <Title>Course Overview</Title>
+      <PageTitle>Course Overview</PageTitle>
+      <FormWrapper>
       <AddNewCourseForm
         onAddCourse={createNewCourse}
         onAddSegment={createCourseSegments}
         onAddElement={createElements}
       />
+      </FormWrapper>
       {courses && (
         <CourseList onDeleteCourse={deleteCourse} courses={courses} />
       )}

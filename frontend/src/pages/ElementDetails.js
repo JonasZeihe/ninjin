@@ -7,7 +7,7 @@ import {
 } from '../services/apiService'
 import ElementCard from '../components/Cards/ElementCard'
 import EditElementItemContentForm from '../components/Forms/EditElementItemContentForm'
-import { FormWrapper, Title, Wrapper } from '../components/GlobalStyle'
+import {FormWrapper, PageTitle, Wrapper} from '../components/GlobalStyle'
 import Spinner from '../components/Spinner'
 import EditImageForm from '../components/Forms/EditImageForm'
 
@@ -53,7 +53,7 @@ export default function ElementDetails() {
 
   return (
     <Wrapper>
-      <Title>Element Details</Title>
+      <PageTitle>Element Details</PageTitle>
       {elementItemData && <ElementCard elementItemData={elementItemData} />}
       {!elementItemData && <Spinner />}
       <FormWrapper>

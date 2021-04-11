@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
+import {Home, Settings, User,} from "react-feather";
 
 export default function Footer() {
 
@@ -8,10 +9,13 @@ export default function Footer() {
             <Navbar.Wrapper>
               <Navbar.Items>
                 <Navbar.Item as={Link} to={`/login`}>
-                  home
+                    <Home/>
                 </Navbar.Item>
                 <Navbar.Item as={Link} to={`/login`}>
-                  login
+                    <User/>
+                </Navbar.Item>
+                  <Navbar.Item as={Link} to={`/login`}>
+                      <Settings/>
                 </Navbar.Item>
               </Navbar.Items>
             </Navbar.Wrapper>

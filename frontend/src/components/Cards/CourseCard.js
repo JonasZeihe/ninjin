@@ -1,4 +1,4 @@
-import { CardContainer, CardImage, CardSpan } from '../GlobalStyle'
+import {CardContainer, CardImage, CardSpan, MarkdownContainer} from '../GlobalStyle'
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'
 
@@ -14,10 +14,12 @@ export default function CourseCard({ courseData }) {
       />
       <CardSpan>{courseData.courseName}</CardSpan>
       <CardSpan>Size: {courseData.courseSize}</CardSpan>
+      <MarkdownContainer>
       <ReactMarkdown
         source={courseData.courseDescription}
         renderers={{ text: emojiSupport }}
       />
+      </MarkdownContainer>
     </CardContainer>
   )
 }

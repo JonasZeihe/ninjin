@@ -1,10 +1,6 @@
-import Spinner from '../Spinner'
-import randomAdvice from '../RandomAdvice'
-import { useState } from 'react'
+
 import { Link } from 'react-router-dom'
 import {
-  AdviceContainer,
-  Button,
   ListItemContainer,
   PreviewContainer,
   PreviewImage,
@@ -16,7 +12,7 @@ import emoji from 'emoji-dictionary'
 export default function ElementItem({ elementItem }) {
   const emojiSupport = (text) =>
     text.value.replace(/:\w+:/gi, (name) => emoji.getUnicode(name))
-  const [loading, setLoading] = useState(false)
+/*  const [loading, setLoading] = useState(false)
   const [adviceData, setAdvice] = useState()
 
   function getRandomAdvice() {
@@ -24,7 +20,7 @@ export default function ElementItem({ elementItem }) {
     randomAdvice()
       .then((response) => setAdvice(response.data.slip))
       .then(() => setLoading(false))
-  }
+  }*/
 
   return (
     <ListItemContainer as={Link} to={`/element/${elementItem.elementName}`}>
@@ -36,10 +32,9 @@ export default function ElementItem({ elementItem }) {
           renderers={{ text: emojiSupport }}
         />
       </PreviewContainer>
-      {loading && <Spinner />}
-      {adviceData && <AdviceContainer>{adviceData.advice}</AdviceContainer>}
-        <Button onClick={() => getRandomAdvice()} title="random advice"/>
+{/*      {loading && <Spinner />}
+      <Button onClick={() => getRandomAdvice()} title="random advice"/>
+      {adviceData && <AdviceContainer>{adviceData.advice}</AdviceContainer>}*/}
     </ListItemContainer>
-
   )
 }

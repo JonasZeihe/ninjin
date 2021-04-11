@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Form, Textarea, Title, Wrapper } from '../GlobalStyle'
+import {Button, Form, FormTitle, Textarea, Wrapper} from '../GlobalStyle'
 
 export default function EditSegmentContentForm({ onAddSegment }) {
   const [updatedSegmentContent, setUpdatedSegmentContent] = useState('')
@@ -13,7 +13,7 @@ export default function EditSegmentContentForm({ onAddSegment }) {
   }
   return (
     <Wrapper>
-      <Title>Add Content</Title>
+      <FormTitle>Add Content</FormTitle>
       <Form onSubmit={handleSubmit}>
         <Textarea
           type="text"
@@ -22,7 +22,7 @@ export default function EditSegmentContentForm({ onAddSegment }) {
           onChange={(event) => setUpdatedSegmentContent(event.target.value)}
         />
         <Button disabled={!updatedSegmentContent} type="submit">
-          submit
+          insert
         </Button>
       </Form>
     </Wrapper>

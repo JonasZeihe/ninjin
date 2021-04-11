@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button, Form, Input, Title, Wrapper } from '../GlobalStyle'
+import {Button, FileInput, Form, FormTitle, Wrapper} from '../GlobalStyle'
 
 export default function EditImageForm({ onAddImage }) {
   const [imageStringContainer, setImageStringContainer] = useState()
@@ -40,16 +40,16 @@ export default function EditImageForm({ onAddImage }) {
 
   return (
     <Wrapper>
-      <Title>Add Image</Title>
+      <FormTitle>Add Image</FormTitle>
       <Form>
-        <Input
+        <FileInput
           type="file"
           ref={fileInputRef}
           accept="image/*"
           onChange={onChange}
         />
         <Button disabled={!updatedImageString} onClick={handleSubmit}>
-          submit
+          upload
         </Button>
       </Form>
     </Wrapper>

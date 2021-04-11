@@ -1,20 +1,21 @@
 import { Link } from 'react-router-dom'
 import {
-  Button,
-  ListItemContainer,
-  PreviewContainer,
-  PreviewImage,
-  PreviewSpan,
+    CardIconContainer, IconButton,
+    ListItemContainer,
+    PreviewContainer,
+    PreviewImage,
+    PreviewSpan,
 } from '../GlobalStyle'
 import ReactMarkdown from 'react-markdown'
 import emoji from 'emoji-dictionary'
+import {Trash2} from "react-feather";
 
 export default function CourseListItem({ courseItem, onDeleteCourseItem }) {
   const emojiSupport = (text) =>
     text.value.replace(/:\w+:/gi, (name) => emoji.getUnicode(name))
   return (
     <ListItemContainer as={Link} to={`/course/${courseItem.courseName}`}>
-      <PreviewImage src={courseItem.courseImage} />
+      <PreviewImage   src={courseItem.courseImage} />
       <PreviewSpan>{courseItem.courseName}</PreviewSpan>
       <PreviewSpan>size: {courseItem.courseSize}</PreviewSpan>
       <PreviewContainer>
@@ -23,12 +24,9 @@ export default function CourseListItem({ courseItem, onDeleteCourseItem }) {
           renderers={{ text: emojiSupport }}
         />
       </PreviewContainer>
-      <Button
-        onClick={() => onDeleteCourseItem(courseItem.courseName)}
-        type="button"
-      >
-        delete
-      </Button>
+        <CardIconContainer>
+      <IconButton onClick={() => onDeleteCourseItem(courseItem.courseName)}><Trash2 size={20}/></IconButton>
+        </CardIconContainer>
     </ListItemContainer>
   )
 }
