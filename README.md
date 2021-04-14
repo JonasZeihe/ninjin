@@ -5,13 +5,13 @@
 
 ### A simple app for:
 
-&#9775; generating **courses** with **segments** and **elements**  
+&#9775;   generating **courses** with **segments** and **elements**  
 
-&#9775; adding **participants** to your courses  
+&#9775;   adding **participants** to your courses  
 
-&#9775; supply your participants with additional **content**  
+&#9775;   supply your participants with additional **content**  
 
-&#9775; get things done easier!  
+&#9775;   get things done easier!  
 
 Mizu Kiri (jap. 水切り "the art of cutting water") - stone skipping 
 
