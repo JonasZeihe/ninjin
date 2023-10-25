@@ -1,7 +1,9 @@
-FROM openjdk:15
+FROM openjdk:16
 
-MAINTAINER Jonas Zeihe <jonaszeihe@gmail.com>
+LABEL Jonas Zeihe <jonaszeihe@gmail.com>
 
-ADD backend/target/shizen.jar app.jar
+WORKDIR /app
 
-CMD ["sh", "-c", "java -Dserver.port=$PORT -Dspring.data.mongodb.uri=$MONGODB_URI -Dsecurity.jwt.secret=$JWT_SECRET -jar /app.jar"]
+COPY backend/target/shizen-dev.jar app.jar
+
+CMD ["sh", "-c", "java -Dserver.port=$PORT -Dspring.data.mongodb.uri=$MONGODB_URI -Dsecurity.jwt.secret=$JWT_SECRET -jar app.jar"]
